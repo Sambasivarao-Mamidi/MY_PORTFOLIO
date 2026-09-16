@@ -54,7 +54,7 @@ export function Hero() {
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-14 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         <div className="flex w-full max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
           <WarpText
-            text="Shape.\nBuild.\nShine."
+            text="Shape. Build. Shine."
             color="#F4F1FF"
             warpStrength={0.04}
             warpScale={1.45}
@@ -63,16 +63,20 @@ export function Hero() {
             pointerStrength={0.18}
             refraction={0.006}
             ripple={false}
-            fontSize="clamp(3rem, 8vw, 7rem)"
+            fontSize="clamp(2.75rem, 7.5vw, 6.5rem)"
             fontWeight={800}
             letterSpacing="-0.04em"
-            lineHeight={0.9}
-            className="w-full mt-8"
-            style={{ height: 'clamp(190px, 30vw, 330px)' }}
+            lineHeight={1.02}
+            className="w-full mt-10"
+            style={{ height: 'clamp(110px, 15vw, 180px)' }}
           />
 
           <p className="mx-auto mt-4 max-w-xl leading-relaxed text-[var(--muted)] lg:mx-0">
-            Frontend developer turning ideas into luminous, fast, precise interfaces.
+            Great design is more than just aesthetics—it&apos;s about how it works. As a UI/UX
+            Designer and Frontend Developer, I focus on the intersection of human psychology and
+            technical performance. I use research-driven design to solve user pain points and modern
+            codebases to bring those solutions to life. My goal is simple: to make the web a more
+            accessible, enjoyable place for everyone.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
