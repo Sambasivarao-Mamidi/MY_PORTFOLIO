@@ -81,23 +81,23 @@ export function Hero() {
             accessible, enjoyable place for everyone.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-            {prefersReducedMotion ? (
-              <Button href="#projects">See the work</Button>
-            ) : (
-              <span className="glow-border">
-                <div style={{ width: 'fit-content' }}>
-                  <ClickSpark sparkColor="#B19CFF" sparkSize={7} sparkRadius={16} sparkCount={6} duration={300}>
-                    <Button href="#projects">See the work</Button>
-                  </ClickSpark>
-                </div>
-              </span>
-            )}
-            <span className="glow-border">
-              <Button href={socialLinks.email} variant="secondary">
-                Contact me
-              </Button>
-            </span>
+          <div className="mt-10">
+            <div className="glow-border rounded-2xl">
+              <div className="flex w-fit max-w-full flex-wrap items-center justify-center gap-4 rounded-2xl bg-[rgba(15,13,20,0.55)] px-4 py-3 sm:px-6 lg:justify-start">
+                {prefersReducedMotion ? (
+                  <Button href="#projects">See the work</Button>
+                ) : (
+                  <div style={{ width: 'fit-content' }}>
+                    <ClickSpark sparkColor="#B19CFF" sparkSize={7} sparkRadius={16} sparkCount={6} duration={300}>
+                      <Button href="#projects">See the work</Button>
+                    </ClickSpark>
+                  </div>
+                )}
+                <Button href={socialLinks.email} variant="secondary">
+                  Contact me
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
 

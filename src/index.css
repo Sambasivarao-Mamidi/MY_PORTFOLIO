@@ -204,7 +204,6 @@ a {
 .glow-border {
   position: relative;
   display: inline-block;
-  border-radius: 0.5rem;
   padding: 1.5px;
   isolation: isolate;
 }
