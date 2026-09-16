@@ -4,8 +4,8 @@ export const profile = {
   title: 'Frontend Developer',
   handle: 'sambasivarao',
   status: 'Available for opportunities',
-  avatarUrl: '/images/profile/avatar.webp',
-  miniAvatarUrl: '/images/profile/avatar.webp'
+  avatarUrl: '/images/profile/avatar.svg',
+  miniAvatarUrl: '/images/profile/avatar.svg'
 }
 
 export const socialLinks = {
