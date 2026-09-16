@@ -53,11 +53,6 @@ export function Hero() {
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-14 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         <div className="flex w-full max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
-          <p className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[rgba(177,156,255,0.06)] px-4 py-1.5 text-xs font-medium tracking-wide text-[var(--muted)]">
-            <span className="h-2 w-2 rounded-full bg-[var(--primary)] shadow-[0_0_10px_var(--primary)]" aria-hidden="true" />
-            {profile.status}
-          </p>
-
           <WarpText
             text="Shape.\nBuild.\nShine."
             color="#F4F1FF"
