@@ -71,7 +71,7 @@ export function Hero() {
             style={{ height: 'clamp(110px, 15vw, 180px)' }}
           />
 
-          <p className="mx-auto mt-4 max-w-xl leading-relaxed text-[var(--muted)] lg:mx-0">
+          <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-[var(--muted)] lg:mx-0">
             Great design is more than just aesthetics—it&apos;s about how it works. As a UI/UX
             Designer and Frontend Developer, I focus on the intersection of human psychology and
             technical performance. I use research-driven design to solve user pain points and modern
