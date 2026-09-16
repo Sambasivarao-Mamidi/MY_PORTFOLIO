@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import ScrollExpand from '@/components/ScrollExpand'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+
+const LightPillar = lazy(() => import('@/components/LightPillar'))
 
 const focusCards = [
   {
@@ -63,6 +65,24 @@ export function About() {
         mediaContent={
           <>
             <div className="se-media-grid" aria-hidden="true" />
+            {!prefersReducedMotion && (
+              <Suspense fallback={null}>
+                <LightPillar
+                  topColor="#5227FF"
+                  bottomColor="#FF9FFC"
+                  intensity={1}
+                  rotationSpeed={0.3}
+                  glowAmount={0.002}
+                  pillarWidth={3}
+                  pillarHeight={0.4}
+                  noiseIntensity={0.5}
+                  pillarRotation={25}
+                  interactive={false}
+                  mixBlendMode="screen"
+                  quality="high"
+                />
+              </Suspense>
+            )}
             <div className="se-media-beams" aria-hidden="true">
               <div className="hero-light-beam" />
               <div className="hero-light-beam hero-light-beam--2" />
