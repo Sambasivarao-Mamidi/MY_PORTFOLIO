@@ -105,7 +105,7 @@ export function Hero() {
             contactText="Contact me"
             avatarUrl={profile.avatarUrl}
             miniAvatarUrl={profile.miniAvatarUrl}
-            showUserInfo
+            showUserInfo={false}
             enableTilt={!prefersReducedMotion}
             enableMobileTilt={false}
             behindGlowEnabled
