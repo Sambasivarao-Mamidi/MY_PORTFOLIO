@@ -9,6 +9,7 @@ export function DockNav() {
   const scrollToSection = useScrollToSection()
   const [activeId, setActiveId] = useState('hero')
   const [indicator, setIndicator] = useState({ left: 0, width: 0, visible: false })
+  const [hoverStyle, setHoverStyle] = useState({ left: 0, width: 0, visible: false })
   const navRef = useRef(null)
   const linkRefs = useRef({})
 
@@ -61,13 +62,37 @@ export function DockNav() {
     }
   }
 
+  const handleHoverEnter = (event) => {
+    const el = event.currentTarget
+    setHoverStyle({
+      left: el.offsetLeft,
+      width: el.offsetWidth,
+      visible: true
+    })
+  }
+
+  const handleHoverLeave = () => {
+    setHoverStyle((prev) => ({ ...prev, visible: false }))
+  }
+
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-16 sm:pt-24 lg:pt-14">
       <nav
         ref={navRef}
+        onMouseLeave={handleHoverLeave}
         aria-label="Site navigation"
         className="dock-nav pointer-events-auto relative flex w-full max-w-fit items-center gap-1 overflow-x-auto rounded-full border border-[rgba(255,255,255,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] px-2 py-2 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_0_24px_rgba(177,156,255,0.06)] backdrop-blur-2xl backdrop-saturate-150"
       >
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute top-2 bottom-2 rounded-full bg-[rgba(255,255,255,0.07)] ring-1 ring-inset ring-[rgba(255,255,255,0.1)] transition-[left,width,opacity] duration-200 ease-out"
+          style={{
+            left: hoverStyle.left,
+            width: hoverStyle.width,
+            opacity: hoverStyle.visible ? 1 : 0
+          }}
+        />
+
         <span
           aria-hidden="true"
           className="pointer-events-none absolute top-2 bottom-2 rounded-full bg-[rgba(177,156,255,0.16)] ring-1 ring-inset ring-[rgba(177,156,255,0.14)] shadow-[0_0_16px_-4px_rgba(177,156,255,0.5)] transition-[left,width] duration-300 ease-out"
@@ -90,6 +115,7 @@ export function DockNav() {
               aria-label={link.ariaLabel}
               aria-current={isActive ? 'true' : undefined}
               onClick={(event) => handleNavClick(event, link.href)}
+              onMouseEnter={handleHoverEnter}
               className={`relative z-10 whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition-colors duration-200 ${
                 isActive
                   ? 'text-[var(--primary)]'
@@ -110,6 +136,7 @@ export function DockNav() {
             aria-label={link.ariaLabel}
             target="_blank"
             rel="noopener noreferrer"
+            onMouseEnter={handleHoverEnter}
             className="relative z-10 whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium text-[var(--muted)] transition-colors duration-200 hover:text-[var(--text)]"
           >
             {link.label}
@@ -119,6 +146,7 @@ export function DockNav() {
         <span className="relative z-10 pl-1">
           <Button
             className="rounded-full px-4 py-2 text-sm"
+            onMouseEnter={handleHoverEnter}
             onClick={() => scrollToSection('#contact')}
           >
             Contact me
