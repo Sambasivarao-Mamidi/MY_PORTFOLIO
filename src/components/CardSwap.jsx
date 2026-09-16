@@ -33,6 +33,7 @@ const CardSwap = ({
   verticalDistance = 70,
   delay = 5000,
   pauseOnHover = false,
+  paused = false,
   onCardClick,
   skewAmount = 6,
   easing = 'elastic',
@@ -69,6 +70,9 @@ const CardSwap = ({
   const tlRef = useRef(null);
   const intervalRef = useRef();
   const container = useRef(null);
+  const pausedRef = useRef(paused);
+  pausedRef.current = paused;
+  const swapRef = useRef(null);
 
   useEffect(() => {
     const total = refs.length;
@@ -132,16 +136,19 @@ const CardSwap = ({
       });
     };
 
+    swapRef.current = swap;
     swap();
     intervalRef.current = window.setInterval(swap, delay);
 
     if (pauseOnHover) {
       const node = container.current;
       const pause = () => {
+        if (pausedRef.current) return;
         tlRef.current?.pause();
         clearInterval(intervalRef.current);
       };
       const resume = () => {
+        if (pausedRef.current) return;
         tlRef.current?.play();
         intervalRef.current = window.setInterval(swap, delay);
       };
@@ -156,6 +163,22 @@ const CardSwap = ({
     return () => clearInterval(intervalRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
+
+  useEffect(() => {
+    if (paused) {
+      tlRef.current?.pause();
+      clearInterval(intervalRef.current);
+    } else {
+      tlRef.current?.play();
+      if (intervalRef.current == null && swapRef.current) {
+        intervalRef.current = window.setInterval(swapRef.current, delay);
+      }
+    }
+    return () => {
+      if (paused) clearInterval(intervalRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paused, delay]);
 
   const rendered = childArr.map((child, i) =>
     isValidElement(child)

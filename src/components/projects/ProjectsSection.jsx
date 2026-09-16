@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { ProjectCard } from './ProjectCard'
-import { featuredProjects, secondaryProjects } from '@/data/projects'
+import { FeaturedSwap } from './FeaturedSwap'
+import { secondaryProjects } from '@/data/projects'
 
 export function ProjectsSection() {
   const [showMore, setShowMore] = useState(false)
@@ -15,10 +16,12 @@ export function ProjectsSection() {
           description="A focused set of projects, each demonstrating a different ability—full-stack architecture, product thinking, and API-driven data."
         />
 
-        <div className="mb-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+        <FeaturedSwap />
+
+        <div className="my-16 flex items-center gap-4 text-[var(--muted)]" aria-hidden="true">
+          <span className="h-px flex-1 bg-[var(--border)]" />
+          <span className="text-xs font-medium uppercase tracking-[0.2em]">Also built</span>
+          <span className="h-px flex-1 bg-[var(--border)]" />
         </div>
 
         <div className="text-center">

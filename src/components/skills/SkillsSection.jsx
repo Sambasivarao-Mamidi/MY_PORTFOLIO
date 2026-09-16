@@ -1,5 +1,6 @@
 import { SectionHeading } from '@/components/ui/SectionHeading'
-import { skillCategories } from '@/data/skills'
+import LogoLoop from '@/components/LogoLoop'
+import { skillCategories, techLogos } from '@/data/skills'
 
 export function SkillsSection() {
   return (
@@ -9,6 +10,27 @@ export function SkillsSection() {
           eyebrow="Technologies"
           title="Skills and tools"
           description="A practical, grouped view of the technologies I use—focused on what I can explain and apply."
+        />
+
+        <LogoLoop
+          logos={techLogos}
+          speed={55}
+          direction="left"
+          logoHeight={28}
+          gap={48}
+          scaleOnHover
+          fadeOut
+          fadeOutColor="#1A1520"
+          ariaLabel="Technologies I work with"
+          className="mb-16"
+          renderItem={(item) => (
+            <span
+              className="flex items-center justify-center text-[var(--muted)]"
+              style={{ fontSize: '28px', lineHeight: 1 }}
+            >
+              {item.node}
+            </span>
+          )}
         />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

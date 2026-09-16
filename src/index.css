@@ -82,6 +82,21 @@ a {
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
 }
 
+.featured-swap .card-swap-container {
+  position: relative;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  transform-origin: center center;
+}
+
+.featured-swap .card {
+  border-color: var(--border);
+  background: var(--surface);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
