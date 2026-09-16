@@ -32,10 +32,10 @@ export function Journey() {
           {journey.map((item) => (
             <li key={item.period} className="relative pb-12 last:pb-0">
               <span
-                className="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-[var(--primary)] ring-4 ring-[rgba(167,139,250,0.15)]"
+                className="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full bg-[var(--primary)] ring-4 ring-[rgba(177,156,255,0.15)]"
                 aria-hidden="true"
               />
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--secondary)]">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary)]">
                 {item.period}
               </p>
               <h3 className="mb-1 text-xl font-semibold text-[var(--text)]">{item.title}</h3>

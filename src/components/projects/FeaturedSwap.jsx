@@ -10,7 +10,7 @@ function SwapCard({ project }) {
       className="swap-card"
       customClass="flex flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 text-left shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
     >
-      <div className="relative mb-5 flex-1 overflow-hidden rounded-xl border border-[var(--border)] bg-[linear-gradient(145deg,rgba(167,139,250,0.18),rgba(249,115,22,0.10))]">
+      <div className="relative mb-5 flex-1 overflow-hidden rounded-xl border border-[var(--border)] bg-[linear-gradient(145deg,rgba(177,156,255,0.16),rgba(124,92,255,0.08))]">
         <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold uppercase tracking-wider text-[var(--muted)]">
           {project.title}
         </div>
@@ -23,7 +23,7 @@ function SwapCard({ project }) {
         {project.stack.slice(0, 4).map((tech) => (
           <span
             key={tech}
-            className="rounded-full border border-[var(--border)] bg-[rgba(167,139,250,0.08)] px-3 py-1 text-xs text-[#c4b5fd]"
+            className="rounded-full border border-[var(--border)] bg-[rgba(177,156,255,0.08)] px-3 py-1 text-xs text-[#c4b5fd]"
           >
             {tech}
           </span>
@@ -72,7 +72,7 @@ export function FeaturedSwap() {
               type="button"
               aria-pressed={paused}
               onClick={() => setPaused((value) => !value)}
-              className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition-colors duration-200 hover:border-[var(--border-strong)] hover:bg-[rgba(167,139,250,0.08)]"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-semibold text-[var(--text)] transition-colors duration-200 hover:border-[var(--border-strong)] hover:bg-[rgba(177,156,255,0.08)]"
             >
               {paused ? (
                 <>

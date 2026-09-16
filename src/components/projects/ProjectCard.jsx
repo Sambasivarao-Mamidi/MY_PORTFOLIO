@@ -8,7 +8,7 @@ export function ProjectCard({ project, large = false }) {
       }`}
     >
       <div
-        className="relative mb-6 overflow-hidden rounded-xl border border-[var(--border)] bg-[linear-gradient(145deg,rgba(167,139,250,0.15),rgba(249,115,22,0.08))]"
+        className="relative mb-6 overflow-hidden rounded-xl border border-[var(--border)] bg-[linear-gradient(145deg,rgba(177,156,255,0.14),rgba(124,92,255,0.06))]"
         style={{ aspectRatio: '16 / 9' }}
       >
         <div className="absolute inset-0 flex items-center justify-center text-[var(--muted)]">
@@ -35,7 +35,7 @@ export function ProjectCard({ project, large = false }) {
         {project.stack.map((tech) => (
           <span
             key={tech}
-            className="rounded-full border border-[var(--border)] bg-[rgba(167,139,250,0.08)] px-3 py-1 text-xs text-[#c4b5fd]"
+            className="rounded-full border border-[var(--border)] bg-[rgba(177,156,255,0.08)] px-3 py-1 text-xs text-[#c4b5fd]"
           >
             {tech}
           </span>

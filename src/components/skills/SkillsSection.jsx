@@ -50,7 +50,7 @@ export function SkillsSection() {
                 {category.skills.map((skill) => (
                   <li
                     key={skill}
-                    className="rounded-full border border-[var(--border)] bg-[rgba(167,139,250,0.08)] px-3 py-1 text-xs text-[#c4b5fd]"
+                    className="rounded-full border border-[var(--border)] bg-[rgba(177,156,255,0.08)] px-3 py-1 text-xs text-[#c4b5fd]"
                   >
                     {skill}
                   </li>

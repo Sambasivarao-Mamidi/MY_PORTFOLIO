@@ -10,10 +10,10 @@ export function PortfolioNav() {
       logo="/logo.svg"
       logoAlt="SambaSivaRao logo"
       items={navItems}
-      baseColor="#1a1520"
-      menuColor="#faf5ff"
-      buttonBgColor="#f97316"
-      buttonTextColor="#0c0a0d"
+      baseColor="#0f0d14"
+      menuColor="#f4f1ff"
+      buttonBgColor="#b19cff"
+      buttonTextColor="#0a0812"
       ctaText="Contact me"
       onCtaClick={() => scrollToSection('#contact')}
     />

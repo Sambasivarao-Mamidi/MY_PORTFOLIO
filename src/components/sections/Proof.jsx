@@ -42,7 +42,7 @@ export function Proof() {
               className="group rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-7 transition-colors duration-200 hover:border-[var(--border-strong)]"
             >
               <div
-                className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(167,139,250,0.12)] text-lg text-[var(--primary)]"
+                className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(177,156,255,0.12)] text-lg text-[var(--primary)]"
                 aria-hidden="true"
               >
                 {item.icon}

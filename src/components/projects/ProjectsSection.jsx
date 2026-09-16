@@ -30,7 +30,7 @@ export function ProjectsSection() {
             aria-expanded={showMore}
             aria-controls="more-projects"
             onClick={() => setShowMore((value) => !value)}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] transition-colors duration-200 hover:border-[var(--border-strong)] hover:bg-[rgba(167,139,250,0.08)]"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[var(--border)] px-6 py-3 text-sm font-semibold text-[var(--text)] transition-colors duration-200 hover:border-[var(--border-strong)] hover:bg-[rgba(177,156,255,0.08)]"
           >
             {showMore ? 'Show fewer projects' : 'View more projects'}
           </button>
