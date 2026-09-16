@@ -1,4 +1,4 @@
-import SideRays from '@/components/SideRays'
+import LightRays from '@/components/LightRays'
 import WarpText from '@/components/WarpText'
 import ProfileCard from '@/components/ProfileCard'
 import ClickSpark from '@/components/ClickSpark'
@@ -19,18 +19,20 @@ export function Hero() {
       className="relative isolate overflow-hidden bg-[var(--bg)] px-6 pt-44 pb-8 sm:pt-60 lg:pt-40 lg:pb-16"
     >
       {!prefersReducedMotion && (
-        <div className="hero-rays pointer-events-none absolute inset-0 -z-10 hidden md:block" aria-hidden="true">
-          <SideRays
-            speed={0.55}
-            rayColor1="#B19CFF"
-            rayColor2="#7C5CFF"
-            intensity={0.8}
-            spread={1.4}
-            origin="top-right"
-            saturation={0.9}
-            blend={0.45}
-            falloff={1.9}
-            opacity={0.3}
+        <div className="hero-rays pointer-events-none absolute inset-0 -z-10 hidden opacity-40 md:block" aria-hidden="true">
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#B19CFF"
+            raysSpeed={1}
+            lightSpread={0.5}
+            rayLength={3}
+            followMouse
+            mouseInfluence={0.1}
+            noiseAmount={0}
+            distortion={0}
+            pulsating={false}
+            fadeDistance={1}
+            saturation={1}
           />
         </div>
       )}
