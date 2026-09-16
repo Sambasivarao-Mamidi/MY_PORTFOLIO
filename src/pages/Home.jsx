@@ -10,7 +10,7 @@ import { Footer } from '@/components/Footer'
 
 export default function Home() {
   return (
-    <>
+    <main id="main">
       <PortfolioNav />
       <Hero />
       <About />
@@ -20,6 +20,6 @@ export default function Home() {
       <Proof />
       <Contact />
       <Footer />
-    </>
+    </main>
   )
 }

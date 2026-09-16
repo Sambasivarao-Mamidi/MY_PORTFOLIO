@@ -1,8 +1,11 @@
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import LogoLoop from '@/components/LogoLoop'
 import { skillCategories, techLogos } from '@/data/skills'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 export function SkillsSection() {
+  const prefersReducedMotion = usePrefersReducedMotion()
+
   return (
     <section id="skills" className="scroll-mt-24 bg-[var(--surface)] px-6 py-24">
       <div className="mx-auto max-w-6xl">
@@ -14,7 +17,7 @@ export function SkillsSection() {
 
         <LogoLoop
           logos={techLogos}
-          speed={55}
+          speed={prefersReducedMotion ? 0 : 55}
           direction="left"
           logoHeight={28}
           gap={48}
