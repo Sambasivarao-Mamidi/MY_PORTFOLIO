@@ -102,6 +102,14 @@ a {
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
 }
 
+.dock-nav {
+  scrollbar-width: none;
+}
+
+.dock-nav::-webkit-scrollbar {
+  display: none;
+}
+
 .surface-elevated {
   position: relative;
   background: var(--surface);
