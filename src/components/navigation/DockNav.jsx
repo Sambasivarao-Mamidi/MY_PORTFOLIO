@@ -26,7 +26,10 @@ export function DockNav() {
     return () => observer.disconnect()
   }, [])
 
-  const internalLinks = navItems.flatMap((group) => group.links.filter((link) => link.href.startsWith('#')))
+  const internalLinks = [
+    { label: 'Home', href: '#hero', ariaLabel: 'Go to home section' },
+    ...navItems.flatMap((group) => group.links.filter((link) => link.href.startsWith('#')))
+  ]
   const externalLinks = navItems.flatMap((group) => group.links.filter((link) => !link.href.startsWith('#')))
 
   const handleNavClick = (event, href) => {
@@ -37,7 +40,7 @@ export function DockNav() {
   }
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-16 sm:pt-24 lg:pt-14">
       <nav
         aria-label="Site navigation"
         className="dock-nav pointer-events-auto flex w-full max-w-fit items-center gap-1 overflow-x-auto rounded-full border border-[var(--border)] bg-[rgba(15,13,20,0.72)] px-2 py-2 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.8),0_0_0_1px_rgba(177,156,255,0.04)] backdrop-blur-xl"

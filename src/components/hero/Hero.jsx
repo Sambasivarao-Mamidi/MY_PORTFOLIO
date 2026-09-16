@@ -16,7 +16,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative isolate overflow-hidden bg-[var(--bg)] px-6 pt-40 pb-8 sm:pt-48 lg:pt-36 lg:pb-16"
+      className="relative isolate overflow-hidden bg-[var(--bg)] px-6 pt-44 pb-8 sm:pt-60 lg:pt-40 lg:pb-16"
     >
       {!prefersReducedMotion && (
         <div className="hero-rays pointer-events-none absolute inset-0 -z-10 hidden md:block" aria-hidden="true">
