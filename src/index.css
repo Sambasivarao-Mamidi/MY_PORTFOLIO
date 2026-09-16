@@ -1,0 +1,97 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-bg: #0c0a0d;
+  --color-surface: #1a1520;
+  --color-surface-2: #221a2b;
+  --color-surface-3: #2b2040;
+  --color-primary: #a78bfa;
+  --color-secondary: #f97316;
+  --color-text: #faf5ff;
+  --color-muted: #9c8ba1;
+  --color-border: rgba(167, 139, 250, 0.15);
+  --color-border-strong: rgba(167, 139, 250, 0.25);
+}
+
+:root {
+  --bg: #0c0a0d;
+  --surface: #1a1520;
+  --surface-2: #221a2b;
+  --surface-3: #2b2040;
+  --primary: #a78bfa;
+  --secondary: #f97316;
+  --text: #faf5ff;
+  --muted: #9c8ba1;
+  --border: rgba(167, 139, 250, 0.15);
+  --border-strong: rgba(167, 139, 250, 0.25);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(167, 139, 250, 0.3);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+@keyframes grid-pattern {
+  0% {
+    background-position:
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position:
+      40px 40px,
+      40px 40px;
+  }
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(167, 139, 250, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167, 139, 250, 0.045) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .bg-grid {
+    animation: none !important;
+  }
+}
