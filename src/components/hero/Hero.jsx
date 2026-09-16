@@ -85,15 +85,19 @@ export function Hero() {
             {prefersReducedMotion ? (
               <Button href="#projects">See the work</Button>
             ) : (
-              <div style={{ width: 'fit-content' }}>
-                <ClickSpark sparkColor="#B19CFF" sparkSize={7} sparkRadius={16} sparkCount={6} duration={300}>
-                  <Button href="#projects">See the work</Button>
-                </ClickSpark>
-              </div>
+              <span className="glow-border">
+                <div style={{ width: 'fit-content' }}>
+                  <ClickSpark sparkColor="#B19CFF" sparkSize={7} sparkRadius={16} sparkCount={6} duration={300}>
+                    <Button href="#projects">See the work</Button>
+                  </ClickSpark>
+                </div>
+              </span>
             )}
-            <Button href={socialLinks.email} variant="secondary">
-              Contact me
-            </Button>
+            <span className="glow-border">
+              <Button href={socialLinks.email} variant="secondary">
+                Contact me
+              </Button>
+            </span>
           </div>
         </div>
 
