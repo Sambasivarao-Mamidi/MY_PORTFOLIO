@@ -216,7 +216,7 @@ export function About() {
               >
                 <Suspense fallback={<div className="about-visual-skeleton" aria-hidden="true" />}>
                   <div className="about-lanyard">
-                    <Lanyard position={[0, 0, 24]} gravity={[0, -40, 0]} />
+                    <Lanyard position={[0, 0, 24]} gravity={[0, -40, 0]} backImage="/images/sanji.jpg" />
                   </div>
                 </Suspense>
               </VisualBoundary>

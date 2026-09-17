@@ -104,8 +104,8 @@ export function Hero() {
             handle={profile.handle}
             status={profile.status}
             contactText="Contact me"
-            avatarUrl={profile.avatarUrl}
-            miniAvatarUrl={profile.miniAvatarUrl}
+            avatarUrl="/images/dr_doom.jpg"
+            miniAvatarUrl="/images/dr_doom.jpg"
             showUserInfo={false}
             enableTilt={!prefersReducedMotion}
             enableMobileTilt={false}
