@@ -1,7 +1,8 @@
 import LightRays from '@/components/LightRays'
+import WarpText from '@/components/WarpText'
 import ProfileCard from '@/components/ProfileCard'
 import { Button } from '@/components/ui/Button'
-import { profile, socialLinks } from '@/data/profile'
+import { profile } from '@/data/profile'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useScrollToSection } from '@/hooks/useScrollToSection'
 
@@ -59,9 +60,29 @@ export function Hero() {
           <p className="mt-3 text-sm font-bold uppercase tracking-[0.22em] text-[var(--primary)] sm:text-base">
             Frontend Developer
           </p>
-          <p className="mt-2 text-lg font-semibold text-[var(--muted)] sm:text-xl">
-            Shape. Build. Shine.
-          </p>
+          {prefersReducedMotion ? (
+            <p className="mt-2 text-lg font-semibold text-[var(--muted)] sm:text-xl">
+              Shape. Build. Shine.
+            </p>
+          ) : (
+            <WarpText
+              text="Shape. Build. Shine."
+              color="#8B7FA0"
+              warpStrength={0.04}
+              warpScale={1.45}
+              speed={0.18}
+              pointerInfluence={0.25}
+              pointerStrength={0.18}
+              refraction={0.006}
+              ripple={false}
+              fontSize="clamp(1.5rem, 3.5vw, 2.75rem)"
+              fontWeight={600}
+              letterSpacing="-0.01em"
+              lineHeight={1.1}
+              className="mt-2 w-full"
+              style={{ height: 'clamp(40px, 4.8vw, 60px)' }}
+            />
+          )}
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--muted)]">
             Great design is more than just aesthetics—it&apos;s about how it works. As a UI/UX
@@ -72,7 +93,7 @@ export function Hero() {
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-            <Button href={socialLinks.email}>Contact me</Button>
+            <Button href="#projects">See the work</Button>
           </div>
         </div>
 
