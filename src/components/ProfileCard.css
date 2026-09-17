@@ -365,38 +365,39 @@
 }
 
 .pc-details {
-  width: 100%;
   position: absolute;
-  top: 3em;
+  top: auto;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(7, 6, 10, 0.72);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(177, 156, 255, 0.32);
+  border-radius: 1rem;
+  padding: 10px 14px;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.7);
 }
 
 .pc-details h3 {
   font-weight: 600;
   margin: 0;
-  font-size: min(5svh, 3em);
-  margin: 0;
-  background-image: linear-gradient(to bottom, #fff, #6f6fbe);
-  background-size: 1em 1.5em;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
+  font-size: clamp(1.15rem, 2.2svh, 1.6rem);
+  line-height: 1.1;
+  color: rgba(244, 241, 255, 0.97);
 }
 
 .pc-details p {
   font-weight: 600;
-  position: relative;
-  top: -12px;
-  white-space: nowrap;
-  font-size: 16px;
-  margin: 0 auto;
-  width: min-content;
-  background-image: linear-gradient(to bottom, #fff, #4a4ac0);
-  background-size: 1em 1.5em;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #b19cff;
 }
 
 @keyframes glow-bg {
