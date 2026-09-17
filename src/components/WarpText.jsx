@@ -190,8 +190,9 @@ const buildTextCanvas = ({ container, width, height, dpr, props }) => {
     applyFont();
   }
 
-  const startY = height / 2 - (lineHeight * (lines.length - 1)) / 2;
-  lines.forEach((line, index) => drawLine(ctx, line, width / 2, startY + index * lineHeight, letterSpacing));
+  const startY = snapY === 'top' ? lineHeight / 2 : height / 2 - (lineHeight * (lines.length - 1)) / 2;
+  const anchorX = align === 'left' ? width * 0.045 : width / 2;
+  lines.forEach((line, index) => drawLine(ctx, line, anchorX, startY + index * lineHeight, letterSpacing));
 
   return canvas;
 };
@@ -222,6 +223,8 @@ const WarpText = ({
   fontFamily = 'inherit',
   letterSpacing = '-0.06em',
   lineHeight = 0.9,
+  align = 'center',
+  snapY = 'middle',
   className = '',
   style
 }) => {
@@ -240,7 +243,9 @@ const WarpText = ({
     pointerInfluence,
     pointerStrength,
     refraction,
-    ripple
+    ripple,
+    align,
+    snapY
   });
   const contextRef = useRef(null);
 
@@ -259,7 +264,9 @@ const WarpText = ({
       pointerInfluence,
       pointerStrength,
       refraction,
-      ripple
+      ripple,
+      align,
+      snapY
     };
 
     if (contextRef.current) {
@@ -280,7 +287,9 @@ const WarpText = ({
     pointerInfluence,
     pointerStrength,
     refraction,
-    ripple
+    ripple,
+    align,
+    snapY
   ]);
 
   useEffect(() => {
