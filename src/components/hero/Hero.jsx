@@ -54,20 +54,14 @@ export function Hero() {
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-14 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         <div className="flex w-full max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
-          <h1 className="mt-10 text-[clamp(2.75rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]">
-            SambaSivaRao
-          </h1>
-          <p className="mt-3 text-sm font-bold uppercase tracking-[0.22em] text-[var(--primary)] sm:text-base">
-            Frontend Developer
-          </p>
           {prefersReducedMotion ? (
-            <p className="mt-2 text-lg font-semibold text-[var(--muted)] sm:text-xl">
-              Shape. Build. Shine.
-            </p>
+            <h1 className="mt-10 text-[clamp(2.75rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]">
+              SambaSivaRao
+            </h1>
           ) : (
             <WarpText
-              text="Shape. Build. Shine."
-              color="#8B7FA0"
+              text="SambaSivaRao"
+              color="#F4F1FF"
               warpStrength={0.04}
               warpScale={1.45}
               speed={0.18}
@@ -75,14 +69,20 @@ export function Hero() {
               pointerStrength={0.18}
               refraction={0.006}
               ripple={false}
-              fontSize="clamp(1.5rem, 3.5vw, 2.75rem)"
-              fontWeight={600}
-              letterSpacing="-0.01em"
-              lineHeight={1.1}
-              className="mt-2 w-full"
-              style={{ height: 'clamp(40px, 4.8vw, 60px)' }}
+              fontSize="clamp(2.75rem, 7.5vw, 6.5rem)"
+              fontWeight={800}
+              letterSpacing="-0.04em"
+              lineHeight={1.02}
+              className="mt-10 w-full"
+              style={{ height: 'clamp(110px, 15vw, 180px)' }}
             />
           )}
+          <p className="mt-3 text-sm font-bold uppercase tracking-[0.22em] text-[var(--primary)] sm:text-base">
+            Frontend Developer
+          </p>
+          <p className="mt-2 text-lg font-semibold text-[var(--muted)] sm:text-xl">
+            Shape. Build. Shine.
+          </p>
 
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--muted)]">
             Great design is more than just aesthetics—it&apos;s about how it works. As a UI/UX
