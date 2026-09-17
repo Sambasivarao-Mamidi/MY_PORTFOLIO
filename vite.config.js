@@ -6,7 +6,6 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vite.dev/config/
 export default defineConfig({
   base: './',
-  assetsInclude: ['**/*.glb'],
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
