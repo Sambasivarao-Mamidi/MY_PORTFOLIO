@@ -1,11 +1,88 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import ScrollExpand from '@/components/ScrollExpand'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 const LightPillar = lazy(() => import('@/components/LightPillar'))
+const Lanyard = lazy(() => import('@/components/Lanyard'))
+
+const services = [
+  {
+    name: 'Code',
+    badge: 'Web Development',
+    description: 'Building responsive, pixel-perfect websites with clean code.',
+    icon: '⌬'
+  },
+  {
+    name: 'Design',
+    badge: 'UI/UX Design',
+    description: 'Designing intuitive interfaces that prioritize user experience.',
+    icon: '✦'
+  }
+]
+
+const stats = [
+  { value: 10, suffix: '+', label: 'Projects' },
+  { value: 500, suffix: '+', label: 'Hours Code' },
+  { value: 8, suffix: '+', label: 'Skills' },
+  { value: 20000, suffix: '+', label: 'Lines Code' },
+  { value: 100, suffix: '%', label: 'Dedication' }
+]
+
+function Stat({ value, suffix, label, started, instant }) {
+  const [display, setDisplay] = useState(0)
+
+  useEffect(() => {
+    if (instant) {
+      setDisplay(value)
+      return undefined
+    }
+    if (!started) return undefined
+    let raf = 0
+    const duration = 1400
+    const t0 = performance.now()
+    const tick = (now) => {
+      const p = Math.min(1, (now - t0) / duration)
+      const eased = 1 - Math.pow(1 - p, 3)
+      setDisplay(Math.round(value * eased))
+      if (p < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [started, instant, value])
+
+  const pretty = (n) => (value >= 1000 && n >= 1000 ? `${Math.round(n / 1000)}k` : `${n}`)
+
+  return (
+    <div className="about-stat">
+      <span className="about-stat-value">
+        {pretty(display)}
+        {suffix}
+      </span>
+      <span className="about-stat-label">{label}</span>
+    </div>
+  )
+}
 
 export function About() {
   const prefersReducedMotion = usePrefersReducedMotion()
+  const sentinelRef = useRef(null)
+  const [started, setStarted] = useState(false)
+
+  useEffect(() => {
+    const el = sentinelRef.current
+    if (!el) return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarted(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '0px 0px -15% 0px', threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <section id="about" className="scroll-mt-24 bg-[var(--bg)]">
@@ -53,15 +130,66 @@ export function About() {
           </>
         }
       >
-        <p className="inline-flex items-center rounded-full border border-[rgba(177,156,255,0.35)] bg-[rgba(177,156,255,0.1)] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary)] shadow-[0_0_20px_-6px_rgba(177,156,255,0.6)]">
-          About me
-        </p>
-        <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-[var(--text)]/85 sm:text-base">
-          I&apos;m a developer focused on building useful, responsive, and well-structured web
-          applications. I enjoy turning ideas into working products—from the first interface to the
-          final API.
-        </p>
+        <div className="about-grid">
+          <div className="about-col about-col--text">
+            <p className="about-kicker">ABOUT ME</p>
+            <h2 className="about-title">I&apos;m Sambasivarao, Frontend Developer</h2>
+            <p className="about-bio">
+              Innovative Front End Developer with experience in building and maintaining responsive
+              websites. Proficient in HTML, CSS, JavaScript, and modern libraries. I focus on
+              writing clean, elegant, and efficient code.
+            </p>
+
+            <div className="about-block">
+              <h3 className="about-block-label">What I Do?</h3>
+              <div className="about-services">
+                {services.map((service) => (
+                  <div key={service.name} className="about-service-card">
+                    <div className="about-service-head">
+                      <span className="about-service-icon" aria-hidden="true">
+                        {service.icon}
+                      </span>
+                      <span>
+                        <strong className="about-service-name">{service.name}</strong>
+                        <span className="about-service-badge">{service.badge}</span>
+                      </span>
+                    </div>
+                    <p className="about-service-desc">{service.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="about-block">
+              <h3 className="about-block-label">Fun Facts</h3>
+              <div className="about-stats">
+                {stats.map((stat) => (
+                  <Stat
+                    key={stat.label}
+                    {...stat}
+                    started={started}
+                    instant={prefersReducedMotion}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="about-col about-col--visual">
+            {started && !prefersReducedMotion ? (
+              <Suspense fallback={<div className="about-visual-skeleton" aria-hidden="true" />}>
+                <div className="about-lanyard">
+                  <Lanyard position={[0, 0, 24]} gravity={[0, -40, 0]} />
+                </div>
+              </Suspense>
+            ) : (
+              <div className="about-visual-skeleton" aria-hidden="true" />
+            )}
+          </div>
+        </div>
       </ScrollExpand>
+
+      <div ref={sentinelRef} className="about-sentinel" aria-hidden="true" />
     </section>
   )
 }

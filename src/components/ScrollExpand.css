@@ -151,3 +151,217 @@
     animation: none;
   }
 }
+
+/* ===== About overlay two-column layout ===== */
+
+.about-grid {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 64rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  text-align: left;
+}
+
+.about-col {
+  min-width: 0;
+}
+
+.about-col--visual {
+  display: none;
+  height: clamp(320px, 44vh, 540px);
+}
+
+.about-lanyard {
+  width: 100%;
+  height: 100%;
+}
+
+.about-col--visual .lanyard-wrapper {
+  height: 100%;
+}
+
+.about-visual-skeleton {
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5rem;
+  border: 1px dashed rgba(177, 156, 255, 0.32);
+  background:
+    radial-gradient(ellipse at 50% 32%, rgba(177, 156, 255, 0.14) 0%, transparent 62%),
+    linear-gradient(165deg, rgba(22, 18, 31, 0.85) 0%, rgba(10, 8, 18, 0.85) 100%);
+  background-size:
+    100% 100%,
+    100% 100%;
+}
+
+.about-kicker {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(177, 156, 255, 0.35);
+  background: rgba(177, 156, 255, 0.1);
+  padding: 0.4rem 1rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--primary);
+  box-shadow: 0 0 20px -6px rgba(177, 156, 255, 0.6);
+}
+
+.about-title {
+  margin: 1rem 0 0;
+  font-size: clamp(1.7rem, 2.9vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--text);
+}
+
+.about-bio {
+  margin: 0.85rem 0 0;
+  max-width: 36rem;
+  font-size: clamp(0.875rem, 0.95vw, 1rem);
+  line-height: 1.65;
+  color: rgba(244, 241, 255, 0.78);
+}
+
+.about-block {
+  margin-top: 1.75rem;
+}
+
+.about-block-label {
+  margin: 0 0 0.8rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.about-services {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.about-service-card {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem 1.1rem;
+  background: linear-gradient(160deg, rgba(22, 18, 31, 0.8) 0%, rgba(15, 13, 20, 0.85) 100%);
+  transition: border-color 0.2s ease;
+}
+
+.about-service-card:hover {
+  border-color: var(--border-strong);
+}
+
+.about-service-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.about-service-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.55rem;
+  background: rgba(177, 156, 255, 0.14);
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.about-service-name {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.about-service-badge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  border: 1px solid rgba(177, 156, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(177, 156, 255, 0.08);
+  padding: 0.1rem 0.55rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.about-service-desc {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.about-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem 2rem;
+}
+
+.about-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.about-stat-value {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.about-stat-label {
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.about-sentinel {
+  height: 1px;
+}
+
+@media (min-width: 1024px) {
+  .about-grid {
+    grid-template-columns: 1.35fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .about-col--visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 1023px) {
+  .scroll-expand__overlay {
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scroll-expand__overlay::-webkit-scrollbar {
+    display: none;
+  }
+}
