@@ -217,15 +217,23 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.05;
-  color: var(--text);
+  color: #ffffff;
+}
+
+.about-title-accent {
+  background: linear-gradient(120deg, var(--primary), #d6c7ff 55%, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .about-bio {
   margin: 0.85rem 0 0;
   max-width: 36rem;
   font-size: clamp(0.875rem, 0.95vw, 1rem);
+  font-weight: 600;
   line-height: 1.65;
-  color: rgba(244, 241, 255, 0.78);
+  color: rgba(244, 241, 255, 0.92);
 }
 
 .about-block {
@@ -248,15 +256,40 @@
 }
 
 .about-service-card {
-  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(177, 156, 255, 0.22);
   border-radius: 1rem;
   padding: 1rem 1.1rem;
-  background: linear-gradient(160deg, rgba(22, 18, 31, 0.8) 0%, rgba(15, 13, 20, 0.85) 100%);
-  transition: border-color 0.2s ease;
+  background: linear-gradient(150deg, rgba(30, 24, 48, 0.55) 0%, rgba(22, 18, 31, 0.35) 100%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 80% at 20% 0%, rgba(177, 156, 255, 0.12) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 .about-service-card:hover {
-  border-color: var(--border-strong);
+  border-color: rgba(177, 156, 255, 0.45);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.about-service-card:hover::before {
+  opacity: 1;
 }
 
 .about-service-head {
@@ -301,10 +334,12 @@
 }
 
 .about-service-desc {
+  position: relative;
   margin: 0;
   font-size: 0.78rem;
+  font-weight: 500;
   line-height: 1.55;
-  color: var(--muted);
+  color: rgba(244, 241, 255, 0.82);
 }
 
 .about-stats {
@@ -331,10 +366,10 @@
 .about-stat-label {
   margin-top: 0.35rem;
   font-size: 0.7rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(244, 241, 255, 0.85);
 }
 
 .about-sentinel {

@@ -164,11 +164,14 @@ export function About() {
         <div className="about-grid">
           <div className="about-col about-col--text">
             <p className="about-kicker">ABOUT ME</p>
-            <h2 className="about-title">I&apos;m Sambasivarao, Frontend Developer</h2>
+            <h2 className="about-title">
+              I&apos;m Sambasivarao, <span className="about-title-accent">Frontend Developer</span>
+            </h2>
             <p className="about-bio">
-              Innovative Front End Developer with experience in building and maintaining responsive
-              websites. Proficient in HTML, CSS, JavaScript, and modern libraries. I focus on
-              writing clean, elegant, and efficient code.
+              Great design is more than just aesthetics—it&apos;s about how it works. I blend UI/UX
+              psychology with technical performance to craft research-driven, pixel-perfect
+              experiences that turn user pain points into delightful solutions—making the web a more
+              accessible, enjoyable place for everyone.
             </p>
 
             <div className="about-block">
