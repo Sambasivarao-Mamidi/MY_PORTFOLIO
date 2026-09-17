@@ -274,7 +274,7 @@
 .pc-user-info {
   position: absolute;
   display: none;
-  --ui-inset: 20px;
+  --ui-inset: 16px;
   --ui-radius-bias: 6px;
   bottom: var(--ui-inset);
   left: var(--ui-inset);
@@ -283,12 +283,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(7, 6, 10, 0.78);
   backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(177, 156, 255, 0.32);
   border-radius: calc(max(0px, var(--card-radius) - var(--ui-inset) + var(--ui-radius-bias)));
   padding: 12px 14px;
   pointer-events: auto;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.7);
 }
 
 .pc-user-details {
@@ -302,7 +303,7 @@
   height: 48px;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(177, 156, 255, 0.35);
   flex-shrink: 0;
 }
 
@@ -322,31 +323,33 @@
 
 .pc-handle {
   font-size: 14px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  color: rgba(244, 241, 255, 0.95);
   line-height: 1;
 }
 
 .pc-status {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(244, 241, 255, 0.78);
   line-height: 1;
 }
 
 .pc-contact-btn {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(177, 156, 255, 0.35);
   border-radius: 8px;
   padding: 12px 16px;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(244, 241, 255, 0.95);
+  background: rgba(177, 156, 255, 0.12);
   cursor: pointer;
   transition: all 0.2s ease;
   backdrop-filter: blur(10px);
 }
 
 .pc-contact-btn:hover {
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(177, 156, 255, 0.6);
+  background: rgba(177, 156, 255, 0.2);
   transform: translateY(-1px);
   transition: all 0.2s ease;
 }

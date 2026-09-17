@@ -106,7 +106,7 @@ export function Hero() {
             contactText="Contact me"
             avatarUrl="/images/dr_doom.jpg"
             miniAvatarUrl="/images/dr_doom.jpg"
-            showUserInfo={false}
+            showUserInfo
             enableTilt={!prefersReducedMotion}
             enableMobileTilt={false}
             behindGlowEnabled
