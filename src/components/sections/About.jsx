@@ -1,9 +1,22 @@
-import { Suspense, lazy, useEffect, useRef, useState } from 'react'
+import { Component, Suspense, lazy, useEffect, useRef, useState } from 'react'
 import ScrollExpand from '@/components/ScrollExpand'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
-import { profile } from '@/data/profile'
 
 const LightPillar = lazy(() => import('@/components/LightPillar'))
+const Lanyard = lazy(() => import('@/components/Lanyard'))
+
+class VisualBoundary extends Component {
+  state = { failed: false }
+
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+
+  render() {
+    if (this.state.failed) return this.props.fallback
+    return this.props.children
+  }
+}
 
 const services = [
   {
@@ -65,8 +78,26 @@ function Stat({ value, suffix, label, started, instant }) {
 
 export function About() {
   const prefersReducedMotion = usePrefersReducedMotion()
+  const sectionRef = useRef(null)
   const sentinelRef = useRef(null)
+  const [inView, setInView] = useState(false)
   const [started, setStarted] = useState(false)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.08 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const el = sentinelRef.current
@@ -85,7 +116,7 @@ export function About() {
   }, [])
 
   return (
-    <section id="about" className="scroll-mt-24 bg-[var(--bg)]">
+    <section id="about" ref={sectionRef} className="scroll-mt-24 bg-[var(--bg)]">
       <ScrollExpand
         mediaType="none"
         title="Turning ideas into working products."
@@ -179,27 +210,19 @@ export function About() {
           </div>
 
           <div className="about-col about-col--visual">
-            <div className="about-id-card">
-              <div className="about-id-header">
-                <span className="about-id-dot" aria-hidden="true" />
-                <span>Portfolio ID</span>
-              </div>
-              <div className="about-id-body">
-                <div className="about-id-photo">
-                  <img src={profile.avatarUrl} alt={`${profile.fullName} avatar`} />
-                </div>
-                <div className="about-id-info">
-                  <p className="about-id-name">{profile.fullName}</p>
-                  <p className="about-id-role">{profile.title}</p>
-                  <p className="about-id-sub">UI/UX · Web · India</p>
-                </div>
-              </div>
-              <div className="about-id-footer">
-                <span>ID 000821</span>
-                <span>Est. 2021</span>
-                <span>VIP</span>
-              </div>
-            </div>
+            {inView && !prefersReducedMotion ? (
+              <VisualBoundary
+                fallback={<div className="about-visual-skeleton" aria-hidden="true" />}
+              >
+                <Suspense fallback={<div className="about-visual-skeleton" aria-hidden="true" />}>
+                  <div className="about-lanyard">
+                    <Lanyard position={[0, 0, 24]} gravity={[0, -40, 0]} />
+                  </div>
+                </Suspense>
+              </VisualBoundary>
+            ) : (
+              <div className="about-visual-skeleton" aria-hidden="true" />
+            )}
           </div>
         </div>
       </ScrollExpand>
