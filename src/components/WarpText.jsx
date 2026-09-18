@@ -119,9 +119,9 @@ const measureLine = (ctx, line, letterSpacing) => {
   return textWidth + Math.max(0, chars.length - 1) * letterSpacing;
 };
 
-const drawLine = (ctx, line, x, y, letterSpacing) => {
+const drawLine = (ctx, line, x, y, letterSpacing, centered = true) => {
   const chars = Array.from(line);
-  let cursor = x - measureLine(ctx, line, letterSpacing) / 2;
+  let cursor = centered ? x - measureLine(ctx, line, letterSpacing) / 2 : x;
 
   chars.forEach((char, index) => {
     ctx.fillText(char, cursor, y);
@@ -192,7 +192,7 @@ const buildTextCanvas = ({ container, width, height, dpr, props }) => {
 
   const startY = snapY === 'top' ? lineHeight / 2 : height / 2 - (lineHeight * (lines.length - 1)) / 2;
   const anchorX = align === 'left' ? width * 0.045 : width / 2;
-  lines.forEach((line, index) => drawLine(ctx, line, anchorX, startY + index * lineHeight, letterSpacing));
+  lines.forEach((line, index) => drawLine(ctx, line, anchorX, startY + index * lineHeight, letterSpacing, align === 'left' ? false : true));
 
   return canvas;
 };
