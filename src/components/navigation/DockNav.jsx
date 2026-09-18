@@ -30,15 +30,22 @@ export function DockNav() {
     return () => observer.disconnect()
   }, [])
 
+  const getPosition = (el) => {
+    const nav = navRef.current
+    if (!nav) return { left: 0, width: 0 }
+    const elRect = el.getBoundingClientRect()
+    const navRect = nav.getBoundingClientRect()
+    return {
+      left: elRect.left - navRect.left + nav.scrollLeft,
+      width: elRect.width
+    }
+  }
+
   useEffect(() => {
     const updateIndicator = () => {
       const el = linkRefs.current[activeId]
       if (!el || !navRef.current) return
-      setIndicator({
-        left: el.offsetLeft,
-        width: el.offsetWidth,
-        visible: true
-      })
+      setIndicator({ ...getPosition(el), visible: true })
     }
     updateIndicator()
     window.addEventListener('resize', updateIndicator)
@@ -63,12 +70,7 @@ export function DockNav() {
   }
 
   const handleHoverEnter = (event) => {
-    const el = event.currentTarget
-    setHoverStyle({
-      left: el.offsetLeft,
-      width: el.offsetWidth,
-      visible: true
-    })
+    setHoverStyle({ ...getPosition(event.currentTarget), visible: true })
   }
 
   const handleHoverLeave = () => {
