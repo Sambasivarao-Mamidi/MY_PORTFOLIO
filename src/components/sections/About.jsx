@@ -5,6 +5,16 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 const LightPillar = lazy(() => import('@/components/LightPillar'))
 const Lanyard = lazy(() => import('@/components/Lanyard'))
 
+const hasWebGL = () => {
+  if (typeof window === 'undefined') return false
+  try {
+    const canvas = document.createElement('canvas')
+    return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'))
+  } catch {
+    return false
+  }
+}
+
 class VisualBoundary extends Component {
   state = { failed: false }
 
@@ -87,6 +97,17 @@ export function About() {
   const [inView, setInView] = useState(false)
   const [started, setStarted] = useState(false)
   const [cardFailed, setCardFailed] = useState(false)
+  const [webglSupported] = useState(() => hasWebGL())
+
+  useEffect(() => {
+    if (!inView) return undefined
+    const preload = (src) => {
+      const img = new Image()
+      img.src = src
+    }
+    preload('/images/sanji.jpg')
+    return undefined
+  }, [inView])
 
   useEffect(() => {
     const el = sectionRef.current
@@ -215,10 +236,8 @@ export function About() {
           </div>
 
           <div className="about-col about-col--visual">
-            {inView && !prefersReducedMotion && !cardFailed ? (
-              <VisualBoundary
-                fallback={<div className="about-visual-skeleton" aria-hidden="true" />}
-              >
+            {inView && !prefersReducedMotion && webglSupported && !cardFailed ? (
+              <VisualBoundary fallback={<div className="about-static-card" style={{ backgroundImage: 'url(/images/sanji.jpg)' }} aria-hidden="true" />}>
                 <Suspense fallback={<div className="about-visual-skeleton" aria-hidden="true" />}>
                   <div className="about-lanyard">
                     <Lanyard
@@ -231,7 +250,7 @@ export function About() {
                 </Suspense>
               </VisualBoundary>
             ) : (
-              <div className="about-visual-skeleton" aria-hidden="true" />
+              <div className="about-static-card" style={{ backgroundImage: 'url(/images/sanji.jpg)' }} aria-hidden="true" />
             )}
           </div>
         </div>

@@ -2,7 +2,7 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
-import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
+import { useGLTF, useTexture } from '@react-three/drei';
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 
@@ -51,8 +51,8 @@ export default function Lanyard({
     <div className="lanyard-wrapper">
       <Canvas
         camera={{ position: position, fov: fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
-        gl={{ alpha: transparent }}
+        dpr={[1, 1.5]}
+        gl={{ alpha: transparent, antialias: true, powerPreference: 'high-performance', failIfMajorPerformanceCaveat: false }}
         onCreated={({ gl }) => {
           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1);
           const canvas = gl.domElement;
@@ -66,7 +66,9 @@ export default function Lanyard({
           );
         }}
       >
-        <ambientLight intensity={Math.PI} />
+        <ambientLight intensity={1.2} />
+        <directionalLight position={[3, 5, 4]} intensity={2} />
+        <pointLight position={[-4, -2, 2]} intensity={30} color="#b19cff" />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band
             isMobile={isMobile}
@@ -77,36 +79,6 @@ export default function Lanyard({
             lanyardWidth={lanyardWidth}
           />
         </Physics>
-        <Environment blur={0.75}>
-          <Lightformer
-            intensity={2}
-            color="white"
-            position={[0, -1, 5]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[-1, -1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[1, 1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={10}
-            color="white"
-            position={[-10, 0, 14]}
-            rotation={[0, Math.PI / 2, Math.PI / 3]}
-            scale={[100, 10, 1]}
-          />
-        </Environment>
       </Canvas>
     </div>
   );
@@ -285,7 +257,7 @@ function Band({
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
                 roughness={0.9}
-                metalness={0.8}
+                metalness={0.3}
               />
             </mesh>
             <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
@@ -293,7 +265,7 @@ function Band({
           </group>
         </RigidBody>
       </group>
-      <mesh ref={band}>
+      <mesh ref={band} visible={imagesReady}>
         <meshLineGeometry />
         <meshLineMaterial
           color="white"
