@@ -76,10 +76,13 @@ const CardSwap = ({
 
   useEffect(() => {
     const total = refs.length;
-    refs.forEach((r, i) => placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount));
+    refs.forEach((r, i) => {
+      if (r.current) placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount);
+    });
 
     const swap = () => {
       if (order.current.length < 2) return;
+      if (refs.some((r) => !r.current)) return;
 
       const [front, ...rest] = order.current;
       const elFront = refs[front].current;

@@ -12,6 +12,10 @@ class VisualBoundary extends Component {
     return { failed: true }
   }
 
+  componentDidCatch(error, info) {
+    console.error('[About:visual] Lanyard failed to render.', error, info)
+  }
+
   render() {
     if (this.state.failed) return this.props.fallback
     return this.props.children
@@ -82,6 +86,7 @@ export function About() {
   const sentinelRef = useRef(null)
   const [inView, setInView] = useState(false)
   const [started, setStarted] = useState(false)
+  const [cardFailed, setCardFailed] = useState(false)
 
   useEffect(() => {
     const el = sectionRef.current
@@ -210,13 +215,18 @@ export function About() {
           </div>
 
           <div className="about-col about-col--visual">
-            {inView && !prefersReducedMotion ? (
+            {inView && !prefersReducedMotion && !cardFailed ? (
               <VisualBoundary
                 fallback={<div className="about-visual-skeleton" aria-hidden="true" />}
               >
                 <Suspense fallback={<div className="about-visual-skeleton" aria-hidden="true" />}>
                   <div className="about-lanyard">
-                    <Lanyard position={[0, 0, 24]} gravity={[0, -40, 0]} backImage="/images/sanji.jpg" />
+                    <Lanyard
+                      position={[0, 0, 24]}
+                      gravity={[0, -40, 0]}
+                      backImage="/images/sanji.jpg"
+                      onError={() => setCardFailed(true)}
+                    />
                   </div>
                 </Suspense>
               </VisualBoundary>

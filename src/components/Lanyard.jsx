@@ -36,7 +36,8 @@ export default function Lanyard({
   backImage = null,
   imageFit = 'cover',
   lanyardImage = null,
-  lanyardWidth = 1
+  lanyardWidth = 1,
+  onError = null
 }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
@@ -52,7 +53,18 @@ export default function Lanyard({
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
-        onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
+        onCreated={({ gl }) => {
+          gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1);
+          const canvas = gl.domElement;
+          canvas.addEventListener(
+            'webglcontextlost',
+            (event) => {
+              event.preventDefault();
+              if (typeof onError === 'function') onError();
+            },
+            false
+          );
+        }}
       >
         <ambientLight intensity={Math.PI} />
         <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
@@ -125,51 +137,86 @@ function Band({
   const frontTex = useTexture(frontImage || BLANK_PIXEL);
   const backTex = useTexture(backImage || BLANK_PIXEL);
 
+  // The browser may defer image decoding (e.g. Chrome's lazy-load
+  // intervention). Uploading an undecoded <img> to the GPU throws
+  // "texSubImage2D: bad image data" and the card mesh goes white. Hide the
+  // mesh until every texture image is actually decoded.
+  const [imagesReady, setImagesReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    const imgs = [frontTex?.image, backTex?.image, texture?.image].filter(Boolean);
+    const settle = () => {
+      if (cancelled) return;
+      setImagesReady(true);
+    };
+    Promise.all(
+      imgs.map((img) => (img && typeof img.decode === 'function' ? img.decode().catch(() => {}) : Promise.resolve()))
+    ).then(settle);
+    return () => {
+      cancelled = true;
+    };
+  }, [frontTex, backTex, texture]);
+
   // Composite the front/back images into the card's texture atlas (front = left
   // half, back = right half). Each image is drawn aspect-preserving (no stretch).
   const cardMap = useMemo(() => {
     const baseMap = materials.base.map;
     if (!frontImage && !backImage) return baseMap;
 
-    const baseImg = baseMap.image;
-    const W = baseImg.width;
-    const H = baseImg.height;
-    const canvas = document.createElement('canvas');
-    canvas.width = W;
-    canvas.height = H;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return baseMap;
-    // Keep the original baked atlas for the card edges and any untouched face.
-    ctx.drawImage(baseImg, 0, 0, W, H);
+    try {
+      const baseImg = baseMap.image;
+      if (!baseImg || !baseImg.width || !baseImg.height) return baseMap;
 
-    const drawFitted = (img, rect) => {
-      const rx = rect.x * W;
-      const ry = rect.y * H;
-      const rw = rect.w * W;
-      const rh = rect.h * H;
-      const pick = imageFit === 'contain' ? Math.min : Math.max;
-      const scale = pick(rw / img.width, rh / img.height);
-      const dw = img.width * scale;
-      const dh = img.height * scale;
-      const dx = rx + (rw - dw) / 2;
-      const dy = ry + (rh - dh) / 2;
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(rx, ry, rw, rh);
-      ctx.clip();
-      ctx.drawImage(img, dx, dy, dw, dh);
-      ctx.restore();
-    };
+      // Never composite from an image the browser hasn't decoded yet; falling
+      // back to the baked atlas is always safe.
+      const readyFront = !frontImage || Boolean(frontTex.image && frontTex.image.width > 0 && frontTex.image.height > 0);
+      const readyBack = !backImage || Boolean(backTex.image && backTex.image.width > 0 && backTex.image.height > 0);
+      if (!readyFront || !readyBack) return baseMap;
 
-    if (frontImage && frontTex.image) drawFitted(frontTex.image, FRONT_UV_RECT);
-    if (backImage && backTex.image) drawFitted(backTex.image, BACK_UV_RECT);
+      const W = baseImg.width;
+      const H = baseImg.height;
+      const canvas = document.createElement('canvas');
+      canvas.width = W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return baseMap;
+      // Keep the original baked atlas for the card edges and any untouched face.
+      ctx.drawImage(baseImg, 0, 0, W, H);
 
-    const composite = new THREE.CanvasTexture(canvas);
-    composite.colorSpace = THREE.SRGBColorSpace;
-    composite.flipY = baseMap.flipY;
-    composite.anisotropy = 16;
-    composite.needsUpdate = true;
-    return composite;
+      const drawFitted = (img, rect) => {
+        if (!img || img.width <= 0 || img.height <= 0) return;
+        const rx = rect.x * W;
+        const ry = rect.y * H;
+        const rw = rect.w * W;
+        const rh = rect.h * H;
+        const pick = imageFit === 'contain' ? Math.min : Math.max;
+        const scale = pick(rw / img.width, rh / img.height);
+        const dw = img.width * scale;
+        const dh = img.height * scale;
+        const dx = rx + (rw - dw) / 2;
+        const dy = ry + (rh - dh) / 2;
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(rx, ry, rw, rh);
+        ctx.clip();
+        ctx.drawImage(img, dx, dy, dw, dh);
+        ctx.restore();
+      };
+
+      if (frontImage && frontTex.image) drawFitted(frontTex.image, FRONT_UV_RECT);
+      if (backImage && backTex.image) drawFitted(backTex.image, BACK_UV_RECT);
+
+      const composite = new THREE.CanvasTexture(canvas);
+      composite.colorSpace = THREE.SRGBColorSpace;
+      composite.flipY = baseMap.flipY;
+      composite.anisotropy = 16;
+      composite.needsUpdate = true;
+      return composite;
+    } catch (error) {
+      void error;
+      return baseMap;
+    }
   }, [frontImage, backImage, imageFit, frontTex, backTex, materials.base.map]);
   const [curve] = useState(
     () =>
@@ -231,7 +278,7 @@ function Band({
         >
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group scale={2.25} position={[0, -1.2, -0.05]}>
-            <mesh geometry={nodes.card.geometry}>
+            <mesh geometry={nodes.card.geometry} visible={imagesReady}>
               <meshPhysicalMaterial
                 map={cardMap}
                 map-anisotropy={16}
