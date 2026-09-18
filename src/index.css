@@ -180,21 +180,6 @@ a {
   width: 10vw;
 }
 
-.featured-swap .card-swap-container {
-  position: relative;
-  top: auto;
-  right: auto;
-  bottom: auto;
-  left: auto;
-  transform: none;
-  transform-origin: center center;
-}
-
-.featured-swap .card {
-  border-color: var(--border);
-  background: var(--surface);
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { ProjectCard } from './ProjectCard'
-import { FeaturedSwap } from './FeaturedSwap'
+import { FeaturedProjects } from './FeaturedProjects'
 import { secondaryProjects } from '@/data/projects'
 
 export function ProjectsSection() {
@@ -16,7 +16,7 @@ export function ProjectsSection() {
           description="A focused set of projects, each demonstrating a different ability—full-stack architecture, product thinking, and API-driven data."
         />
 
-        <FeaturedSwap />
+        <FeaturedProjects />
 
         <div className="my-16 flex items-center gap-4 text-[var(--muted)]" aria-hidden="true">
           <span className="h-px flex-1 bg-[var(--border)]" />
