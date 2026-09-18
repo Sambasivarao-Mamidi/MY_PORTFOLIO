@@ -190,9 +190,9 @@ const buildTextCanvas = ({ container, width, height, dpr, props }) => {
     applyFont();
   }
 
-  const startY = snapY === 'top' ? lineHeight / 2 : height / 2 - (lineHeight * (lines.length - 1)) / 2;
-  const anchorX = align === 'left' ? width * 0.045 : width / 2;
-  lines.forEach((line, index) => drawLine(ctx, line, anchorX, startY + index * lineHeight, letterSpacing, align === 'left' ? false : true));
+  const startY = props.snapY === 'top' ? lineHeight / 2 : height / 2 - (lineHeight * (lines.length - 1)) / 2;
+  const anchorX = props.align === 'left' ? width * 0.045 : width / 2;
+  lines.forEach((line, index) => drawLine(ctx, line, anchorX, startY + index * lineHeight, letterSpacing, props.align === 'left' ? false : true));
 
   return canvas;
 };

@@ -76,7 +76,7 @@ export function Hero() {
               align="left"
               snapY="top"
               className="w-full"
-              style={{ height: 'clamp(92px, 11vw, 134px)' }}
+              style={{ height: 'clamp(92px, 11vw, 134px)', minHeight: 'clamp(92px, 11vw, 134px)' }}
             />
           )}
           <h2 className="mt-2 text-xl font-bold uppercase tracking-[0.14em] text-[var(--primary)] sm:text-2xl">
