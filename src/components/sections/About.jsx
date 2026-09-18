@@ -1,36 +1,9 @@
-import { Component, Suspense, lazy, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import ScrollExpand from '@/components/ScrollExpand'
+import TiltedCard from '@/components/TiltedCard'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 const LightPillar = lazy(() => import('@/components/LightPillar'))
-const Lanyard = lazy(() => import('@/components/Lanyard'))
-
-const hasWebGL = () => {
-  if (typeof window === 'undefined') return false
-  try {
-    const canvas = document.createElement('canvas')
-    return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'))
-  } catch {
-    return false
-  }
-}
-
-class VisualBoundary extends Component {
-  state = { failed: false }
-
-  static getDerivedStateFromError() {
-    return { failed: true }
-  }
-
-  componentDidCatch(error, info) {
-    console.error('[About:visual] Lanyard failed to render.', error, info)
-  }
-
-  render() {
-    if (this.state.failed) return this.props.fallback
-    return this.props.children
-  }
-}
 
 const services = [
   {
@@ -94,36 +67,7 @@ export function About() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const sectionRef = useRef(null)
   const sentinelRef = useRef(null)
-  const [inView, setInView] = useState(false)
   const [started, setStarted] = useState(false)
-  const [cardFailed, setCardFailed] = useState(false)
-  const [webglSupported] = useState(() => hasWebGL())
-
-  useEffect(() => {
-    if (!inView) return undefined
-    const preload = (src) => {
-      const img = new Image()
-      img.src = src
-    }
-    preload('/images/sanji.jpg')
-    return undefined
-  }, [inView])
-
-  useEffect(() => {
-    const el = sectionRef.current
-    if (!el) return undefined
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.08 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
 
   useEffect(() => {
     const el = sentinelRef.current
@@ -236,22 +180,19 @@ export function About() {
           </div>
 
           <div className="about-col about-col--visual">
-            {inView && !prefersReducedMotion && webglSupported && !cardFailed ? (
-              <VisualBoundary fallback={<div className="about-static-card" style={{ backgroundImage: 'url(/images/sanji.jpg)' }} aria-hidden="true" />}>
-                <Suspense fallback={<div className="about-visual-skeleton" aria-hidden="true" />}>
-                  <div className="about-lanyard">
-                    <Lanyard
-                      position={[0, 0, 24]}
-                      gravity={[0, -40, 0]}
-                      backImage="/images/sanji.jpg"
-                      onError={() => setCardFailed(true)}
-                    />
-                  </div>
-                </Suspense>
-              </VisualBoundary>
-            ) : (
-              <div className="about-static-card" style={{ backgroundImage: 'url(/images/sanji.jpg)' }} aria-hidden="true" />
-            )}
+            <TiltedCard
+              imageSrc="/images/sanji.jpg"
+              altText="SambaSivaRao Mamidi — Frontend Developer"
+              captionText="SambaSivaRao — Frontend Developer"
+              containerHeight="100%"
+              containerWidth="100%"
+              imageHeight="clamp(340px, 54vh, 500px)"
+              imageWidth="clamp(220px, 34vh, 330px)"
+              rotateAmplitude={10}
+              scaleOnHover={1.05}
+              showMobileWarning={false}
+              showTooltip
+            />
           </div>
         </div>
       </ScrollExpand>
