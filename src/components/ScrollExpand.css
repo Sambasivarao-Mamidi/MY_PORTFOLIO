@@ -350,10 +350,6 @@
   color: rgba(244, 241, 255, 0.85);
 }
 
-.about-sentinel {
-  height: 1px;
-}
-
 @media (min-width: 1024px) {
   .about-grid {
     grid-template-columns: 1.35fr 1fr;

@@ -66,11 +66,11 @@ function Stat({ value, suffix, label, started, instant }) {
 export function About() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const sectionRef = useRef(null)
-  const sentinelRef = useRef(null)
+  const statsRef = useRef(null)
   const [started, setStarted] = useState(false)
 
   useEffect(() => {
-    const el = sentinelRef.current
+    const el = statsRef.current
     if (!el) return undefined
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -79,7 +79,7 @@ export function About() {
           observer.disconnect()
         }
       },
-      { rootMargin: '0px 0px -15% 0px', threshold: 0.2 }
+      { threshold: 0.3 }
     )
     observer.observe(el)
     return () => observer.disconnect()
@@ -166,7 +166,7 @@ export function About() {
 
             <div className="about-block">
               <h3 className="about-block-label">Fun Facts</h3>
-              <div className="about-stats">
+              <div ref={statsRef} className="about-stats">
                 {stats.map((stat) => (
                   <Stat
                     key={stat.label}
@@ -196,8 +196,6 @@ export function About() {
           </div>
         </div>
       </ScrollExpand>
-
-      <div ref={sentinelRef} className="about-sentinel" aria-hidden="true" />
     </section>
   )
 }
