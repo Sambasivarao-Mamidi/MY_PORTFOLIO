@@ -181,7 +181,7 @@ export function About() {
 
           <div className="about-col about-col--visual">
             <TiltedCard
-              imageSrc="/images/sanji.jpg"
+              imageSrc="/images/dr_doom.jpg"
               altText="SambaSivaRao Mamidi — Frontend Developer"
               captionText="SambaSivaRao — Frontend Developer"
               containerHeight="100%"
