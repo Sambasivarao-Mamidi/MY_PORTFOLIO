@@ -94,119 +94,156 @@ const SpecularCard = ({
     const fx = fxRef.current;
     if (!card || !fx) return;
 
-    const dpr = window.devicePixelRatio || 1;
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true, dpr });
-    const gl = renderer.gl;
-    gl.clearColor(0, 0, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    let dispose = null;
 
-    const geometry = new Triangle(gl);
-    if (geometry.attributes.uv) delete geometry.attributes.uv;
+    const start = () => {
+      try {
+        const supportsWebGL2 = () => {
+          try {
+            const probe = document.createElement('canvas');
+            return Boolean(probe.getContext('webgl2'));
+          } catch {
+            return false;
+          }
+        };
+        if (!supportsWebGL2()) return;
 
-    const program = new Program(gl, {
-      vertex: VERT,
-      fragment: FRAG,
-      uniforms: {
-        uCenter: { value: [0, 0] },
-        uHalfSize: { value: [1, 1] },
-        uRadius: { value: 0 },
-        uAngle: { value: 2.4 },
-        uPx: { value: dpr },
-        uLineColor: { value: [1, 1, 1] },
-        uBaseColor: { value: [0.32, 0.32, 0.32] },
-        uIntensity: { value: 1 },
-        uShineSize: { value: 0.17 },
-        uShineFade: { value: 0.7 },
-        uThickness: { value: 1 },
+        const dpr = window.devicePixelRatio || 1;
+        const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true, dpr });
+        const gl = renderer.gl;
+        gl.clearColor(0, 0, 0, 0);
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
 
-        uBaseWidth: { value: dpr }
+        const geometry = new Triangle(gl);
+        if (geometry.attributes.uv) delete geometry.attributes.uv;
+
+        const program = new Program(gl, {
+          vertex: VERT,
+          fragment: FRAG,
+          uniforms: {
+            uCenter: { value: [0, 0] },
+            uHalfSize: { value: [1, 1] },
+            uRadius: { value: 0 },
+            uAngle: { value: 2.4 },
+            uPx: { value: dpr },
+            uLineColor: { value: [1, 1, 1] },
+            uBaseColor: { value: [0.32, 0.32, 0.32] },
+            uIntensity: { value: 1 },
+            uShineSize: { value: 0.17 },
+            uShineFade: { value: 0.7 },
+            uThickness: { value: 1 },
+
+            uBaseWidth: { value: dpr }
+          }
+        });
+
+        const mesh = new Mesh(gl, { geometry, program });
+        fx.appendChild(gl.canvas);
+
+        const sizeRef = { w: 1, h: 1 };
+        const resize = () => {
+          const rect = card.getBoundingClientRect();
+          const w = rect.width;
+          const h = rect.height;
+          sizeRef.w = w;
+          sizeRef.h = h;
+          renderer.setSize(w + PAD * 2, h + PAD * 2);
+          program.uniforms.uCenter.value = [(PAD + w / 2) * dpr, (PAD + h / 2) * dpr];
+          program.uniforms.uHalfSize.value = [(w / 2) * dpr, (h / 2) * dpr];
+        };
+        const ro = new ResizeObserver(resize);
+        ro.observe(card);
+        resize();
+
+        let pointerAngle = null;
+        let proximityT = 0;
+        const onPointerMove = e => {
+          const rect = card.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dx = Math.max(rect.left - e.clientX, 0, e.clientX - rect.right);
+          const dy = Math.max(rect.top - e.clientY, 0, e.clientY - rect.bottom);
+          const dist = Math.hypot(dx, dy);
+          if (dist === 0) {
+            const nx = (e.clientX - cx) / (rect.width / 2);
+            const ny = (cy - e.clientY) / (rect.height / 2);
+            pointerAngle = Math.atan2(2 / rect.height, -2 / rect.width) + nx * 0.3 + ny * 0.15;
+          } else {
+            pointerAngle = Math.atan2(cy - e.clientY, e.clientX - cx);
+          }
+          const t = Math.max(0, 1 - dist / Math.max(propsRef.current.proximity, 1));
+          proximityT = t * t * (3 - 2 * t);
+        };
+        window.addEventListener('pointermove', onPointerMove);
+
+        let angle = 2.4;
+        let idleAngle = 2.4;
+        let bright = 0;
+        let last = performance.now();
+        let raf = 0;
+
+        const lineC = new Color();
+        const baseC = new Color();
+
+        const update = now => {
+          raf = requestAnimationFrame(update);
+          const dt = Math.min((now - last) / 1000, 0.05);
+          last = now;
+          const p = propsRef.current;
+
+          idleAngle += p.speed * dt;
+          const steer = p.followMouse && pointerAngle != null && (!p.autoAnimate || proximityT > 0);
+          const target = steer ? pointerAngle : idleAngle;
+          const diff = ((target - angle + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
+          angle += diff * (1 - Math.exp(-dt * 7));
+
+          const brightTarget = p.autoAnimate ? 1 : proximityT;
+          bright += (brightTarget - bright) * (1 - Math.exp(-dt * 8));
+
+          lineC.set(p.lineColor);
+          baseC.set(p.baseColor);
+          program.uniforms.uAngle.value = angle;
+          program.uniforms.uRadius.value = Math.min(p.radius, Math.min(sizeRef.w, sizeRef.h) / 2) * dpr;
+          program.uniforms.uLineColor.value = [lineC.r, lineC.g, lineC.b];
+          program.uniforms.uBaseColor.value = [baseC.r, baseC.g, baseC.b];
+          program.uniforms.uIntensity.value = p.intensity * bright;
+          program.uniforms.uShineSize.value = (p.shineSize * Math.PI) / 180;
+          program.uniforms.uShineFade.value = (p.shineFade * Math.PI) / 180;
+          program.uniforms.uThickness.value = p.thickness * dpr;
+          renderer.render({ scene: mesh });
+        };
+        raf = requestAnimationFrame(update);
+
+        dispose = () => {
+          cancelAnimationFrame(raf);
+          ro.disconnect();
+          window.removeEventListener('pointermove', onPointerMove);
+          if (gl.canvas.parentNode === fx) fx.removeChild(gl.canvas);
+          gl.getExtension('WEBGL_lose_context')?.loseContext();
+        };
+      } catch {
+        /* WebGL unavailable or failed — keep the plain card, never crash the page */
       }
-    });
-
-    const mesh = new Mesh(gl, { geometry, program });
-    fx.appendChild(gl.canvas);
-
-    const sizeRef = { w: 1, h: 1 };
-    const resize = () => {
-      const rect = card.getBoundingClientRect();
-      const w = rect.width;
-      const h = rect.height;
-      sizeRef.w = w;
-      sizeRef.h = h;
-      renderer.setSize(w + PAD * 2, h + PAD * 2);
-      program.uniforms.uCenter.value = [(PAD + w / 2) * dpr, (PAD + h / 2) * dpr];
-      program.uniforms.uHalfSize.value = [(w / 2) * dpr, (h / 2) * dpr];
     };
-    const ro = new ResizeObserver(resize);
-    ro.observe(card);
-    resize();
 
-    let pointerAngle = null;
-    let proximityT = 0;
-    const onPointerMove = e => {
-      const rect = card.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = Math.max(rect.left - e.clientX, 0, e.clientX - rect.right);
-      const dy = Math.max(rect.top - e.clientY, 0, e.clientY - rect.bottom);
-      const dist = Math.hypot(dx, dy);
-      if (dist === 0) {
-        const nx = (e.clientX - cx) / (rect.width / 2);
-        const ny = (cy - e.clientY) / (rect.height / 2);
-        pointerAngle = Math.atan2(2 / rect.height, -2 / rect.width) + nx * 0.3 + ny * 0.15;
-      } else {
-        pointerAngle = Math.atan2(cy - e.clientY, e.clientX - cx);
-      }
-      const t = Math.max(0, 1 - dist / Math.max(propsRef.current.proximity, 1));
-      proximityT = t * t * (3 - 2 * t);
-    };
-    window.addEventListener('pointermove', onPointerMove);
-
-    let angle = 2.4;
-    let idleAngle = 2.4;
-    let bright = 0;
-    let last = performance.now();
-    let raf = 0;
-
-    const lineC = new Color();
-    const baseC = new Color();
-
-    const update = now => {
-      raf = requestAnimationFrame(update);
-      const dt = Math.min((now - last) / 1000, 0.05);
-      last = now;
-      const p = propsRef.current;
-
-      idleAngle += p.speed * dt;
-      const steer = p.followMouse && pointerAngle != null && (!p.autoAnimate || proximityT > 0);
-      const target = steer ? pointerAngle : idleAngle;
-      const diff = ((target - angle + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
-      angle += diff * (1 - Math.exp(-dt * 7));
-
-      const brightTarget = p.autoAnimate ? 1 : proximityT;
-      bright += (brightTarget - bright) * (1 - Math.exp(-dt * 8));
-
-      lineC.set(p.lineColor);
-      baseC.set(p.baseColor);
-      program.uniforms.uAngle.value = angle;
-      program.uniforms.uRadius.value = Math.min(p.radius, Math.min(sizeRef.w, sizeRef.h) / 2) * dpr;
-      program.uniforms.uLineColor.value = [lineC.r, lineC.g, lineC.b];
-      program.uniforms.uBaseColor.value = [baseC.r, baseC.g, baseC.b];
-      program.uniforms.uIntensity.value = p.intensity * bright;
-      program.uniforms.uShineSize.value = (p.shineSize * Math.PI) / 180;
-      program.uniforms.uShineFade.value = (p.shineFade * Math.PI) / 180;
-      program.uniforms.uThickness.value = p.thickness * dpr;
-      renderer.render({ scene: mesh });
-    };
-    raf = requestAnimationFrame(update);
+    const io = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            start();
+            io.disconnect();
+            break;
+          }
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    io.observe(card);
 
     return () => {
-      cancelAnimationFrame(raf);
-      ro.disconnect();
-      window.removeEventListener('pointermove', onPointerMove);
-      if (gl.canvas.parentNode === fx) fx.removeChild(gl.canvas);
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
+      io.disconnect();
+      dispose?.();
     };
   }, []);
 
