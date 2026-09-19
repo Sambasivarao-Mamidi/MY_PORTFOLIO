@@ -23,7 +23,7 @@
   border-radius: 1.25rem;
   border: 1px solid var(--border);
   background: var(--surface);
-  opacity: 0;
+  opacity: 1;
   transform: translateY(0);
   animation: fp-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
   animation-delay: var(--delay, 0ms);
