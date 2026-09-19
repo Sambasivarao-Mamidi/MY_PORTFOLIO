@@ -1,5 +1,6 @@
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import LogoLoop from '@/components/LogoLoop'
+import SpecularCard from '@/components/SpecularCard'
 import { skillCategories, techLogos } from '@/data/skills'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
@@ -36,9 +37,19 @@ export function SkillsSection() {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {skillCategories.map((category) => (
-            <div
+            <SpecularCard
               key={category.title}
               className="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6"
+              radius={16}
+              lineColor="#b19cff"
+              baseColor="#1a1520"
+              intensity={1}
+              shineSize={10}
+              shineFade={40}
+              thickness={1}
+              speed={0.35}
+              followMouse
+              proximity={300}
             >
               <h3 className="mb-2 text-lg font-semibold text-[var(--text)]">{category.title}</h3>
               <p className="mb-4 text-sm leading-relaxed text-[var(--muted)]">
@@ -54,7 +65,7 @@ export function SkillsSection() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </SpecularCard>
           ))}
         </div>
       </div>
