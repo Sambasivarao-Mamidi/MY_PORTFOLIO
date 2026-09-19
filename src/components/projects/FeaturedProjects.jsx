@@ -1,10 +1,26 @@
+import { useRef } from 'react'
 import { Button } from '@/components/ui/Button'
 import { featuredProjects } from '@/data/projects'
 import './FeaturedProjects.css'
 
 function ProjectSpotlight({ project, index }) {
+  const cardRef = useRef(null)
+
+  const handleMouseMove = (event) => {
+    const el = cardRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    el.style.setProperty('--mx', `${event.clientX - rect.left}px`)
+    el.style.setProperty('--my', `${event.clientY - rect.top}px`)
+  }
+
   return (
-    <article className="fp-card" style={{ '--delay': `${index * 110}ms` }}>
+    <article
+      ref={cardRef}
+      className="fp-card"
+      style={{ '--delay': `${index * 110}ms` }}
+      onMouseMove={handleMouseMove}
+    >
       <div className="fp-card__frame">
         <div className="fp-orb" aria-hidden="true" />
         <div className="fp-frame__beam" aria-hidden="true" />
