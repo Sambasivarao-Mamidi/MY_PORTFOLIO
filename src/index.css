@@ -180,6 +180,81 @@ a {
   width: 10vw;
 }
 
+@property --fx-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.fx-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    border-color 0.25s ease,
+    box-shadow 0.3s ease;
+}
+
+.fx-card::before,
+.fx-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fx-card::before {
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(177, 156, 255, 0.16),
+    transparent 42%
+  );
+}
+
+.fx-card::after {
+  padding: 1px;
+  background: conic-gradient(
+    from var(--fx-angle),
+    transparent 0deg,
+    rgba(177, 156, 255, 0.9) 80deg,
+    rgba(196, 181, 253, 0.5) 150deg,
+    transparent 250deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.fx-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(177, 156, 255, 0.42);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 44px -12px rgba(177, 156, 255, 0.4);
+}
+
+.fx-card:hover::before,
+.fx-card:hover::after {
+  opacity: 1;
+}
+
+.fx-card:hover::after {
+  animation: fx-spin 3.2s linear infinite;
+}
+
+@keyframes fx-spin {
+  to {
+    --fx-angle: 360deg;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -196,5 +271,9 @@ a {
     animation: none !important;
     opacity: calc(var(--beam-opacity, 0.1) * 0.6);
     transform: none;
+  }
+  .fx-card::before,
+  .fx-card::after {
+    display: none;
   }
 }

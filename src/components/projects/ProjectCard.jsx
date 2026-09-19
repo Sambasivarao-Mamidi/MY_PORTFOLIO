@@ -1,9 +1,14 @@
 import { Button } from '@/components/ui/Button'
+import { useSpotlight } from '@/hooks/useSpotlight'
 
 export function ProjectCard({ project, large = false }) {
+  const { ref, onMouseMove } = useSpotlight()
+
   return (
     <article
-      className={`group flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--surface)] transition-colors duration-200 hover:border-[var(--border-strong)] ${
+      ref={ref}
+      onMouseMove={onMouseMove}
+      className={`fx-card flex flex-col rounded-2xl border border-[var(--border)] bg-[var(--surface)] ${
         large ? 'p-8' : 'p-6'
       }`}
     >
