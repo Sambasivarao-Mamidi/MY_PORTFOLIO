@@ -22,8 +22,6 @@ export function SkillsSection() {
           logoHeight={28}
           gap={48}
           scaleOnHover
-          fadeOut
-          fadeOutColor="#1A1520"
           ariaLabel="Technologies I work with"
           className="mb-16"
           renderItem={(item) => (
