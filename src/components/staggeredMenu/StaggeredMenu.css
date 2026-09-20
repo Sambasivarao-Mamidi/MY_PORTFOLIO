@@ -23,9 +23,12 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: calc(1.5rem + env(safe-area-inset-top)) 1.5rem calc(1.5rem) calc(1.5rem);
-  background: transparent;
+  justify-content: space-between;
+  padding: calc(0.6rem + env(safe-area-inset-top)) 1.25rem 0.6rem 1.25rem;
+  background: linear-gradient(180deg, rgba(15, 13, 20, 0.92), rgba(15, 13, 20, 0.6));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(177, 156, 255, 0.16);
   pointer-events: none;
   z-index: 20;
 }
@@ -34,18 +37,38 @@
   pointer-events: auto;
 }
 
+.sm-brand {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #f4f1ff;
+  user-select: none;
+  line-height: 1;
+}
+
+.sm-brand-dot {
+  color: var(--sm-accent, #b19cff);
+}
+
 .sm-toggle {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.3rem;
-  background: transparent;
-  border: none;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.5em 0.85em;
   cursor: pointer;
   color: #f4f1ff;
   font-weight: 500;
   line-height: 1;
   overflow: visible;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .sm-toggle:focus-visible {
