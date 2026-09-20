@@ -9,8 +9,8 @@ export const profile = {
 }
 
 export const socialLinks = {
-  email: 'mailto:your-email@example.com',
-  github: 'https://github.com/your-name',
-  linkedin: 'https://linkedin.com/in/your-name',
+  email: 'mailto:m.samba0000@gmail.com',
+  github: 'https://github.com/Sambasivarao-Mamidi',
+  linkedin: 'https://www.linkedin.com/in/sambasivarao-mamidi',
   resume: '/resume.pdf'
 }

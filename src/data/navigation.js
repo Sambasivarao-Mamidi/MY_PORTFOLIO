@@ -22,8 +22,8 @@ export const navItems = [
     textColor: '#F4F1FF',
     links: [
       { label: 'Contact', href: '#contact', ariaLabel: 'Go to contact section' },
-      { label: 'GitHub', href: 'https://github.com/your-name', ariaLabel: 'Visit GitHub profile' },
-      { label: 'LinkedIn', href: 'https://linkedin.com/in/your-name', ariaLabel: 'Visit LinkedIn profile' }
+      { label: 'GitHub', href: 'https://github.com/Sambasivarao-Mamidi', ariaLabel: 'Visit GitHub profile' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sambasivarao-mamidi', ariaLabel: 'Visit LinkedIn profile' }
     ]
   }
 ]

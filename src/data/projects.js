@@ -48,51 +48,63 @@ export const projects = [
     featured: true
   },
   {
-    id: 'shopease',
-    title: 'ShopEase',
+    id: 'gymkear',
+    title: 'GymKear',
     problem:
-      'Small stores need a clean product catalog with browsing, filtering, and cart management.',
+      'Gym websites are usually static brochures — no quick way to browse programs, pricing, or signup paths.',
     description:
-      'A responsive online store with product browsing, filtering, cart state, and a full checkout flow.',
-    stack: ['React', 'JavaScript', 'CSS'],
+      'A modern, conversion-focused fitness site on Next.js that keeps programs and pricing fast to load and easy to navigate.',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     role: 'Frontend developer',
-    result: 'A complete shopping experience end to end.',
-    image: '/images/projects/shopease.webp',
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/your-name/shopease',
-    demoUrl: 'https://example.com',
+    result: 'A fast, SEO-friendly website built to turn visitors into members.',
+    image: '/images/projects/gymkear.webp',
+    liveUrl: 'https://gym-kear.vercel.app',
+    githubUrl: 'https://github.com/Sambasivarao-Mamidi/GymKear',
     featured: false
   },
   {
-    id: 'weatherflow',
-    title: 'WeatherFlow',
+    id: 'prepzone',
+    title: 'PrepZone',
     problem:
-      'Weather data is raw and hard to read without a friendly interface and location handling.',
+      'HPCL aspirants have to stitch together scattered question banks with no way to rehearse the real exam.',
     description:
-      'An API-driven weather app with location search, forecasts, and responsive data presentation.',
-    stack: ['React', 'JavaScript', 'Weather API'],
-    role: 'Frontend developer',
-    result: 'Clear, current weather for any location in one screen.',
-    image: '/images/projects/weatherflow.webp',
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/your-name/weatherflow',
-    demoUrl: 'https://example.com',
+      'An exam-prep platform with 28 full-length HPCL mock tests, 2,500+ practice questions, smart analytics, and leaderboards behind a freemium sign-in flow.',
+    stack: ['React', 'JavaScript', 'Auth'],
+    role: 'Full-stack developer',
+    result: 'A monetized practice platform that mirrors the real HPCL test experience.',
+    image: '/images/projects/prepzone.webp',
+    liveUrl: 'https://prep-five-kappa.vercel.app',
+    githubUrl: 'https://github.com/Sambasivarao-Mamidi/prep',
     featured: false
   },
   {
-    id: 'quicknotes',
-    title: 'QuickNotes',
+    id: 'attendance',
+    title: 'Attendance',
     problem:
-      'Quick notes get lost between apps; users want a simple local editor without sign-up.',
+      'Manual attendance is slow and spoofable, and most IoT setups never surface telemetry or live results.',
     description:
-      'A lightweight notes app using local storage with categories, search, and autosave.',
-    stack: ['React', 'JavaScript', 'Local Storage'],
-    role: 'Frontend developer',
-    result: 'Fast, offline-friendly note-taking with zero setup.',
-    image: '/images/projects/quicknotes.webp',
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/your-name/quicknotes',
-    demoUrl: 'https://example.com',
+      'An edge-to-cloud facial-recognition attendance system — HOG/dlib face matching with blink-liveness detection on a Raspberry Pi, live Firebase sync, and a React dashboard with remote enrollment and hardware telemetry.',
+    stack: ['Python', 'React', 'Firebase', 'OpenCV'],
+    role: 'Full-stack developer',
+    result: 'Blink-verified attendance streamed live from edge hardware to a web dashboard.',
+    image: '/images/projects/attendance.webp',
+    liveUrl: 'https://attendance-project-main.vercel.app',
+    githubUrl: 'https://github.com/Sambasivarao-Mamidi/Attendance_Project-main',
+    featured: false
+  },
+  {
+    id: 'cropyeild',
+    title: 'CropYeild',
+    problem:
+      'Farmers rarely know expected yields or fertilizer needs before planting season begins.',
+    description:
+      'A Flask web app with trained machine-learning models that predict crop yield and fertilizer recommendations from soil and weather inputs.',
+    stack: ['Python', 'Flask', 'ML', 'Vercel'],
+    role: 'Full-stack developer',
+    result: 'Data-driven yield and fertilizer guidance behind a simple web UI.',
+    image: '/images/projects/cropyeild.webp',
+    liveUrl: 'https://crop-yeild-green.vercel.app',
+    githubUrl: 'https://github.com/Sambasivarao-Mamidi/CropYeild',
     featured: false
   }
 ]
