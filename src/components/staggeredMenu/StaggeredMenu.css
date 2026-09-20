@@ -23,7 +23,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: calc(0.6rem + env(safe-area-inset-top)) 1.25rem 0.6rem 1.25rem;
   background: linear-gradient(180deg, rgba(15, 13, 20, 0.92), rgba(15, 13, 20, 0.6));
   backdrop-filter: blur(14px);
@@ -35,21 +35,6 @@
 
 .staggered-menu-header > * {
   pointer-events: auto;
-}
-
-.sm-brand {
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: #f4f1ff;
-  user-select: none;
-  line-height: 1;
-}
-
-.sm-brand-dot {
-  color: var(--sm-accent, #b19cff);
 }
 
 .sm-toggle {

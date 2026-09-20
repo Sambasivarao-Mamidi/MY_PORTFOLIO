@@ -374,10 +374,6 @@ export const StaggeredMenu = ({
         })()}
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
-        <div className="sm-brand">
-          <span>SambaSivaRao</span>
-          <span className="sm-brand-dot">.</span>
-        </div>
         <button
           ref={toggleBtnRef}
           className="sm-toggle"
