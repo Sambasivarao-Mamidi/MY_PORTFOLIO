@@ -1,4 +1,8 @@
+import { useState } from 'react'
+import { motion } from 'motion/react'
+import LaserFlow from '@/components/LaserFlow'
 import { SectionHeading } from '@/components/ui/SectionHeading'
+import './Journey.css'
 
 const journey = [
   {
@@ -19,8 +23,10 @@ const journey = [
 ]
 
 export function Journey() {
+  const [laserDone, setLaserDone] = useState(false)
+
   return (
-    <section id="journey" className="scroll-mt-24 bg-[var(--bg)] px-6 py-24">
+    <section id="journey" className="relative scroll-mt-24 overflow-hidden bg-[var(--bg)] px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="My journey"
@@ -44,6 +50,35 @@ export function Journey() {
           ))}
         </ol>
       </div>
+
+      {!laserDone && (
+        <motion.div
+          className="journey-laser hidden lg:block"
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: [0, 1, 1, 0] }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 5.5, times: [0, 0.18, 0.55, 1], ease: 'easeInOut' }}
+          onAnimationComplete={() => setLaserDone(true)}
+        >
+          <LaserFlow
+            color="#B19CFF"
+            horizontalBeamOffset={0.45}
+            horizontalSizing={0.5}
+            verticalSizing={2}
+            wispDensity={1}
+            wispSpeed={15}
+            wispIntensity={5}
+            flowSpeed={0.35}
+            flowStrength={0.25}
+            fogIntensity={0.45}
+            fogScale={0.3}
+            fogFallSpeed={0.6}
+            decay={1.1}
+            falloffStart={1.2}
+          />
+        </motion.div>
+      )}
     </section>
   )
 }

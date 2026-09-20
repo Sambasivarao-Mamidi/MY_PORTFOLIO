@@ -1,0 +1,15 @@
+.journey-laser {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 44%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey-laser {
+    display: none;
+  }
+}
