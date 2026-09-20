@@ -152,6 +152,14 @@
   }
 }
 
+@media (max-width: 767px) {
+  .scroll-expand .scroll-expand__title {
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 16vh;
+  }
+}
+
 /* ===== About overlay two-column layout ===== */
 
 .about-grid {

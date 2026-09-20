@@ -19,6 +19,7 @@ const ScrollExpand = ({
   startWidth = 42,
   startHeight = 58,
   startRadius = 24,
+  startBiasY = 0.5,
   endRadius = 0,
   mediaZoom = 1.35,
   scrollDistance = 1.2,
@@ -48,6 +49,7 @@ const ScrollExpand = ({
     startWidth,
     startHeight,
     startRadius,
+    startBiasY,
     endRadius,
     mediaZoom,
     scrollDistance,
@@ -69,7 +71,7 @@ const ScrollExpand = ({
     const w = c.startWidth + (100 - c.startWidth) * e;
     const h = c.startHeight + (100 - c.startHeight) * e;
     const ix = Math.max(0, (100 - w) / 2);
-    const iy = Math.max(0, (100 - h) / 2);
+    const iy = Math.max(0, 100 - h) * c.startBiasY;
     const r = c.startRadius + (c.endRadius - c.startRadius) * e;
     frame.style.clipPath = `inset(${iy}% ${ix}% ${iy}% ${ix}% round ${r}px)`;
 
