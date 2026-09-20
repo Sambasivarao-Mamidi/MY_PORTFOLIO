@@ -105,7 +105,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="order-2 w-full max-w-[420px] shrink-0 lg:order-2 lg:w-[46%] lg:max-w-[380px] xl:max-w-[420px]">
+        <div className="order-2 flex w-full max-w-[420px] flex-col items-center shrink-0 lg:order-2 lg:w-[46%] lg:max-w-[380px] xl:max-w-[420px]">
           <ProfileCard
             name={profile.name}
             title={profile.title}
