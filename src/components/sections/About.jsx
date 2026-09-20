@@ -89,11 +89,12 @@ export function About() {
   return (
     <section id="about" ref={sectionRef} className="scroll-mt-24 bg-[var(--bg)]">
       <ScrollExpand
+        className="scroll-expand--about"
         mediaType="none"
         title="Turning ideas into working products."
         scrollHint="Scroll to open"
         startWidth={isPhone ? 76 : 42}
-        startHeight={isPhone ? 16 : 58}
+        startHeight={isPhone ? 12 : 58}
         startRadius={isPhone ? 12 : 24}
         endRadius={0}
         mediaZoom={1.2}
