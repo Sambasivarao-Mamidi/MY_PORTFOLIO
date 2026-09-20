@@ -1,5 +1,11 @@
 import { DockNav } from './DockNav'
+import { MobileNav } from './MobileNav'
 
 export function PortfolioNav() {
-  return <DockNav />
+  return (
+    <>
+      <MobileNav />
+      <DockNav />
+    </>
+  )
 }

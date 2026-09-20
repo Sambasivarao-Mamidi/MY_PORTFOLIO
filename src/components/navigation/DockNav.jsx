@@ -78,7 +78,7 @@ export function DockNav() {
   }
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-16 sm:pt-24 lg:pt-14">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 hidden justify-center px-3 pt-16 sm:pt-24 lg:pt-14 md:flex">
       <nav
         ref={navRef}
         onMouseLeave={handleHoverLeave}
