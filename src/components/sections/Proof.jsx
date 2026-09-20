@@ -1,5 +1,5 @@
 import { SectionHeading } from '@/components/ui/SectionHeading'
-import { useSpotlight } from '@/hooks/useSpotlight'
+import SpecularCard from '@/components/SpecularCard'
 import { socialLinks } from '@/data/profile'
 import './Proof.css'
 
@@ -7,48 +7,52 @@ const proofItems = [
   {
     title: 'GitHub',
     description: 'Source code for every project, with READMEs and setup instructions.',
-    href: socialLinks.github,
-    icon: '⌘'
+    href: socialLinks.github
   },
   {
     title: 'Resume',
     description: 'Download a current snapshot of my experience and skills.',
-    href: socialLinks.resume,
-    icon: '▤'
+    href: socialLinks.resume
   },
   {
     title: 'Live demos',
     description: 'Working applications you can try directly in the browser.',
-    href: socialLinks.github,
-    icon: '→'
+    href: socialLinks.github
   }
 ]
 
 function ProofCard({ item, index }) {
-  const { ref, onMouseMove } = useSpotlight()
-
   return (
-    <a
-      ref={ref}
-      href={item.href}
-      target={item.href.startsWith('http') ? '_blank' : undefined}
-      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-      className="proof-card fx-card"
-      style={{ '--delay': `${index * 110}ms` }}
-      onMouseMove={onMouseMove}
+    <SpecularCard
+      className="rounded-2xl border border-[var(--border)] bg-[var(--bg)]"
+      radius={16}
+      lineColor="#b19cff"
+      baseColor="#1a1520"
+      intensity={1}
+      shineSize={10}
+      shineFade={40}
+      thickness={1}
+      speed={0.35}
+      followMouse
+      proximity={300}
     >
-      <span className="pf-icon" aria-hidden="true">
-        {item.icon}
-      </span>
-      <h3 className="pf-title">{item.title}</h3>
-      <p className="pf-desc">{item.description}</p>
-      <span className="pf-open">
-        Open
-        <span className="pf-open__arrow" aria-hidden="true">
-          ↗
+      <a
+        href={item.href}
+        target={item.href.startsWith('http') ? '_blank' : undefined}
+        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+        className="proof-card"
+        style={{ '--delay': `${index * 110}ms` }}
+      >
+        <h3 className="pf-title">{item.title}</h3>
+        <p className="pf-desc">{item.description}</p>
+        <span className="pf-open">
+          Open
+          <span className="pf-open__arrow" aria-hidden="true">
+            ↗
+          </span>
         </span>
-      </span>
-    </a>
+      </a>
+    </SpecularCard>
   )
 }
 
