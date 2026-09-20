@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import ScrollExpand from '@/components/ScrollExpand'
+import TiltedCard from '@/components/TiltedCard'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
@@ -179,6 +180,22 @@ export function About() {
                 ))}
               </div>
             </div>
+          </div>
+
+          <div className="about-col about-col--visual">
+            <TiltedCard
+              imageSrc="/images/dr_doom.jpg"
+              altText="SambaSivaRao Mamidi — Frontend Developer"
+              captionText="SambaSivaRao — Frontend Developer"
+              containerHeight="100%"
+              containerWidth="100%"
+              imageHeight="clamp(340px, 54vh, 500px)"
+              imageWidth="clamp(220px, 34vh, 330px)"
+              rotateAmplitude={10}
+              scaleOnHover={1.05}
+              showMobileWarning={false}
+              showTooltip
+            />
           </div>
         </div>
       </ScrollExpand>
