@@ -93,9 +93,9 @@ export function About() {
         title="Turning ideas into working products."
         scrollHint="Scroll to open"
         startWidth={isPhone ? 70 : 42}
-        startHeight={isPhone ? 8 : 58}
-        startRadius={isPhone ? 10 : 24}
-        startBiasY={isPhone ? 0.16 : 0.5}
+        startHeight={isPhone ? 14 : 58}
+        startRadius={isPhone ? 14 : 24}
+        startBiasY={isPhone ? 0.13 : 0.5}
         endRadius={0}
         mediaZoom={1.2}
         scrollDistance={isPhone ? 0.35 : 1.2}
