@@ -21,7 +21,18 @@ const journey = [
 
 export function Journey() {
   return (
-    <section id="journey" className="scroll-mt-24 bg-[var(--bg)] px-6 py-24">
+    <section
+      id="journey"
+      className="relative scroll-mt-24 overflow-hidden bg-[var(--surface)] px-6 py-24"
+    >
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(55% 55% at 88% 8%, rgba(139, 92, 246, 0.14) 0%, rgba(139, 92, 246, 0) 100%)'
+        }}
+      />
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="My journey"
@@ -82,7 +93,7 @@ export function Journey() {
               color="#f4f1ff"
               shadow
               shadowColor="#000000"
-              shadowOpacity={0.45}
+              shadowOpacity={0.28}
               ariaLabel="Journey flip card"
             />
           </div>
