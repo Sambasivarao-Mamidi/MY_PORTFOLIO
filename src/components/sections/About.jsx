@@ -107,7 +107,6 @@ export function About() {
         enabled
         mediaContent={
           <>
-            <div className="se-media-grid" aria-hidden="true" />
             {!prefersReducedMotion && (
               <Suspense fallback={null}>
                 <LightPillar
