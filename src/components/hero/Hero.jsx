@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { profile } from '@/data/profile'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useScrollToSection } from '@/hooks/useScrollToSection'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const emptySubscribe = () => () => {}
 const getClientSnapshot = () => true
@@ -14,6 +15,7 @@ const getServerSnapshot = () => false
 export function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const scrollToSection = useScrollToSection()
+  const isPhone = useMediaQuery('(max-width: 767px)')
   const hydrated = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot)
 
   const canWarp =
@@ -30,7 +32,7 @@ export function Hero() {
       className="relative isolate overflow-hidden bg-[var(--bg)] px-6 pt-36 pb-12 sm:pt-48 sm:pb-16 lg:pt-40 lg:pb-16 md:pt-44"
     >
       {!prefersReducedMotion && (
-        <div className="hero-rays pointer-events-none absolute inset-0 -z-10 hidden opacity-40 md:block" aria-hidden="true">
+        <div className="hero-rays pointer-events-none absolute inset-0 -z-10 opacity-40" aria-hidden="true">
           <LightRays
             raysOrigin="top-center"
             raysColor="#B19CFF"
@@ -65,7 +67,7 @@ export function Hero() {
       />
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between lg:gap-8 sm:gap-14">
-        <div className="order-1 flex w-full flex-col items-start text-left lg:order-1 lg:w-[54%]">
+        <div className="order-1 flex w-full flex-col items-center text-center md:items-start md:text-left lg:order-1 lg:w-[54%]">
           <div
             className="relative w-full"
             style={{ height: 'clamp(92px, 11vw, 134px)', minHeight: 'clamp(92px, 11vw, 134px)' }}
@@ -94,7 +96,7 @@ export function Hero() {
                 fontWeight={800}
                 letterSpacing="-0.04em"
                 lineHeight={1.02}
-                align="left"
+                align={isPhone ? 'center' : 'left'}
                 snapY="top"
                 className="w-full"
                 style={{ height: '100%', minHeight: '100%' }}
@@ -123,7 +125,7 @@ export function Hero() {
           />
         </div>
 
-        <div className="order-3 flex w-full flex-col items-start text-left lg:order-3 lg:w-[54%]">
+        <div className="order-3 flex w-full flex-col items-center text-center md:items-start md:text-left lg:order-3 lg:w-[54%]">
           <h2 className="mt-2 text-base font-bold uppercase tracking-[0.14em] text-[var(--primary)] sm:text-xl">
             Frontend Developer
           </h2>
@@ -139,7 +141,7 @@ export function Hero() {
             accessible, enjoyable place for everyone.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 md:justify-start">
             <Button href="#projects">See the work</Button>
           </div>
         </div>
