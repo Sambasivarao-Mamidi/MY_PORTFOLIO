@@ -1,10 +1,34 @@
 import { Button } from '@/components/ui/Button'
+import Galaxy from '@/components/Galaxy'
 import { socialLinks } from '@/data/profile'
+import './Contact.css'
 
 export function Contact() {
   return (
-    <section id="contact" className="scroll-mt-24 bg-[var(--surface)] px-6 py-24">
-      <div className="mx-auto max-w-3xl text-center">
+    <section
+      id="contact"
+      className="relative scroll-mt-24 overflow-hidden bg-[var(--surface)] px-6 py-24"
+    >
+      <div className="contact-glows" aria-hidden="true" />
+      <div className="contact-galaxy" aria-hidden="true">
+        <Galaxy
+          className="contact-galaxy"
+          mouseRepulsion
+          mouseInteraction
+          density={1}
+          glowIntensity={0.3}
+          saturation={0.8}
+          hueShift={210}
+          twinkleIntensity={0.3}
+          rotationSpeed={0.1}
+          repulsionStrength={2}
+          autoCenterRepulsion={0}
+          starSpeed={0.5}
+          speed={1}
+        />
+      </div>
+
+      <div className="contact-content mx-auto max-w-3xl text-center">
         <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary)]">
           Contact
         </p>
