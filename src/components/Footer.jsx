@@ -28,7 +28,7 @@ export function Footer() {
             e.preventDefault()
             scrollTo('#hero')
           }}
-          className="text-sm text-[var(--muted)] transition-colors hover:text-[var(--primary)]"
+          className="text-sm text-[var(--muted)] underline-offset-4 transition-colors hover:text-[var(--primary)] hover:underline"
         >
           Back to top ↑
         </a>
