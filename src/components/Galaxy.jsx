@@ -353,7 +353,7 @@ export default function Galaxy({
           }
         }
       },
-      { rootMargin: '200px' }
+      { rootMargin: '600px' }
     );
     io.observe(ctn);
 
