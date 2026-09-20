@@ -15,7 +15,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative isolate overflow-hidden bg-[var(--bg)] px-6 pt-44 pb-8 sm:pt-60 lg:pt-40 lg:pb-16"
+      className="relative isolate overflow-hidden bg-[var(--bg)] px-6 pt-36 pb-12 sm:pt-48 sm:pb-16 lg:pt-40 lg:pb-16 md:pt-44"
     >
       {!prefersReducedMotion && (
         <div className="hero-rays pointer-events-none absolute inset-0 -z-10 hidden opacity-40 md:block" aria-hidden="true">
@@ -55,7 +55,7 @@ export function Hero() {
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-14 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
         <div className="flex w-full max-w-2xl flex-col items-start text-left">
           {prefersReducedMotion ? (
-            <h1 className="text-[clamp(2.75rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]">
+            <h1 className="text-[clamp(2.25rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]">
               SambaSivaRao
             </h1>
           ) : (
@@ -69,7 +69,7 @@ export function Hero() {
               pointerStrength={0.18}
               refraction={0.006}
               ripple={false}
-              fontSize="clamp(2.75rem, 7.5vw, 6.5rem)"
+              fontSize="clamp(2.25rem, 7.5vw, 6.5rem)"
               fontWeight={800}
               letterSpacing="-0.04em"
               lineHeight={1.02}

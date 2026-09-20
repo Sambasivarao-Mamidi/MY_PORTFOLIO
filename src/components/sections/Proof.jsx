@@ -60,7 +60,7 @@ export function Proof() {
   return (
     <section
       id="proof"
-      className="relative scroll-mt-24 overflow-hidden bg-[var(--surface)] px-6 py-24"
+      className="relative scroll-mt-24 overflow-hidden bg-[var(--surface)] px-6 py-16 md:py-24"
     >
       <div
         className="pointer-events-none absolute inset-0"
@@ -77,7 +77,7 @@ export function Proof() {
           description="Everything you need to inspect my work and assess my skills directly."
         />
 
-        <div className="grid gap-6 sm:grid-cols-3">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {proofItems.map((item, index) => (
             <ProofCard key={item.title} item={item} index={index} />
           ))}

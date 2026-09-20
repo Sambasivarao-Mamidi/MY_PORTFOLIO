@@ -7,7 +7,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden bg-[#000] px-6 py-24"
+      className="relative scroll-mt-24 overflow-hidden bg-[#000] px-6 py-16 md:py-24"
     >
       <div className="contact-galaxy" aria-hidden="true">
         <Galaxy

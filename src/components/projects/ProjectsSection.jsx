@@ -8,7 +8,7 @@ export function ProjectsSection() {
   const [showMore, setShowMore] = useState(false)
 
   return (
-    <section id="projects" className="scroll-mt-24 bg-[var(--bg)] px-6 py-24">
+    <section id="projects" className="scroll-mt-24 bg-[var(--bg)] px-6 py-16 md:py-24">
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Selected work"
