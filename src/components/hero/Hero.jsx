@@ -64,8 +64,8 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8 sm:gap-14">
-        <div className="order-2 flex w-full max-w-2xl flex-col items-start text-left lg:order-1">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between lg:gap-8 sm:gap-14">
+        <div className="order-1 flex w-full flex-col items-start text-left lg:order-1 lg:w-[54%]">
           <div
             className="relative w-full"
             style={{ height: 'clamp(92px, 11vw, 134px)', minHeight: 'clamp(92px, 11vw, 134px)' }}
@@ -101,6 +101,29 @@ export function Hero() {
               />
             )}
           </div>
+        </div>
+
+        <div className="order-2 w-full max-w-[420px] shrink-0 lg:order-2 lg:w-[46%] lg:max-w-[380px] xl:max-w-[420px]">
+          <ProfileCard
+            name={profile.name}
+            title={profile.title}
+            handle={profile.handle}
+            status={profile.status}
+            contactText="Contact me"
+            avatarUrl="/images/dr_doom.jpg"
+            miniAvatarUrl="/images/dr_doom.jpg"
+            showUserInfo={false}
+            enableTilt={!prefersReducedMotion}
+            enableMobileTilt={false}
+            behindGlowEnabled
+            behindGlowColor="rgba(177, 156, 255, 0.5)"
+            innerGradient="linear-gradient(145deg, #16121F 0%, #07060A 100%)"
+            onContactClick={handleProfileContact}
+            className="mx-auto"
+          />
+        </div>
+
+        <div className="order-3 flex w-full flex-col items-start text-left lg:order-3 lg:w-[54%]">
           <h2 className="mt-2 text-base font-bold uppercase tracking-[0.14em] text-[var(--primary)] sm:text-xl">
             Frontend Developer
           </h2>
@@ -119,26 +142,6 @@ export function Hero() {
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Button href="#projects">See the work</Button>
           </div>
-        </div>
-
-        <div className="order-1 w-full max-w-[420px] shrink-0 lg:order-2 lg:w-[46%] lg:max-w-[380px] xl:max-w-[420px]">
-          <ProfileCard
-            name={profile.name}
-            title={profile.title}
-            handle={profile.handle}
-            status={profile.status}
-            contactText="Contact me"
-            avatarUrl="/images/dr_doom.jpg"
-            miniAvatarUrl="/images/dr_doom.jpg"
-            showUserInfo={false}
-            enableTilt={!prefersReducedMotion}
-            enableMobileTilt={false}
-            behindGlowEnabled
-            behindGlowColor="rgba(177, 156, 255, 0.5)"
-            innerGradient="linear-gradient(145deg, #16121F 0%, #07060A 100%)"
-            onContactClick={handleProfileContact}
-            className="mx-auto"
-          />
         </div>
       </div>
     </section>
