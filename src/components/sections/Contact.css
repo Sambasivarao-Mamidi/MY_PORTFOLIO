@@ -5,18 +5,6 @@
   z-index: 0;
 }
 
-.contact-glows {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  background:
-    radial-gradient(60% 55% at 22% 30%, rgba(139, 92, 246, 0.28) 0%, rgba(139, 92, 246, 0) 100%),
-    radial-gradient(55% 55% at 82% 70%, rgba(255, 159, 252, 0.22) 0%, rgba(255, 159, 252, 0) 100%),
-    radial-gradient(45% 45% at 50% 92%, rgba(177, 156, 255, 0.16) 0%, rgba(177, 156, 255, 0) 100%);
-}
-
 .contact-content {
   position: relative;
   z-index: 10;

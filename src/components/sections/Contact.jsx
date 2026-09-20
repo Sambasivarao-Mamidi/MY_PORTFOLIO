@@ -7,9 +7,8 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-24 overflow-hidden bg-[var(--surface)] px-6 py-24"
+      className="relative scroll-mt-24 overflow-hidden bg-[#000] px-6 py-24"
     >
-      <div className="contact-glows" aria-hidden="true" />
       <div className="contact-galaxy" aria-hidden="true">
         <Galaxy
           className="contact-galaxy"
@@ -17,8 +16,8 @@ export function Contact() {
           mouseInteraction
           density={1}
           glowIntensity={0.3}
-          saturation={0.8}
-          hueShift={210}
+          saturation={0.9}
+          hueShift={200}
           twinkleIntensity={0.3}
           rotationSpeed={0.1}
           repulsionStrength={2}
