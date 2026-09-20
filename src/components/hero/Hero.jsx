@@ -1,3 +1,4 @@
+import { useSyncExternalStore } from 'react'
 import LightRays from '@/components/LightRays'
 import WarpText from '@/components/WarpText'
 import ProfileCard from '@/components/ProfileCard'
@@ -6,9 +7,20 @@ import { profile } from '@/data/profile'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useScrollToSection } from '@/hooks/useScrollToSection'
 
+const emptySubscribe = () => () => {}
+const getClientSnapshot = () => true
+const getServerSnapshot = () => false
+
 export function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const scrollToSection = useScrollToSection()
+  const hydrated = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot)
+
+  const canWarp =
+    hydrated &&
+    !prefersReducedMotion &&
+    typeof window !== 'undefined' &&
+    typeof WebGL2RenderingContext !== 'undefined'
 
   const handleProfileContact = () => scrollToSection('#contact')
 
@@ -52,37 +64,41 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-14 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-        <div className="flex w-full max-w-2xl flex-col items-start text-left">
-          {prefersReducedMotion ? (
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-8 sm:gap-14">
+        <div className="order-2 flex w-full max-w-2xl flex-col items-start text-left lg:order-1">
+          <div
+            className="relative w-full"
+            style={{ height: 'clamp(92px, 11vw, 134px)', minHeight: 'clamp(92px, 11vw, 134px)' }}
+          >
             <h1 className="text-[clamp(2.25rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]">
               SambaSivaRao
             </h1>
-          ) : (
-            <WarpText
-              text="SambaSivaRao"
-              color="#F4F1FF"
-              warpStrength={0.04}
-              warpScale={1.45}
-              speed={0.18}
-              pointerInfluence={0.25}
-              pointerStrength={0.18}
-              refraction={0.006}
-              ripple={false}
-              fontSize="clamp(2.25rem, 7.5vw, 6.5rem)"
-              fontWeight={800}
-              letterSpacing="-0.04em"
-              lineHeight={1.02}
-              align="left"
-              snapY="top"
-              className="w-full"
-              style={{ height: 'clamp(92px, 11vw, 134px)', minHeight: 'clamp(92px, 11vw, 134px)' }}
-            />
-          )}
-          <h2 className="mt-2 text-xl font-bold uppercase tracking-[0.14em] text-[var(--primary)] sm:text-2xl">
+            {canWarp && (
+              <WarpText
+                text="SambaSivaRao"
+                color="#F4F1FF"
+                warpStrength={0.04}
+                warpScale={1.45}
+                speed={0.18}
+                pointerInfluence={0.25}
+                pointerStrength={0.18}
+                refraction={0.006}
+                ripple={false}
+                fontSize="clamp(2.25rem, 7.5vw, 6.5rem)"
+                fontWeight={800}
+                letterSpacing="-0.04em"
+                lineHeight={1.02}
+                align="left"
+                snapY="top"
+                className="w-full"
+                style={{ height: '100%', minHeight: '100%' }}
+              />
+            )}
+          </div>
+          <h2 className="mt-2 text-base font-bold uppercase tracking-[0.14em] text-[var(--primary)] sm:text-xl">
             Frontend Developer
           </h2>
-          <h3 className="mt-2 text-lg font-semibold text-[var(--muted)] sm:text-xl lg:text-2xl">
+          <h3 className="mt-2 text-base font-semibold text-[var(--muted)] sm:text-lg lg:text-2xl">
             Shape. Build. Shine.
           </h3>
 
@@ -99,7 +115,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="w-full max-w-[420px] shrink-0 lg:w-[46%] lg:max-w-[380px] xl:max-w-[420px]">
+        <div className="order-1 w-full max-w-[420px] shrink-0 lg:order-2 lg:w-[46%] lg:max-w-[380px] xl:max-w-[420px]">
           <ProfileCard
             name={profile.name}
             title={profile.title}
