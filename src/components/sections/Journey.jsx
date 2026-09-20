@@ -46,7 +46,7 @@ export function Journey() {
             ))}
           </ol>
 
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex justify-center lg:-mt-8 lg:justify-end">
             <FlipCard
               front={
                 <img
