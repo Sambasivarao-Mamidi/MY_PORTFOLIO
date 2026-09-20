@@ -70,7 +70,13 @@ export function Hero() {
             className="relative w-full"
             style={{ height: 'clamp(92px, 11vw, 134px)', minHeight: 'clamp(92px, 11vw, 134px)' }}
           >
-            <h1 className="text-[clamp(2.25rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]">
+            <h1
+              className={
+                canWarp
+                  ? 'sr-only'
+                  : 'text-[clamp(2.25rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]'
+              }
+            >
               SambaSivaRao
             </h1>
             {canWarp && (
