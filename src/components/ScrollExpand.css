@@ -169,11 +169,6 @@
   min-width: 0;
 }
 
-.about-col--visual {
-  display: none;
-  height: clamp(340px, 46vh, 560px);
-}
-
 .about-kicker {
   display: inline-flex;
   align-items: center;
@@ -358,14 +353,7 @@
 
 @media (min-width: 1024px) {
   .about-grid {
-    grid-template-columns: 1.35fr 1fr;
     gap: 2.5rem;
-  }
-
-  .about-col--visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 
