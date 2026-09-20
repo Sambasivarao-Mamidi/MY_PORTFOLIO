@@ -1,0 +1,117 @@
+.proof-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.25rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1.6rem;
+  text-decoration: none;
+  opacity: 1;
+  transform: translateY(0);
+  animation: pf-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes pf-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.proof-card .pf-icon {
+  margin-bottom: 1.1rem;
+  display: inline-flex;
+  height: 3.25rem;
+  width: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.9rem;
+  font-size: 1.15rem;
+  color: var(--primary);
+  background:
+    radial-gradient(circle at 30% 25%, rgba(177, 156, 255, 0.35) 0%, transparent 55%),
+    rgba(177, 156, 255, 0.1);
+  border: 1px solid rgba(177, 156, 255, 0.18);
+  box-shadow:
+    inset 0 0 0 1px rgba(177, 156, 255, 0.08),
+    0 0 24px -8px rgba(177, 156, 255, 0.35);
+}
+
+.proof-card:hover .pf-icon {
+  border-color: rgba(177, 156, 255, 0.34);
+  box-shadow:
+    inset 0 0 0 1px rgba(177, 156, 255, 0.12),
+    0 0 30px -6px rgba(177, 156, 255, 0.5);
+}
+
+.proof-card .pf-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  transition: color 0.2s ease;
+}
+
+.proof-card:hover .pf-title {
+  color: var(--primary);
+}
+
+.proof-card .pf-desc {
+  margin-bottom: 1.4rem;
+  flex: 1;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.proof-card .pf-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  align-self: flex-start;
+  border-radius: 999px;
+  border: 1px solid rgba(177, 156, 255, 0.3);
+  background: rgba(177, 156, 255, 0.08);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.proof-card:hover .pf-open {
+  border-color: rgba(177, 156, 255, 0.55);
+  background: rgba(177, 156, 255, 0.14);
+  box-shadow: 0 0 20px -6px rgba(177, 156, 255, 0.5);
+  transform: translateX(2px);
+}
+
+.proof-card .pf-open__arrow {
+  transition: transform 0.2s ease;
+}
+
+.proof-card:hover .pf-open__arrow {
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proof-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}

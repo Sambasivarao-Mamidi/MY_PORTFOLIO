@@ -1,5 +1,7 @@
 import { SectionHeading } from '@/components/ui/SectionHeading'
+import { useSpotlight } from '@/hooks/useSpotlight'
 import { socialLinks } from '@/data/profile'
+import './Proof.css'
 
 const proofItems = [
   {
@@ -22,9 +24,48 @@ const proofItems = [
   }
 ]
 
+function ProofCard({ item, index }) {
+  const { ref, onMouseMove } = useSpotlight()
+
+  return (
+    <a
+      ref={ref}
+      href={item.href}
+      target={item.href.startsWith('http') ? '_blank' : undefined}
+      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+      className="proof-card fx-card"
+      style={{ '--delay': `${index * 110}ms` }}
+      onMouseMove={onMouseMove}
+    >
+      <span className="pf-icon" aria-hidden="true">
+        {item.icon}
+      </span>
+      <h3 className="pf-title">{item.title}</h3>
+      <p className="pf-desc">{item.description}</p>
+      <span className="pf-open">
+        Open
+        <span className="pf-open__arrow" aria-hidden="true">
+          ↗
+        </span>
+      </span>
+    </a>
+  )
+}
+
 export function Proof() {
   return (
-    <section id="proof" className="scroll-mt-24 bg-[var(--bg)] px-6 py-24">
+    <section
+      id="proof"
+      className="relative scroll-mt-24 overflow-hidden bg-[var(--surface)] px-6 py-24"
+    >
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(65% 50% at 50% 0%, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0) 100%)'
+        }}
+      />
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Proof of work"
@@ -33,25 +74,8 @@ export function Proof() {
         />
 
         <div className="grid gap-6 sm:grid-cols-3">
-          {proofItems.map((item) => (
-            <a
-              key={item.title}
-              href={item.href}
-              target={item.href.startsWith('http') ? '_blank' : undefined}
-              rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="group rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-7 transition-colors duration-200 hover:border-[var(--border-strong)]"
-            >
-              <div
-                className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-[rgba(177,156,255,0.12)] text-lg text-[var(--primary)]"
-                aria-hidden="true"
-              >
-                {item.icon}
-              </div>
-              <h3 className="mb-2 text-lg font-semibold text-[var(--text)] group-hover:text-[var(--primary)]">
-                {item.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-[var(--muted)]">{item.description}</p>
-            </a>
+          {proofItems.map((item, index) => (
+            <ProofCard key={item.title} item={item} index={index} />
           ))}
         </div>
       </div>
