@@ -165,13 +165,7 @@ const SpecularCard = ({
           const dx = Math.max(rect.left - e.clientX, 0, e.clientX - rect.right);
           const dy = Math.max(rect.top - e.clientY, 0, e.clientY - rect.bottom);
           const dist = Math.hypot(dx, dy);
-          if (dist === 0) {
-            const nx = (e.clientX - cx) / (rect.width / 2);
-            const ny = (cy - e.clientY) / (rect.height / 2);
-            pointerAngle = Math.atan2(2 / rect.height, -2 / rect.width) + nx * 0.3 + ny * 0.15;
-          } else {
-            pointerAngle = Math.atan2(cy - e.clientY, e.clientX - cx);
-          }
+          pointerAngle = Math.atan2(cy - e.clientY, e.clientX - cx);
           const t = Math.max(0, 1 - dist / Math.max(propsRef.current.proximity, 1));
           proximityT = t * t * (3 - 2 * t);
         };
@@ -196,10 +190,10 @@ const SpecularCard = ({
           const steer = p.followMouse && pointerAngle != null && (!p.autoAnimate || proximityT > 0);
           const target = steer ? pointerAngle : idleAngle;
           const diff = ((target - angle + Math.PI * 3) % (Math.PI * 2)) - Math.PI;
-          angle += diff * (1 - Math.exp(-dt * 7));
+          angle += diff * (1 - Math.exp(-dt * 4));
 
           const brightTarget = p.autoAnimate ? 1 : proximityT;
-          bright += (brightTarget - bright) * (1 - Math.exp(-dt * 8));
+          bright += (brightTarget - bright) * (1 - Math.exp(-dt * 5));
 
           lineC.set(p.lineColor);
           baseC.set(p.baseColor);
