@@ -40,7 +40,9 @@ export function Contact() {
         </p>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <Button href={socialLinks.email}>Email me</Button>
+          <Button href={socialLinks.email} className="shadow-none hover:shadow-none">
+            Email me
+          </Button>
           <Button href={socialLinks.github} variant="secondary">
             GitHub
           </Button>
