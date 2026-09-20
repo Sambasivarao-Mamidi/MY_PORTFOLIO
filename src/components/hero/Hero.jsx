@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import LightRays from '@/components/LightRays'
 import WarpText from '@/components/WarpText'
+import StrokeText from '@/components/strokeText/StrokeText'
 import ProfileCard from '@/components/ProfileCard'
 import { Button } from '@/components/ui/Button'
 import { profile } from '@/data/profile'
@@ -74,14 +75,31 @@ export function Hero() {
           >
             <h1
               className={
-                canWarp
+                isPhone || canWarp
                   ? 'sr-only'
                   : 'text-[clamp(2.25rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]'
               }
             >
               SambaSivaRao
             </h1>
-            {canWarp && (
+            {isPhone ? (
+              <StrokeText
+                text="SambaSivaRao"
+                strokeColor="#A78BFA"
+                fillColor="#F4F1FF"
+                strokeWidth={1.3}
+                drawDuration={1.6}
+                fillDelay={0.2}
+                stagger={0.05}
+                ease="power2.out"
+                trigger="mount"
+                fillMode="wipe"
+                fontSize={70}
+                fontWeight={800}
+                letterSpacing={-4}
+                reverse={false}
+              />
+            ) : canWarp ? (
               <WarpText
                 text="SambaSivaRao"
                 color="#F4F1FF"
@@ -101,7 +119,7 @@ export function Hero() {
                 className="w-full"
                 style={{ height: '100%', minHeight: '100%' }}
               />
-            )}
+            ) : null}
           </div>
         </div>
 
