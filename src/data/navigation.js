@@ -3,10 +3,7 @@ export const navItems = [
     label: 'About',
     bgColor: '#0F0D14',
     textColor: '#F4F1FF',
-    links: [
-      { label: 'About me', href: '#about', ariaLabel: 'Go to about section' },
-      { label: 'My journey', href: '#journey', ariaLabel: 'Go to journey section' }
-    ]
+    links: [{ label: 'About me', href: '#about', ariaLabel: 'Go to about section' }]
   },
   {
     label: 'Work',
@@ -14,7 +11,9 @@ export const navItems = [
     textColor: '#F4F1FF',
     links: [
       { label: 'Projects', href: '#projects', ariaLabel: 'Go to projects section' },
-      { label: 'Technologies', href: '#skills', ariaLabel: 'Go to skills section' }
+      { label: 'Technologies', href: '#skills', ariaLabel: 'Go to skills section' },
+      { label: 'My journey', href: '#journey', ariaLabel: 'Go to journey section' },
+      { label: 'Proof', href: '#proof', ariaLabel: 'Go to proof section' }
     ]
   },
   {
