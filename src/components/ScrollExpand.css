@@ -382,10 +382,15 @@
 }
 
 @media (max-width: 767px) {
+  .scroll-expand__stage {
+    height: 250px !important;
+    --se-title-size: 37px !important;
+  }
+
   .scroll-expand .scroll-expand__title {
     align-items: flex-start;
     justify-content: center;
-    padding-top: 11vh;
+    padding-top: 30px;
   }
 
   .scroll-expand__overlay {
