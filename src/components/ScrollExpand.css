@@ -387,6 +387,10 @@
     --se-title-size: 37px !important;
   }
 
+  .scroll-expand__frame {
+    clip-path: inset(11.92% 9% round 16px);
+  }
+
   .scroll-expand .scroll-expand__title {
     align-items: flex-start;
     justify-content: center;
