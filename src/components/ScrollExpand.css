@@ -390,7 +390,7 @@
   .scroll-expand .scroll-expand__title {
     align-items: flex-start;
     justify-content: center;
-    padding-top: 30px;
+    padding-top: 20px;
   }
 
   .scroll-expand__overlay {
