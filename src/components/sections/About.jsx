@@ -93,10 +93,10 @@ export function About() {
         mediaType="none"
         title="Turning ideas into working products."
         scrollHint="Scroll to open"
-        startWidth={isPhone ? 44 : 42}
-        startHeight={isPhone ? 12 : 58}
+        startWidth={isPhone ? 62 : 42}
+        startHeight={isPhone ? 9 : 58}
         startRadius={isPhone ? 16 : 24}
-        startBiasY={isPhone ? 0.15 : 0.5}
+        startBiasY={isPhone ? 0.12 : 0.5}
         endRadius={0}
         mediaZoom={1.2}
         scrollDistance={isPhone ? 0.35 : 1.2}
