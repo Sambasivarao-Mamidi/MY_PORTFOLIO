@@ -98,9 +98,10 @@ export function About() {
         startRadius={isPhone ? 16 : 24}
         startBiasY={isPhone ? 0.12 : 0.5}
         endRadius={0}
+        stageHeight={isPhone ? 250 : 0}
         mediaZoom={1.2}
-        scrollDistance={isPhone ? 0.15 : 1.2}
-        holdDistance={isPhone ? 0.06 : 0.4}
+        scrollDistance={isPhone ? 0 : 1.2}
+        holdDistance={isPhone ? 0 : 0.4}
         smoothing={0.1}
         overlayScrim={0.45}
         useWindowScroll

@@ -21,6 +21,7 @@ const ScrollExpand = ({
   startRadius = 24,
   startBiasY = 0.5,
   endRadius = 0,
+  stageHeight = 0,
   mediaZoom = 1.35,
   scrollDistance = 1.2,
   holdDistance = 0.35,
@@ -51,6 +52,7 @@ const ScrollExpand = ({
     startRadius,
     startBiasY,
     endRadius,
+    stageHeight,
     mediaZoom,
     scrollDistance,
     holdDistance,
@@ -114,7 +116,7 @@ const ScrollExpand = ({
 
     const measure = () => {
       const c = propsRef.current;
-      stageH = c.useWindowScroll ? window.innerHeight : root.clientHeight;
+      stageH = c.stageHeight > 0 ? c.stageHeight : c.useWindowScroll ? window.innerHeight : root.clientHeight;
       if (stageH <= 0) return;
       stage.style.height = `${stageH}px`;
       track.style.height = `${stageH * (1 + Math.max(0, c.scrollDistance) + Math.max(0, c.holdDistance))}px`;
