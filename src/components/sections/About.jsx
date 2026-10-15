@@ -100,7 +100,7 @@ export function About() {
         endRadius={0}
         stageHeight={isPhone ? 250 : 0}
         mediaZoom={1.2}
-        scrollDistance={isPhone ? 0 : 1.2}
+        scrollDistance={isPhone ? 0.25 : 1.2}
         holdDistance={isPhone ? 0 : 0.4}
         smoothing={0.1}
         overlayScrim={0.45}

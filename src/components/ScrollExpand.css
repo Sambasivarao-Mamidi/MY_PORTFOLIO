@@ -383,7 +383,6 @@
 
 @media (max-width: 767px) {
   .scroll-expand__stage {
-    height: 250px !important;
     --se-title-size: 37px !important;
   }
 
