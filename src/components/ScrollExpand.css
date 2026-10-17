@@ -383,6 +383,9 @@
 
 @media (max-width: 767px) {
   .scroll-expand__track {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background:
       radial-gradient(ellipse 90% 70% at 50% 14%, rgba(177, 156, 255, 0.22) 0%, rgba(124, 92, 255, 0.1) 38%, transparent 68%),
       radial-gradient(ellipse 55% 55% at 85% 90%, rgba(124, 92, 255, 0.16) 0%, transparent 62%),
