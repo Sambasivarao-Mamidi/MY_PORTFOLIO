@@ -210,7 +210,7 @@ export const StaggeredMenu = ({
     const offscreen = position === 'left' ? -100 : 100
     closeTweenRef.current = gsap.to(all, {
       xPercent: offscreen,
-      duration: 0.32,
+      duration: 0.6,
       ease: 'power3.in',
       overwrite: 'auto',
       onComplete: () => {
