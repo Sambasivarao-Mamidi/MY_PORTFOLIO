@@ -394,11 +394,10 @@
   }
 
   .scroll-expand__frame {
-    clip-path: inset(16% 4% 34% 4% round 16px);
+    clip-path: inset(25% 4% round 16px);
   }
 
   .scroll-expand .scroll-expand__title {
-    inset: 16% 0 34% 0;
     align-items: center;
     justify-content: center;
   }
@@ -406,9 +405,6 @@
   .scroll-expand__overlay {
     padding: 4%;
     justify-content: flex-start;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-y;
-    overscroll-behavior: auto;
   }
 
   .about-grid {

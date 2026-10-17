@@ -96,13 +96,13 @@ export function About() {
         startWidth={isPhone ? 92 : 42}
         startHeight={isPhone ? 50 : 58}
         startRadius={isPhone ? 16 : 24}
-        startBiasY={isPhone ? 0.32 : 0.5}
+        startBiasY={0.5}
         endRadius={0}
         stageHeight={isPhone ? 250 : 0}
         centerStage={isPhone}
         mediaZoom={1.2}
         scrollDistance={isPhone ? 0.8 : 1.2}
-        holdDistance={isPhone ? 0.3 : 0.4}
+        holdDistance={isPhone ? 0 : 0.4}
         smoothing={0.1}
         overlayScrim={0.45}
         gateOverlay={isPhone}
