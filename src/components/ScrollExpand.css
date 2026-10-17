@@ -382,6 +382,14 @@
 }
 
 @media (max-width: 767px) {
+  .scroll-expand__track {
+    background:
+      radial-gradient(ellipse 90% 70% at 50% 14%, rgba(177, 156, 255, 0.22) 0%, rgba(124, 92, 255, 0.1) 38%, transparent 68%),
+      radial-gradient(ellipse 55% 55% at 85% 90%, rgba(124, 92, 255, 0.16) 0%, transparent 62%),
+      radial-gradient(ellipse 45% 45% at 8% 22%, rgba(124, 92, 255, 0.12) 0%, transparent 60%),
+      linear-gradient(165deg, var(--surface-2) 0%, var(--bg) 55%, #0a0812 100%);
+  }
+
   .scroll-expand__stage {
     --se-title-size: 37px !important;
   }
