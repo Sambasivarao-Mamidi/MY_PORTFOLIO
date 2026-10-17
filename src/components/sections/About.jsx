@@ -156,8 +156,17 @@ export function About() {
 
   if (isPhone) {
     return (
-      <section id="about" ref={sectionRef} className="scroll-mt-24 bg-[var(--bg)] px-6 py-16">
-        {aboutContent}
+      <section
+        id="about"
+        ref={sectionRef}
+        className="about-mobile scroll-mt-24 bg-[var(--bg)] px-6 py-16"
+      >
+        <div className="hero-light-beams" aria-hidden="true">
+          <div className="hero-light-beam" />
+          <div className="hero-light-beam hero-light-beam--2" />
+          <div className="hero-light-beam hero-light-beam--3" />
+        </div>
+        <div className="about-mobile__content">{aboutContent}</div>
       </section>
     )
   }
