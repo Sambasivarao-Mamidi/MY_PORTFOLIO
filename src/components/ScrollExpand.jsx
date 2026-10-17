@@ -22,6 +22,7 @@ const ScrollExpand = ({
   startBiasY = 0.5,
   endRadius = 0,
   stageHeight = 0,
+  centerStage = false,
   mediaZoom = 1.35,
   scrollDistance = 1.2,
   holdDistance = 0.35,
@@ -54,6 +55,7 @@ const ScrollExpand = ({
     startBiasY,
     endRadius,
     stageHeight,
+    centerStage,
     mediaZoom,
     scrollDistance,
     holdDistance,
@@ -125,14 +127,21 @@ const ScrollExpand = ({
     let current = 0;
     let target = 0;
     let stageH = 0;
+    let stageOffset = 0;
     let running = false;
 
     const measure = () => {
       const c = propsRef.current;
       stageH = c.stageHeight > 0 ? c.stageHeight : c.useWindowScroll ? window.innerHeight : root.clientHeight;
       if (stageH <= 0) return;
+      const span = stageH * Math.max(0, c.scrollDistance);
       stage.style.height = `${stageH}px`;
-      track.style.height = `${stageH * (1 + Math.max(0, c.scrollDistance) + Math.max(0, c.holdDistance))}px`;
+      if (c.centerStage) {
+        track.style.height = `${stageH + 2 * span}px`;
+      } else {
+        track.style.height = `${stageH * (1 + Math.max(0, c.scrollDistance) + Math.max(0, c.holdDistance))}px`;
+      }
+      stageOffset = stage.offsetTop || 0;
 
       const w = root.clientWidth || stageH;
       stage.style.setProperty('--se-title-size', `${clamp(w * 0.075, 20, 84)}px`);
@@ -144,9 +153,9 @@ const ScrollExpand = ({
       const span = stageH * Math.max(0.01, c.scrollDistance);
       if (c.useWindowScroll) {
         const top = track.getBoundingClientRect().top;
-        return clamp(-top / span, 0, 1);
+        return clamp((-top - stageOffset) / span, 0, 1);
       }
-      return clamp(root.scrollTop / span, 0, 1);
+      return clamp((root.scrollTop - stageOffset) / span, 0, 1);
     };
 
     const tick = () => {

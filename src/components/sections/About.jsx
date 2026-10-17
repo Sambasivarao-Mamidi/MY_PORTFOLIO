@@ -99,6 +99,7 @@ export function About() {
         startBiasY={0.5}
         endRadius={0}
         stageHeight={isPhone ? 250 : 0}
+        centerStage={isPhone}
         mediaZoom={1.2}
         scrollDistance={isPhone ? 0.8 : 1.2}
         holdDistance={isPhone ? 0 : 0.4}
