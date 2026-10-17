@@ -26,6 +26,7 @@ const ScrollExpand = ({
   mediaZoom = 1.35,
   scrollDistance = 1.2,
   holdDistance = 0.35,
+  nextGap = null,
   smoothing = 0.1,
   overlayScrim = 0.45,
   gateOverlay = false,
@@ -46,6 +47,7 @@ const ScrollExpand = ({
   const overlayRef = useRef(null);
   const scrimRef = useRef(null);
   const hintRef = useRef(null);
+  const overlayOpenRef = useRef(false);
 
   const propsRef = useRef({});
   propsRef.current = {
@@ -59,6 +61,7 @@ const ScrollExpand = ({
     mediaZoom,
     scrollDistance,
     holdDistance,
+    nextGap,
     smoothing,
     overlayScrim,
     gateOverlay,
@@ -108,9 +111,14 @@ const ScrollExpand = ({
         const open = p >= 0.99;
         overlay.style.pointerEvents = open ? 'auto' : 'none';
         overlay.style.overflowY = open ? 'auto' : 'hidden';
+        if (!open && overlayOpenRef.current) {
+          overlay.scrollTop = 0;
+        }
+        overlayOpenRef.current = open;
       } else {
         overlay.style.pointerEvents = '';
         overlay.style.overflowY = '';
+        overlayOpenRef.current = false;
       }
     }
   }, []);
@@ -128,20 +136,46 @@ const ScrollExpand = ({
     let target = 0;
     let stageH = 0;
     let stageOffset = 0;
+    let span = 0;
+    let viewportH = 0;
+    let viewportW = 0;
     let running = false;
 
     const measure = () => {
       const c = propsRef.current;
       stageH = c.stageHeight > 0 ? c.stageHeight : c.useWindowScroll ? window.innerHeight : root.clientHeight;
       if (stageH <= 0) return;
-      const span = stageH * Math.max(0, c.scrollDistance);
       stage.style.height = `${stageH}px`;
+
       if (c.centerStage) {
-        track.style.height = `${stageH + 2 * span}px`;
+        const vw = window.innerWidth;
+        if (!viewportH || vw !== viewportW) {
+          viewportH = c.useWindowScroll ? window.innerHeight : root.clientHeight;
+          viewportW = vw;
+        }
+        const vpH = viewportH || stageH;
+
+        let gap = c.nextGap;
+        if (gap == null) {
+          const nextEl = root.parentElement ? root.parentElement.nextElementSibling : null;
+          if (nextEl) {
+            gap = parseFloat(getComputedStyle(nextEl).paddingTop) || 0;
+          }
+        }
+        if (gap == null || !Number.isFinite(gap)) gap = 64;
+
+        const travel = Math.max(0, vpH - gap - stageH);
+        const hold = stageH * Math.max(0, c.holdDistance);
+        const offset = Math.max(travel, hold + stageH * 0.25);
+
+        track.style.height = `${stageH + 2 * offset}px`;
+        span = Math.max(1, offset - hold);
+        stageOffset = stage.offsetTop || offset;
       } else {
+        span = stageH * Math.max(0.01, c.scrollDistance);
         track.style.height = `${stageH * (1 + Math.max(0, c.scrollDistance) + Math.max(0, c.holdDistance))}px`;
+        stageOffset = stage.offsetTop || 0;
       }
-      stageOffset = stage.offsetTop || 0;
 
       const w = root.clientWidth || stageH;
       stage.style.setProperty('--se-title-size', `${clamp(w * 0.075, 20, 84)}px`);
@@ -150,7 +184,7 @@ const ScrollExpand = ({
     const readProgress = () => {
       const c = propsRef.current;
       if (!c.enabled) return 1;
-      const span = stageH * Math.max(0.01, c.scrollDistance);
+      if (span <= 0) return 0;
       if (c.useWindowScroll) {
         const top = track.getBoundingClientRect().top;
         return clamp((-top - stageOffset) / span, 0, 1);
