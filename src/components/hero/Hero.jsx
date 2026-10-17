@@ -52,7 +52,7 @@ export function Hero() {
       )}
 
       {!prefersReducedMotion && (
-        <div className="hero-light-beams hidden md:block" aria-hidden="true">
+        <div className="hero-light-beams" aria-hidden="true">
           <div className="hero-light-beam" />
           <div className="hero-light-beam hero-light-beam--2" />
           <div className="hero-light-beam hero-light-beam--3" />
@@ -63,15 +63,6 @@ export function Hero() {
         className="hero-rays-static pointer-events-none absolute inset-0 -z-10"
         style={{
           background: 'linear-gradient(135deg, rgba(177,156,255,0.08) 0%, rgba(124,92,255,0.05) 45%, transparent 100%)'
-        }}
-        aria-hidden="true"
-      />
-
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-44 md:hidden"
-        style={{
-          background:
-            'radial-gradient(115% 85% at 50% -6%, rgba(177,156,255,0.30) 0%, rgba(124,92,255,0.14) 42%, transparent 72%), linear-gradient(180deg, rgba(177,156,255,0.12) 0%, transparent 42%)'
         }}
         aria-hidden="true"
       />
