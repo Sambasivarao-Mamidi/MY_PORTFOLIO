@@ -186,6 +186,7 @@ export function About() {
             <div className="hero-light-beam hero-light-beam--3" />
           </div>
         </div>
+        <div className="about-mobile__scrim" aria-hidden="true" />
         <div className="about-mobile__content">{aboutContent}</div>
       </section>
     )

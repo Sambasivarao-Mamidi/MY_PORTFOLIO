@@ -395,6 +395,19 @@
   pointer-events: none;
 }
 
+.about-mobile__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 6, 10, 0.42) 0%,
+    rgba(7, 6, 10, 0.6) 45%,
+    rgba(7, 6, 10, 0.8) 100%
+  );
+}
+
 .about-mobile__content {
   position: relative;
   z-index: 1;
