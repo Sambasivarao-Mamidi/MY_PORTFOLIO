@@ -132,7 +132,7 @@
   -webkit-backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
-  padding: 6em 2em 2em 2em;
+  padding: 4.5em 2em 2em 2em;
   overflow-y: auto;
   z-index: 10;
   pointer-events: auto;
