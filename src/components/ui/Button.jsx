@@ -4,7 +4,7 @@ export function Button({ variant = 'primary', href, className, children, ...prop
   const classes = cn(
     'inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold transition-all duration-200 cursor-pointer select-none',
     variant === 'primary' &&
-      'bg-[linear-gradient(135deg,#B19CFF_0%,#8B5CF6_100%)] text-[#0A0812] shadow-[0_0_28px_-6px_rgba(91,33,182,0.7)] hover:shadow-[0_0_34px_-4px_rgba(91,33,182,0.9)] hover:brightness-110',
+      'bg-[linear-gradient(135deg,#B19CFF_0%,#8B5CF6_100%)] text-[#0A0812] shadow-[0_0_28px_-6px_rgba(177,156,255,0.55)] hover:shadow-[0_0_34px_-4px_rgba(177,156,255,0.7)] hover:brightness-110',
     variant === 'secondary' &&
       'border border-[var(--border)] text-[var(--text)] hover:border-[var(--border-strong)] hover:bg-[rgba(177,156,255,0.08)]',
     className

@@ -67,6 +67,15 @@ export function Hero() {
         aria-hidden="true"
       />
 
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-44 md:hidden"
+        style={{
+          background:
+            'radial-gradient(115% 85% at 50% -6%, rgba(177,156,255,0.30) 0%, rgba(124,92,255,0.14) 42%, transparent 72%), linear-gradient(180deg, rgba(177,156,255,0.12) 0%, transparent 42%)'
+        }}
+        aria-hidden="true"
+      />
+
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-10 sm:gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-center lg:gap-8 [grid-template-areas:'name'_'card'_'texts'] lg:[grid-template-areas:'name_card'_'texts_card']">
         <div
           className="flex w-full flex-col items-center text-center md:items-start md:text-left [grid-area:name]"
@@ -162,7 +171,12 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4 md:justify-start">
-            <Button href="#projects">See the work</Button>
+            <Button
+              href="#projects"
+              className="shadow-[0_0_28px_-6px_rgba(91,33,182,0.7)] hover:shadow-[0_0_34px_-4px_rgba(91,33,182,0.9)]"
+            >
+              See the work
+            </Button>
           </div>
         </div>
       </div>
