@@ -161,10 +161,30 @@ export function About() {
         ref={sectionRef}
         className="about-mobile scroll-mt-24 bg-[var(--bg)] px-6 py-16"
       >
-        <div className="hero-light-beams" aria-hidden="true">
-          <div className="hero-light-beam" />
-          <div className="hero-light-beam hero-light-beam--2" />
-          <div className="hero-light-beam hero-light-beam--3" />
+        <div className="about-mobile__bg scroll-expand__media--none" aria-hidden="true">
+          {!prefersReducedMotion && (
+            <Suspense fallback={null}>
+              <LightPillar
+                topColor="#5227FF"
+                bottomColor="#FF9FFC"
+                intensity={1}
+                rotationSpeed={0.3}
+                glowAmount={0.002}
+                pillarWidth={3}
+                pillarHeight={0.4}
+                noiseIntensity={0.5}
+                pillarRotation={25}
+                interactive={false}
+                mixBlendMode="screen"
+                quality="high"
+              />
+            </Suspense>
+          )}
+          <div className="se-media-beams">
+            <div className="hero-light-beam" />
+            <div className="hero-light-beam hero-light-beam--2" />
+            <div className="hero-light-beam hero-light-beam--3" />
+          </div>
         </div>
         <div className="about-mobile__content">{aboutContent}</div>
       </section>
