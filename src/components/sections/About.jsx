@@ -87,25 +87,100 @@ export function About() {
     return () => observer.disconnect()
   }, [])
 
+  const aboutContent = (
+    <div className="about-grid">
+      <div className="about-col about-col--text">
+        <p className="about-kicker">ABOUT ME</p>
+        <h2 className="about-title">
+          I&apos;m Sambasivarao, <span className="about-title-accent">Frontend Developer</span>
+        </h2>
+        <p className="about-bio">
+          Great design is more than just aesthetics—it&apos;s about how it works. I blend UI/UX
+          psychology with technical performance to craft research-driven, pixel-perfect
+          experiences that turn user pain points into delightful solutions—making the web a more
+          accessible, enjoyable place for everyone.
+        </p>
+
+        <div className="about-block">
+          <h3 className="about-block-label">What I Do?</h3>
+          <div className="about-services">
+            {services.map((service) => (
+              <div key={service.name} className="about-service-card">
+                <div className="about-service-head">
+                  <span className="about-service-icon" aria-hidden="true">
+                    {service.icon}
+                  </span>
+                  <span>
+                    <strong className="about-service-name">{service.name}</strong>
+                    <span className="about-service-badge">{service.badge}</span>
+                  </span>
+                </div>
+                <p className="about-service-desc">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="about-block">
+          <h3 className="about-block-label">Fun Facts</h3>
+          <div ref={statsRef} className="about-stats">
+            {stats.map((stat) => (
+              <Stat
+                key={stat.label}
+                {...stat}
+                started={started}
+                instant={prefersReducedMotion}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="about-col about-col--visual">
+        <TiltedCard
+          imageSrc="/images/dr_doom.jpg"
+          altText="SambaSivaRao Mamidi — Frontend Developer"
+          captionText="SambaSivaRao — Frontend Developer"
+          containerHeight="100%"
+          containerWidth="100%"
+          imageHeight="clamp(340px, 54vh, 500px)"
+          imageWidth="clamp(220px, 34vh, 330px)"
+          rotateAmplitude={10}
+          scaleOnHover={1.05}
+          showMobileWarning={false}
+          showTooltip
+        />
+      </div>
+    </div>
+  )
+
+  if (isPhone) {
+    return (
+      <section id="about" ref={sectionRef} className="scroll-mt-24 bg-[var(--bg)] px-6 py-16">
+        {aboutContent}
+      </section>
+    )
+  }
+
   return (
     <section id="about" ref={sectionRef} className="scroll-mt-24 bg-[var(--bg)]">
       <ScrollExpand
         mediaType="none"
         title="Turning ideas into working products."
         scrollHint="Scroll to open"
-        startWidth={isPhone ? 92 : 42}
-        startHeight={isPhone ? 50 : 58}
-        startRadius={isPhone ? 16 : 24}
+        startWidth={42}
+        startHeight={58}
+        startRadius={24}
         startBiasY={0.5}
         endRadius={0}
-        stageHeight={isPhone ? 250 : 0}
-        centerStage={isPhone}
+        stageHeight={0}
+        centerStage={false}
         mediaZoom={1.2}
-        scrollDistance={isPhone ? 0.8 : 1.2}
-        holdDistance={isPhone ? 0 : 0.4}
+        scrollDistance={1.2}
+        holdDistance={0.4}
         smoothing={0.1}
         overlayScrim={0.45}
-        gateOverlay={isPhone}
+        gateOverlay={false}
         useWindowScroll
         enabled
         mediaContent={
@@ -136,70 +211,7 @@ export function About() {
           </>
         }
       >
-        <div className="about-grid">
-          <div className="about-col about-col--text">
-            <p className="about-kicker">ABOUT ME</p>
-            <h2 className="about-title">
-              I&apos;m Sambasivarao, <span className="about-title-accent">Frontend Developer</span>
-            </h2>
-            <p className="about-bio">
-              Great design is more than just aesthetics—it&apos;s about how it works. I blend UI/UX
-              psychology with technical performance to craft research-driven, pixel-perfect
-              experiences that turn user pain points into delightful solutions—making the web a more
-              accessible, enjoyable place for everyone.
-            </p>
-
-            <div className="about-block">
-              <h3 className="about-block-label">What I Do?</h3>
-              <div className="about-services">
-                {services.map((service) => (
-                  <div key={service.name} className="about-service-card">
-                    <div className="about-service-head">
-                      <span className="about-service-icon" aria-hidden="true">
-                        {service.icon}
-                      </span>
-                      <span>
-                        <strong className="about-service-name">{service.name}</strong>
-                        <span className="about-service-badge">{service.badge}</span>
-                      </span>
-                    </div>
-                    <p className="about-service-desc">{service.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="about-block">
-              <h3 className="about-block-label">Fun Facts</h3>
-              <div ref={statsRef} className="about-stats">
-                {stats.map((stat) => (
-                  <Stat
-                    key={stat.label}
-                    {...stat}
-                    started={started}
-                    instant={prefersReducedMotion}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="about-col about-col--visual">
-            <TiltedCard
-              imageSrc="/images/dr_doom.jpg"
-              altText="SambaSivaRao Mamidi — Frontend Developer"
-              captionText="SambaSivaRao — Frontend Developer"
-              containerHeight="100%"
-              containerWidth="100%"
-              imageHeight="clamp(340px, 54vh, 500px)"
-              imageWidth="clamp(220px, 34vh, 330px)"
-              rotateAmplitude={10}
-              scaleOnHover={1.05}
-              showMobileWarning={false}
-              showTooltip
-            />
-          </div>
-        </div>
+        {aboutContent}
       </ScrollExpand>
     </section>
   )
