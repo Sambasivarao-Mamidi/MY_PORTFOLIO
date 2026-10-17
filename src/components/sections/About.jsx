@@ -93,8 +93,8 @@ export function About() {
         mediaType="none"
         title="Turning ideas into working products."
         scrollHint="Scroll to open"
-        startWidth={isPhone ? 90 : 42}
-        startHeight={isPhone ? 44 : 58}
+        startWidth={isPhone ? 92 : 42}
+        startHeight={isPhone ? 50 : 58}
         startRadius={isPhone ? 16 : 24}
         startBiasY={0.5}
         endRadius={0}
@@ -104,6 +104,7 @@ export function About() {
         holdDistance={isPhone ? 0 : 0.4}
         smoothing={0.1}
         overlayScrim={0.45}
+        gateOverlay={isPhone}
         useWindowScroll
         enabled
         mediaContent={

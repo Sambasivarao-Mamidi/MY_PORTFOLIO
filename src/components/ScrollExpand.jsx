@@ -27,6 +27,7 @@ const ScrollExpand = ({
   holdDistance = 0.35,
   smoothing = 0.1,
   overlayScrim = 0.45,
+  gateOverlay = false,
   useWindowScroll = false,
   enabled = true,
   children,
@@ -58,6 +59,7 @@ const ScrollExpand = ({
     holdDistance,
     smoothing,
     overlayScrim,
+    gateOverlay,
     useWindowScroll,
     enabled
   };
@@ -97,8 +99,17 @@ const ScrollExpand = ({
 
     if (overlayRef.current) {
       const inn = smoothstep(0.68, 1, p);
-      overlayRef.current.style.opacity = `${inn}`;
-      overlayRef.current.style.transform = `translate3d(0, ${18 * (1 - inn)}px, 0)`;
+      const overlay = overlayRef.current;
+      overlay.style.opacity = `${inn}`;
+      overlay.style.transform = `translate3d(0, ${18 * (1 - inn)}px, 0)`;
+      if (c.gateOverlay) {
+        const open = p >= 0.99;
+        overlay.style.pointerEvents = open ? 'auto' : 'none';
+        overlay.style.overflowY = open ? 'auto' : 'hidden';
+      } else {
+        overlay.style.pointerEvents = '';
+        overlay.style.overflowY = '';
+      }
     }
   }, []);
 
