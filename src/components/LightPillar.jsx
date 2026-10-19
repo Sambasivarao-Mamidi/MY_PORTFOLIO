@@ -252,10 +252,16 @@ const LightPillar = ({
     }
 
     let lastTime = performance.now();
+    let visible = true;
     const targetFPS = effectiveQuality === 'low' ? 30 : 60;
     const frameTime = 1000 / targetFPS;
 
     const animate = currentTime => {
+      if (!visible) {
+        rafRef.current = null;
+        return;
+      }
+
       if (!materialRef.current || !rendererRef.current || !sceneRef.current || !cameraRef.current) return;
 
       const deltaTime = currentTime - lastTime;
@@ -273,6 +279,14 @@ const LightPillar = ({
       rafRef.current = requestAnimationFrame(animate);
     };
     rafRef.current = requestAnimationFrame(animate);
+
+    const onVisibility = () => {
+      visible = document.visibilityState === 'visible';
+      if (visible && rafRef.current === null) {
+        rafRef.current = requestAnimationFrame(animate);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
 
     let resizeTimeout = null;
     const handleResize = () => {
@@ -292,6 +306,7 @@ const LightPillar = ({
     window.addEventListener('resize', handleResize, { passive: true });
 
     return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('resize', handleResize);
       if (interactive) {
         container.removeEventListener('mousemove', handleMouseMove);

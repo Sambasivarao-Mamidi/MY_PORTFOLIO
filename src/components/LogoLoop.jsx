@@ -61,6 +61,7 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
   const lastTimestampRef = useRef(null);
   const offsetRef = useRef(0);
   const velocityRef = useRef(0);
+  const visibleRef = useRef(true);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -77,6 +78,11 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
     }
 
     const animate = timestamp => {
+      if (!visibleRef.current) {
+        rafRef.current = null;
+        return;
+      }
+
       if (lastTimestampRef.current === null) {
         lastTimestampRef.current = timestamp;
       }
@@ -105,7 +111,16 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
 
     rafRef.current = requestAnimationFrame(animate);
 
+    const onVisibility = () => {
+      visibleRef.current = document.visibilityState === 'visible';
+      if (visibleRef.current && rafRef.current === null) {
+        rafRef.current = requestAnimationFrame(animate);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
         rafRef.current = null;

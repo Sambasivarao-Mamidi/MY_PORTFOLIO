@@ -189,11 +189,16 @@ const SpecularButton = ({
     let bright = 0;
     let last = performance.now();
     let raf = 0;
+    let visible = true;
 
     const lineC = new Color();
     const baseC = new Color();
 
     const update = now => {
+      if (!visible) {
+        raf = 0;
+        return;
+      }
       raf = requestAnimationFrame(update);
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
@@ -229,7 +234,16 @@ const SpecularButton = ({
     };
     raf = requestAnimationFrame(update);
 
+    const onVisibility = () => {
+      visible = document.visibilityState === 'visible';
+      if (visible && raf === 0) {
+        raf = requestAnimationFrame(update);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     return () => {
+      document.removeEventListener('visibilitychange', onVisibility);
       cancelAnimationFrame(raf);
       ro.disconnect();
       window.removeEventListener('pointermove', onPointerMove);

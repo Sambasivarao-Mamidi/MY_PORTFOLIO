@@ -103,6 +103,11 @@ const ClickSpark = ({
         return true;
       });
 
+      if (sparksRef.current.length === 0) {
+        animationId = null;
+        return;
+      }
+
       animationId = requestAnimationFrame(draw);
     };
 

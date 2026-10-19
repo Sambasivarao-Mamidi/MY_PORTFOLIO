@@ -288,8 +288,13 @@ export default function Galaxy({
 
         const mesh = new Mesh(gl, { geometry, program });
         let animateId;
+        let visible = true;
 
         function update(t) {
+          if (!visible) {
+            animateId = null;
+            return;
+          }
           animateId = requestAnimationFrame(update);
           if (!disableAnimation && !reducedMotion) {
             program.uniforms.uTime.value = t * 0.001;
@@ -311,6 +316,14 @@ export default function Galaxy({
         animateId = requestAnimationFrame(update);
         ctn.appendChild(gl.canvas);
 
+        const onVisibility = () => {
+          visible = document.visibilityState === 'visible';
+          if (visible && animateId === null) {
+            animateId = requestAnimationFrame(update);
+          }
+        };
+        document.addEventListener('visibilitychange', onVisibility);
+
         function handleMouseMove(e) {
           const rect = ctn.getBoundingClientRect();
           const x = (e.clientX - rect.left) / rect.width;
@@ -329,6 +342,7 @@ export default function Galaxy({
         }
 
         dispose = () => {
+          document.removeEventListener('visibilitychange', onVisibility);
           cancelAnimationFrame(animateId);
           window.removeEventListener('resize', resize);
           if (mouseInteraction) {
