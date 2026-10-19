@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import { navItems } from '@/data/navigation'
 import { StaggeredMenu } from '@/components/staggeredMenu/StaggeredMenu'
 
@@ -10,12 +10,20 @@ const externalLinks = navItems.flatMap((group) =>
 )
 
 export function MobileNav() {
+  const isLocked = useRef(false)
+
   const lockScroll = useCallback(() => {
+    if (isLocked.current) return
+    isLocked.current = true
     document.body.style.overflow = 'hidden'
+    document.documentElement.style.overflow = 'hidden'
   }, [])
 
   const unlockScroll = useCallback(() => {
+    if (!isLocked.current) return
+    isLocked.current = false
     document.body.style.overflow = ''
+    document.documentElement.style.overflow = ''
   }, [])
 
   return (

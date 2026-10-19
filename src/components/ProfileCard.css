@@ -34,7 +34,7 @@
   perspective: 500px;
   transform: translate3d(0, 0, 0.1px);
   position: relative;
-  touch-action: none;
+  touch-action: pan-x pan-y pinch-zoom;
 }
 
 .pc-behind {
@@ -551,11 +551,5 @@
     padding: 4px 8px;
     font-size: 9px;
     border-radius: 50px;
-  }
-}
-
-@media (max-width: 767px) {
-  .pc-card-wrapper {
-    touch-action: pan-x pan-y pinch-zoom;
   }
 }

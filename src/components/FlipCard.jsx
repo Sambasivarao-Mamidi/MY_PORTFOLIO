@@ -31,7 +31,7 @@ export default function FlipCard({
   axis = 'y',
   flipOnClick = true,
   draggable = true,
-  dragDistance = 0,
+  dragDistance = 8,
   tilt = true,
   tiltMax = 12,
   glare = true,
