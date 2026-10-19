@@ -135,3 +135,12 @@
   letter-spacing: 0.05em;
   color: #b19cff;
 }
+
+@media (max-width: 767px) {
+  .flip-card {
+    touch-action: pan-y pinch-zoom;
+  }
+  .flip-card[data-axis='x'] {
+    touch-action: pan-x pinch-zoom;
+  }
+}

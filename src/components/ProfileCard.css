@@ -553,3 +553,9 @@
     border-radius: 50px;
   }
 }
+
+@media (max-width: 767px) {
+  .pc-card-wrapper {
+    touch-action: pan-x pan-y pinch-zoom;
+  }
+}
