@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
+import { useCachedRect } from '@/hooks/useCachedRect';
 import './TiltedCard.css';
 
 const springValues = {
@@ -39,10 +40,13 @@ export default function TiltedCard({
 
   const [lastY, setLastY] = useState(0);
 
+  const readRect = useCachedRect();
+
   function handleMouse(e) {
     if (!ref.current) return;
 
-    const rect = ref.current.getBoundingClientRect();
+    const rect = readRect(ref.current);
+    if (!rect) return;
     const offsetX = e.clientX - rect.left - rect.width / 2;
     const offsetY = e.clientY - rect.top - rect.height / 2;
 

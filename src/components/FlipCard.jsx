@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useCachedRect } from '@/hooks/useCachedRect';
 import {
   animate,
   motion,
@@ -62,6 +63,7 @@ export default function FlipCard({
   const grip = useRef(null);
   const spin = useRef(null);
   const target = useRef(shown ? 180 : 0);
+  const readRect = useCachedRect();
 
   const turn = useMotionValue(shown ? 180 : 0);
   const tiltX = useSpring(0, TILT_SPRING);
@@ -156,7 +158,8 @@ export default function FlipCard({
       return;
     }
     if (!tilt || reduce || disabled || e.pointerType === 'touch') return;
-    const r = e.currentTarget.getBoundingClientRect();
+    const r = readRect(e.currentTarget);
+    if (!r) return
     const px = clamp((e.clientX - r.left) / r.width, 0, 1);
     const py = clamp((e.clientY - r.top) / r.height, 0, 1);
     tiltX.set((0.5 - py) * 2 * tiltMax);

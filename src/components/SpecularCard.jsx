@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { Renderer, Program, Mesh, Triangle, Color } from 'ogl';
+import { useCachedRect } from '@/hooks/useCachedRect';
 import './SpecularCard.css';
 
 const PAD = 20;
@@ -84,6 +85,7 @@ const SpecularCard = ({
   const cardRef = useRef(null);
   const fxRef = useRef(null);
   const propsRef = useRef({});
+  const readRect = useCachedRect();
 
   useEffect(() => {
     propsRef.current = { radius, lineColor, baseColor, intensity, shineSize, shineFade, thickness, speed, followMouse, proximity, autoAnimate };
@@ -156,10 +158,9 @@ const SpecularCard = ({
         ro.observe(card);
         resize();
 
-        let pointerAngle = null;
-        let proximityT = 0;
         const onPointerMove = e => {
-          const rect = card.getBoundingClientRect();
+          const rect = readRect(card);
+          if (!rect) return
           const cx = rect.left + rect.width / 2;
           const cy = rect.top + rect.height / 2;
           const dx = Math.max(rect.left - e.clientX, 0, e.clientX - rect.right);
@@ -243,7 +244,7 @@ const SpecularCard = ({
       io.disconnect();
       dispose?.();
     };
-  }, []);
+  }, [readRect]);
 
   return (
     <div

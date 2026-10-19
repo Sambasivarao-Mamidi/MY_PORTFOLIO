@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
+import { useCachedRect } from '@/hooks/useCachedRect';
 import './ProfileCard.css';
 
 const DEFAULT_INNER_GRADIENT = 'linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)';
@@ -154,10 +155,13 @@ const ProfileCardComponent = ({
     };
   }, [enableTilt]);
 
-  const getOffsets = (evt, el) => {
-    const rect = el.getBoundingClientRect();
+  const readRect = useCachedRect();
+
+  const getOffsets = useCallback((evt, el) => {
+    const rect = readRect(el);
+    if (!rect) return { x: 0, y: 0 };
     return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
-  };
+  }, [readRect]);
 
   const handlePointerMove = useCallback(
     event => {
@@ -166,7 +170,7 @@ const ProfileCardComponent = ({
       const { x, y } = getOffsets(event, shell);
       tiltEngine.setTarget(x, y);
     },
-    [tiltEngine]
+    [tiltEngine, getOffsets]
   );
 
   const handlePointerEnter = useCallback(
@@ -184,7 +188,7 @@ const ProfileCardComponent = ({
       const { x, y } = getOffsets(event, shell);
       tiltEngine.setTarget(x, y);
     },
-    [tiltEngine]
+    [tiltEngine, getOffsets]
   );
 
   const handlePointerLeave = useCallback(() => {

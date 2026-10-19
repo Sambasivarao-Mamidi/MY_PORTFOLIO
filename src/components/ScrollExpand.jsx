@@ -129,6 +129,7 @@ const ScrollExpand = ({
     let stageH = 0;
     let stageOffset = 0;
     let running = false;
+    let scrollScheduled = false;
 
     const measure = () => {
       const c = propsRef.current;
@@ -177,13 +178,18 @@ const ScrollExpand = ({
     };
 
     const onScroll = () => {
-      target = readProgress();
-      if (propsRef.current.smoothing <= 0 || reduceMotion) {
-        current = target;
-        applyProgress(current);
-        return;
-      }
-      kick();
+      if (scrollScheduled) return;
+      scrollScheduled = true;
+      requestAnimationFrame(() => {
+        scrollScheduled = false;
+        target = readProgress();
+        if (propsRef.current.smoothing <= 0 || reduceMotion) {
+          current = target;
+          applyProgress(current);
+          return;
+        }
+        kick();
+      });
     };
 
     const onResize = () => {

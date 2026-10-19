@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { Renderer, Program, Mesh, Triangle, Color } from 'ogl';
+import { useCachedRect } from '@/hooks/useCachedRect';
 import './SpecularButton.css';
 
 const PAD = 20;
@@ -92,6 +93,7 @@ const SpecularButton = ({
   const btnRef = useRef(null);
   const fxRef = useRef(null);
   const propsRef = useRef({});
+  const readRect = useCachedRect();
 
   useEffect(() => {
     propsRef.current = { radius, lineColor, baseColor, intensity, shineSize, shineFade, thickness, speed, followMouse, proximity, autoAnimate };
@@ -160,11 +162,10 @@ const SpecularButton = ({
 
     // Light angle steers toward the pointer (anywhere on the page) and falls
     // back to a slow sweep when the pointer hasn't moved yet.
-    let pointerAngle = null;
-    let proximityT = 0;
-    const onPointerMove = e => {
-      const rect = btn.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
+      onPointerMove = e => {
+        const rect = readRect(btn);
+        if (!rect) return
+        const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
       const dx = Math.max(rect.left - e.clientX, 0, e.clientX - rect.right);
       const dy = Math.max(rect.top - e.clientY, 0, e.clientY - rect.bottom);
@@ -235,7 +236,7 @@ const SpecularButton = ({
       if (gl.canvas.parentNode === fx) fx.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, []);
+  }, [readRect]);
 
   return (
     <button
