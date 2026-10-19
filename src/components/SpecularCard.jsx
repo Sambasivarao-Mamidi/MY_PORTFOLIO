@@ -181,7 +181,6 @@ const SpecularCard = ({
         const baseC = new Color();
 
         const update = now => {
-          raf = requestAnimationFrame(update);
           const dt = Math.min((now - last) / 1000, 0.05);
           last = now;
           const p = propsRef.current;
@@ -205,7 +204,12 @@ const SpecularCard = ({
           program.uniforms.uShineSize.value = (p.shineSize * Math.PI) / 180;
           program.uniforms.uShineFade.value = (p.shineFade * Math.PI) / 180;
           program.uniforms.uThickness.value = p.thickness * dpr;
-          renderer.render({ scene: mesh });
+          try {
+            renderer.render({ scene: mesh });
+            raf = requestAnimationFrame(update);
+          } catch {
+            /* WebGL render error — stop loop, keep plain card */
+          }
         };
         raf = requestAnimationFrame(update);
 
