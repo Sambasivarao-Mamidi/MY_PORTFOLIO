@@ -97,6 +97,8 @@ const SpecularCard = ({
     if (!card || !fx) return;
 
     let dispose = null;
+    let initialized = false;
+    let visible = false;
 
     const start = () => {
       try {
@@ -182,6 +184,10 @@ const SpecularCard = ({
         const baseC = new Color();
 
         const update = now => {
+          if (!visible) {
+            raf = 0;
+            return;
+          }
           const dt = Math.min((now - last) / 1000, 0.05);
           last = now;
           const p = propsRef.current;
@@ -221,19 +227,28 @@ const SpecularCard = ({
           if (gl.canvas.parentNode === fx) fx.removeChild(gl.canvas);
           gl.getExtension('WEBGL_lose_context')?.loseContext();
         };
+        initialized = true;
+        if (visible) {
+          raf = requestAnimationFrame(update);
+        }
       } catch {
         /* WebGL unavailable or failed — keep the plain card, never crash the page */
       }
     };
 
+    function maybeStart() {
+      if (!visible || raf !== 0) return;
+      raf = requestAnimationFrame(update);
+    }
+
     const io = new IntersectionObserver(
       entries => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            start();
-            io.disconnect();
-            break;
-          }
+        const entry = entries[0];
+        if (!entry) return;
+        visible = entry.isIntersecting;
+        if (visible) {
+          if (!initialized) start();
+          else maybeStart();
         }
       },
       { rootMargin: '200px' }

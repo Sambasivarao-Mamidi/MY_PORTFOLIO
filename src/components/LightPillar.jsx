@@ -253,11 +253,12 @@ const LightPillar = ({
 
     let lastTime = performance.now();
     let visible = true;
+    let inView = true;
     const targetFPS = effectiveQuality === 'low' ? 30 : 60;
     const frameTime = 1000 / targetFPS;
 
     const animate = currentTime => {
-      if (!visible) {
+      if (!visible || !inView) {
         rafRef.current = null;
         return;
       }
@@ -282,11 +283,22 @@ const LightPillar = ({
 
     const onVisibility = () => {
       visible = document.visibilityState === 'visible';
-      if (visible && rafRef.current === null) {
+      if (visible && inView && rafRef.current === null) {
         rafRef.current = requestAnimationFrame(animate);
       }
     };
     document.addEventListener('visibilitychange', onVisibility);
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView && visible && rafRef.current === null) {
+          rafRef.current = requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0 }
+    );
+    io.observe(container);
 
     let resizeTimeout = null;
     const handleResize = () => {
@@ -306,6 +318,7 @@ const LightPillar = ({
     window.addEventListener('resize', handleResize, { passive: true });
 
     return () => {
+      io.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('resize', handleResize);
       if (interactive) {

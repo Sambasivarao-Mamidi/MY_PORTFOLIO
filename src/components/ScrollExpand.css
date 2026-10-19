@@ -50,9 +50,9 @@
 
 .scroll-expand__media--none {
   background:
-    radial-gradient(ellipse 90% 70% at 50% 14%, rgba(177, 156, 255, 0.22) 0%, rgba(124, 92, 255, 0.1) 38%, transparent 68%),
-    radial-gradient(ellipse 55% 55% at 85% 90%, rgba(124, 92, 255, 0.16) 0%, transparent 62%),
-    radial-gradient(ellipse 45% 45% at 8% 22%, rgba(124, 92, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 90% 70% at 50% 14%, rgba(177, 156, 255, 0.4) 0%, rgba(124, 92, 255, 0.18) 38%, transparent 68%),
+    radial-gradient(ellipse 55% 55% at 85% 90%, rgba(124, 92, 255, 0.26) 0%, transparent 62%),
+    radial-gradient(ellipse 45% 45% at 8% 22%, rgba(124, 92, 255, 0.2) 0%, transparent 60%),
     linear-gradient(165deg, var(--surface-2) 0%, var(--bg) 55%, #0a0812 100%);
   overflow: hidden;
 }
@@ -402,9 +402,9 @@
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(7, 6, 10, 0.42) 0%,
-    rgba(7, 6, 10, 0.6) 45%,
-    rgba(7, 6, 10, 0.8) 100%
+    rgba(7, 6, 10, 0.25) 0%,
+    rgba(7, 6, 10, 0.4) 45%,
+    rgba(7, 6, 10, 0.55) 100%
   );
 }
 
