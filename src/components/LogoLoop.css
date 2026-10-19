@@ -181,3 +181,9 @@
     transition: none !important;
   }
 }
+
+@media (max-width: 767px) {
+  .logoloop {
+    overflow: hidden;
+  }
+}
