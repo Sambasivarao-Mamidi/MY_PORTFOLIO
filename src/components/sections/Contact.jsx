@@ -1,37 +1,30 @@
 import { Button } from '@/components/ui/Button'
 import Galaxy from '@/components/Galaxy'
 import { socialLinks } from '@/data/profile'
-import { usePerformanceTier } from '@/hooks/usePerformanceTier'
 import './Contact.css'
 
 export function Contact() {
-  const tier = usePerformanceTier()
-  const isHighEnd = tier === 'high'
   return (
     <section
       id="contact"
       className="relative scroll-mt-24 overflow-hidden bg-[#000] px-6 py-16 md:py-24"
     >
       <div className="contact-galaxy" aria-hidden="true">
-        {isHighEnd ? (
-          <Galaxy
-            className="contact-galaxy"
-            mouseRepulsion
-            mouseInteraction
-            density={1}
-            glowIntensity={0.3}
-            saturation={0.9}
-            hueShift={200}
-            twinkleIntensity={0.3}
-            rotationSpeed={0.1}
-            repulsionStrength={2}
-            autoCenterRepulsion={0}
-            starSpeed={0.5}
-            speed={1}
-          />
-        ) : (
-          <div className="contact-galaxy-fallback" />
-        )}
+        <Galaxy
+          className="contact-galaxy"
+          mouseRepulsion
+          mouseInteraction
+          density={1}
+          glowIntensity={0.3}
+          saturation={0.9}
+          hueShift={200}
+          twinkleIntensity={0.3}
+          rotationSpeed={0.1}
+          repulsionStrength={2}
+          autoCenterRepulsion={0}
+          starSpeed={0.5}
+          speed={1}
+        />
       </div>
 
       <div className="contact-content mx-auto max-w-3xl text-center">
