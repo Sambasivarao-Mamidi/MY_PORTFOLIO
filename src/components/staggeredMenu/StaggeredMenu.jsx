@@ -17,7 +17,8 @@ export const StaggeredMenu = ({
   isFixed = false,
   closeOnClickAway = true,
   onMenuOpen,
-  onMenuClose
+  onMenuClose,
+  onItemClick
 }) => {
   const [open, setOpen] = useState(false)
   const openRef = useRef(false)
@@ -329,6 +330,17 @@ export const StaggeredMenu = ({
     }
   }, [playClose, animateIcon, animateColor, animateText, onMenuClose])
 
+  const handleItemClick = useCallback(
+    (href, event) => {
+      closeMenu()
+      if (href.startsWith('#')) {
+        event.preventDefault()
+        onItemClick?.(href)
+      }
+    },
+    [closeMenu, onItemClick]
+  )
+
   useEffect(() => {
     if (!closeOnClickAway || !open) return
 
@@ -405,7 +417,7 @@ export const StaggeredMenu = ({
             {items && items.length ? (
               items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <a className="sm-panel-item" href={it.link} aria-label={it.ariaLabel} data-index={idx + 1}>
+                  <a className="sm-panel-item" href={it.link} aria-label={it.ariaLabel} data-index={idx + 1} onClick={(e) => handleItemClick(it.link, e)}>
                     <span className="sm-panel-itemLabel">{it.label}</span>
                   </a>
                 </li>
@@ -424,7 +436,7 @@ export const StaggeredMenu = ({
               <ul className="sm-socials-list" role="list">
                 {socialItems.map((s, i) => (
                   <li key={s.label + i} className="sm-socials-item">
-                    <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link">
+                    <a href={s.link} target="_blank" rel="noopener noreferrer" className="sm-socials-link" onClick={(e) => handleItemClick(s.link, e)}>
                       {s.label}
                     </a>
                   </li>

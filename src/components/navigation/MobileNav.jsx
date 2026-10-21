@@ -1,6 +1,7 @@
 import { useCallback, useRef } from 'react'
 import { navItems } from '@/data/navigation'
 import { StaggeredMenu } from '@/components/staggeredMenu/StaggeredMenu'
+import { useScrollToSection } from '@/hooks/useScrollToSection'
 
 const internalLinks = navItems.flatMap((group) =>
   group.links.filter((link) => link.href.startsWith('#'))
@@ -11,6 +12,7 @@ const externalLinks = navItems.flatMap((group) =>
 
 export function MobileNav() {
   const isLocked = useRef(false)
+  const scrollToSection = useScrollToSection()
 
   const lockScroll = useCallback(() => {
     if (isLocked.current) return
@@ -47,6 +49,7 @@ export function MobileNav() {
         closeOnClickAway
         onMenuOpen={lockScroll}
         onMenuClose={unlockScroll}
+        onItemClick={scrollToSection}
       />
     </div>
   )

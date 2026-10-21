@@ -3,6 +3,7 @@ import ScrollExpand from '@/components/ScrollExpand'
 import TiltedCard from '@/components/TiltedCard'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { usePerformanceTier } from '@/hooks/usePerformanceTier'
 
 const LightPillar = lazy(() => import('@/components/LightPillar'))
 
@@ -67,6 +68,8 @@ function Stat({ value, suffix, label, started, instant }) {
 export function About() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const isPhone = useMediaQuery('(max-width: 767px)')
+  const tier = usePerformanceTier()
+  const isHighEnd = tier === 'high'
   const sectionRef = useRef(null)
   const statsRef = useRef(null)
   const [started, setStarted] = useState(false)
@@ -162,7 +165,7 @@ export function About() {
         className="about-mobile scroll-mt-24 bg-[var(--bg)] px-6 py-16"
       >
         <div className="about-mobile__bg scroll-expand__media--none" aria-hidden="true">
-          {!prefersReducedMotion && (
+          {isHighEnd && !prefersReducedMotion && (
             <Suspense fallback={null}>
               <LightPillar
                 topColor="#5227FF"
@@ -180,11 +183,15 @@ export function About() {
               />
             </Suspense>
           )}
-          <div className="se-media-beams">
-            <div className="hero-light-beam" />
-            <div className="hero-light-beam hero-light-beam--2" />
-            <div className="hero-light-beam hero-light-beam--3" />
-          </div>
+        <div className="se-media-beams" aria-hidden="true">
+          {isHighEnd && !prefersReducedMotion && (
+            <>
+              <div className="hero-light-beam" />
+              <div className="hero-light-beam hero-light-beam--2" />
+              <div className="hero-light-beam hero-light-beam--3" />
+            </>
+          )}
+        </div>
         </div>
         <div className="about-mobile__scrim" aria-hidden="true" />
         <div className="about-mobile__content">{aboutContent}</div>
@@ -215,7 +222,7 @@ export function About() {
         enabled
         mediaContent={
           <>
-            {!prefersReducedMotion && (
+            {isHighEnd && !prefersReducedMotion && (
               <Suspense fallback={null}>
                 <LightPillar
                   topColor="#5227FF"
@@ -234,9 +241,13 @@ export function About() {
               </Suspense>
             )}
             <div className="se-media-beams" aria-hidden="true">
-              <div className="hero-light-beam" />
-              <div className="hero-light-beam hero-light-beam--2" />
-              <div className="hero-light-beam hero-light-beam--3" />
+              {isHighEnd && !prefersReducedMotion && (
+                <>
+                  <div className="hero-light-beam" />
+                  <div className="hero-light-beam hero-light-beam--2" />
+                  <div className="hero-light-beam hero-light-beam--3" />
+                </>
+              )}
             </div>
           </>
         }

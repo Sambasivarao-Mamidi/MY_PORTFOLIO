@@ -3,9 +3,12 @@ import LogoLoop from '@/components/LogoLoop'
 import SpecularCard from '@/components/SpecularCard'
 import { skillCategories, techLogos } from '@/data/skills'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { usePerformanceTier } from '@/hooks/usePerformanceTier'
 
 export function SkillsSection() {
   const prefersReducedMotion = usePrefersReducedMotion()
+  const tier = usePerformanceTier()
+  const isLowEnd = tier === 'low'
 
   return (
     <section id="skills" className="scroll-mt-24 bg-[var(--surface)] px-6 py-16 md:py-24">
@@ -18,7 +21,7 @@ export function SkillsSection() {
 
         <LogoLoop
           logos={techLogos}
-          speed={prefersReducedMotion ? 0 : 55}
+          speed={isLowEnd ? 0 : prefersReducedMotion ? 0 : 55}
           direction="left"
           logoHeight={28}
           gap={48}
