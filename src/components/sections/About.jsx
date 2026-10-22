@@ -4,7 +4,6 @@ import TiltedCard from '@/components/TiltedCard'
 import PixelSnow from '@/components/PixelSnow'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
-import { useDeviceTier } from '@/hooks/useDeviceTier'
 const LightPillar = lazy(() => import('@/components/LightPillar'))
 
 const services = [
@@ -68,7 +67,6 @@ function Stat({ value, suffix, label, started, instant }) {
 export function About() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const isPhone = useMediaQuery('(max-width: 767px)')
-  const tier = useDeviceTier()
   const sectionRef = useRef(null)
   const statsRef = useRef(null)
   const [started, setStarted] = useState(false)
@@ -180,12 +178,12 @@ export function About() {
         className="about-mobile scroll-mt-24 bg-[var(--bg)] px-6 py-16"
       >
         <div className="about-mobile__bg scroll-expand__media--none" aria-hidden="true">
-            {!prefersReducedMotion && tier !== "none" && (
+            {!prefersReducedMotion && (
               <Suspense fallback={null}>
                 <PixelSnow
                   color="#B19CFF"
                   variant="snowflake"
-                  density={tier === "low" ? 0.15 : 0.25}
+                  density={0.25}
                 speed={0.6}
                 wind={0.15}
                 flakeSize={0.7}
@@ -233,7 +231,7 @@ export function About() {
         enabled
         mediaContent={
           <>
-            {!prefersReducedMotion && tier !== "none" && (
+            {!prefersReducedMotion && (
               <Suspense fallback={null}>
                 <LightPillar
                   topColor="#5227FF"
@@ -247,7 +245,7 @@ export function About() {
                   pillarRotation={25}
                   interactive={false}
                   mixBlendMode="screen"
-                  quality={tier === "low" ? "low" : "high"}
+                  quality="high"
                 />
               </Suspense>
             )}

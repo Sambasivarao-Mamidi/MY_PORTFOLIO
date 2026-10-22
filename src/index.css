@@ -282,18 +282,17 @@ a {
   .se-media-grid,
   .bg-grid,
   .fx-card {
-    animation-duration: 18s !important;
-    animation-timing-function: linear !important;
+    animation: none !important;
   }
 
   .hero-light-beam {
-    filter: blur(12px) !important;
-    opacity: 0.5 !important;
-    animation-duration: 24s !important;
+    animation: none !important;
+    filter: none !important;
+    opacity: 0 !important;
   }
 
   .bg-grid {
-    opacity: 0.25 !important;
+    opacity: 0 !important;
   }
 
   .fx-card {

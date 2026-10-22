@@ -23,3 +23,33 @@
   z-index: 2;
   display: block;
 }
+
+.specular-card {
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.specular-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(177, 156, 255, 0.5);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 44px -12px rgba(177, 156, 255, 0.35);
+}
+
+.specular-card:hover .specular-card__content > ul li {
+  background: rgba(177, 156, 255, 0.15);
+  color: #ffffff;
+  border-color: rgba(177, 156, 255, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .specular-card,
+  .specular-card:hover {
+    transition: none !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}

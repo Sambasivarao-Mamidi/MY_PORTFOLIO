@@ -1,35 +1,31 @@
 import { Button } from '@/components/ui/Button'
 import Galaxy from '@/components/Galaxy'
 import { socialLinks } from '@/data/profile'
-import { useDeviceTier } from '@/hooks/useDeviceTier'
 import './Contact.css'
 
 export function Contact() {
-  const tier = useDeviceTier()
   return (
     <section
       id="contact"
       className="relative scroll-mt-24 overflow-hidden bg-[#000] px-6 py-16 md:py-24"
     >
-      {tier !== "none" && (
-        <div className="contact-galaxy" aria-hidden="true">
-          <Galaxy
-            className="contact-galaxy"
-            mouseRepulsion
-            mouseInteraction
-            density={tier === "low" ? 0.35 : 1}
-            glowIntensity={0.3}
-            saturation={0.9}
-            hueShift={200}
-            twinkleIntensity={0.3}
-            rotationSpeed={0.1}
-            repulsionStrength={2}
-            autoCenterRepulsion={0}
-            starSpeed={0.5}
-            speed={1}
-          />
-        </div>
-      )}
+      <div className="contact-galaxy" aria-hidden="true">
+        <Galaxy
+          className="contact-galaxy"
+          mouseRepulsion
+          mouseInteraction
+          density={1}
+          glowIntensity={0.3}
+          saturation={0.9}
+          hueShift={200}
+          twinkleIntensity={0.3}
+          rotationSpeed={0.1}
+          repulsionStrength={2}
+          autoCenterRepulsion={0}
+          starSpeed={0.5}
+          speed={1}
+        />
+      </div>
 
       <div className="contact-content mx-auto max-w-3xl text-center">
         <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary)]">
