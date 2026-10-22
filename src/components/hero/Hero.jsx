@@ -8,6 +8,7 @@ import { profile } from '@/data/profile'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useScrollToSection } from '@/hooks/useScrollToSection'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { useDeviceTier } from '@/hooks/useDeviceTier'
 
 const emptySubscribe = () => () => {}
 const getClientSnapshot = () => true
@@ -17,6 +18,7 @@ export function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const scrollToSection = useScrollToSection()
   const isPhone = useMediaQuery('(max-width: 767px)')
+  const tier = useDeviceTier()
   const hydrated = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot)
 
   const canWarp =
@@ -32,9 +34,10 @@ export function Hero() {
       id="hero"
       className="relative isolate overflow-hidden bg-[var(--bg)] px-6 pt-36 pb-12 sm:pt-48 sm:pb-16 lg:pt-40 lg:pb-16 md:pt-44"
     >
-      {!prefersReducedMotion && (
+      {!prefersReducedMotion && tier !== "none" && (
         <div className="hero-rays pointer-events-none absolute inset-0 -z-10 opacity-80 md:opacity-40" aria-hidden="true">
           <LightRays
+            tier={tier}
             raysOrigin="top-center"
             raysColor="#B19CFF"
             raysSpeed={1}

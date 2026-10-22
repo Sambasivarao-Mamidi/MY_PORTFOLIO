@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { Renderer, Program, Mesh, Triangle, Color } from 'ogl';
 import { useCachedRect } from '@/hooks/useCachedRect';
+import { registerWebGL, unregisterWebGL, canStartWebGL } from '@/utils/webglBudget';
 import './SpecularButton.css';
 
 const PAD = 20;
@@ -88,7 +89,8 @@ const SpecularButton = ({
   disabled = false,
   onClick,
   className = '',
-  type = 'button'
+  type = 'button',
+  tier = 'high'
 }) => {
   const btnRef = useRef(null);
   const fxRef = useRef(null);
@@ -104,12 +106,15 @@ const SpecularButton = ({
     const fx = fxRef.current;
     if (!btn || !fx) return;
 
-    const dpr = window.devicePixelRatio || 1;
+    const dpr = Math.min(window.devicePixelRatio || 1, tier === 'low' ? 1.5 : 2);
+    if (!canStartWebGL('specularbutton')) return;
+    registerWebGL('specularbutton');
     let renderer;
     try {
       renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true, dpr });
     } catch {
       /* WebGL unavailable — keep plain button */
+      unregisterWebGL('specularbutton');
       return;
     }
     const gl = renderer.gl;
@@ -243,6 +248,7 @@ const SpecularButton = ({
     document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
+      unregisterWebGL('specularbutton');
       document.removeEventListener('visibilitychange', onVisibility);
       cancelAnimationFrame(raf);
       ro.disconnect();
@@ -250,7 +256,7 @@ const SpecularButton = ({
       if (gl.canvas.parentNode === fx) fx.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [readRect]);
+  }, [readRect, tier]);
 
   return (
     <button

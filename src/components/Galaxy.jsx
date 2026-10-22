@@ -1,5 +1,6 @@
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
 import { useEffect, useRef } from 'react';
+import { registerWebGL, unregisterWebGL, canStartWebGL } from '@/utils/webglBudget';
 import './Galaxy.css';
 
 const vertexShader = `
@@ -194,6 +195,7 @@ export default function Galaxy({
   autoCenterRepulsion = 0,
   transparent = true,
   lightMode = false,
+  tier = 'high',
   ...rest
 }) {
   const ctnDom = useRef(null);
@@ -222,11 +224,14 @@ export default function Galaxy({
     const start = () => {
       try {
         if (!supportsWebGL2()) return;
+        if (!canStartWebGL('galaxy')) return;
+        registerWebGL('galaxy');
 
         const renderer = new Renderer({
           alpha: transparent,
           premultipliedAlpha: false
         });
+        renderer.dpr = Math.min(window.devicePixelRatio || 1, tier === 'low' ? 1.5 : 2);
         const gl = renderer.gl;
 
         if (lightMode) {
@@ -351,6 +356,7 @@ export default function Galaxy({
           }
           if (gl.canvas.parentNode === ctn) ctn.removeChild(gl.canvas);
           gl.getExtension('WEBGL_lose_context')?.loseContext();
+          unregisterWebGL('galaxy');
         };
       } catch {
         /* WebGL unavailable or failed — keep the fallback background, never crash the page */
@@ -392,7 +398,8 @@ export default function Galaxy({
     repulsionStrength,
     autoCenterRepulsion,
     transparent,
-    lightMode
+    lightMode,
+    tier
   ]);
 
   return <div ref={ctnDom} className="galaxy-container" {...rest} />;

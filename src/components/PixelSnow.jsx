@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { registerWebGL, unregisterWebGL, canStartWebGL } from '@/utils/webglBudget';
 
 import './PixelSnow.css';
 
@@ -319,6 +320,7 @@ export default function PixelSnow({
   lightMode = false,
   paused = false,
   dpr,
+  tier = 'high',
   className = '',
   ...rest
 }) {
@@ -361,6 +363,8 @@ export default function PixelSnow({
       stencil: false
     });
     if (!container || !canvas || !gl) return undefined;
+    if (!canStartWebGL('pixelsnow')) return undefined;
+    registerWebGL('pixelsnow');
 
     const programs = {
       flake: link(gl, FLAKE_VERTEX, FLAKE_FRAGMENT, ['aCorner', 'aFlake']),
@@ -486,7 +490,8 @@ export default function PixelSnow({
     };
 
     const populate = s => {
-      const target = Math.round(clamp((view.width * view.height * s.density) / 1100, 0, MAX_FLAKES));
+      const effectiveDensity = tier === 'low' ? Math.min(s.density, 0.15) : s.density;
+      const target = Math.round(clamp((view.width * view.height * effectiveDensity) / 1100, 0, MAX_FLAKES));
       while (flakes.length < target) {
         const flake = {};
         spawn(flake, s, false);
@@ -735,7 +740,7 @@ export default function PixelSnow({
       const s = settingsRef.current;
       const width = Math.max(1, container.clientWidth);
       const height = Math.max(1, container.clientHeight);
-      const ratio = Math.min(s.dpr || window.devicePixelRatio || 1, 2);
+      const ratio = Math.min(s.dpr || window.devicePixelRatio || 1, tier === 'low' ? 1.5 : 2);
       view.width = width;
       view.height = height;
       view.ratio = ratio;
@@ -809,6 +814,7 @@ export default function PixelSnow({
 
     return () => {
       cancelAnimationFrame(raf);
+      unregisterWebGL('pixelsnow');
       wakeRef.current = null;
       resizeObserver.disconnect();
       intersection.disconnect();
@@ -829,7 +835,7 @@ export default function PixelSnow({
       gl.deleteVertexArray(flakeVao);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, []);
+  }, [tier]);
 
   useEffect(() => {
     wakeRef.current?.();

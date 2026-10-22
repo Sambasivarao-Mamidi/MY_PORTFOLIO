@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
+import { registerWebGL, unregisterWebGL, canStartWebGL } from '@/utils/webglBudget';
 import './SideRays.css';
 
 const hexToRgb = hex => {
@@ -28,7 +29,8 @@ const SideRays = ({
   blend = 0.75,
   falloff = 1.6,
   opacity = 1.0,
-  className = ''
+  className = '',
+  tier = 'high'
 }) => {
   const containerRef = useRef(null);
   const uniformsRef = useRef(null);
@@ -70,13 +72,15 @@ const SideRays = ({
 
     const initializeWebGL = async () => {
       if (!containerRef.current) return;
+      if (!canStartWebGL('siderays')) return;
+      registerWebGL('siderays');
 
       await new Promise(resolve => setTimeout(resolve, 10));
 
       if (!containerRef.current) return;
 
       const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 2),
+        dpr: Math.min(window.devicePixelRatio, tier === 'low' ? 1.5 : 2),
         alpha: true
       });
       rendererRef.current = renderer;
@@ -205,6 +209,7 @@ void main() {
       animationIdRef.current = requestAnimationFrame(loop);
 
       cleanupFunctionRef.current = () => {
+        unregisterWebGL('siderays');
         if (animationIdRef.current) {
           cancelAnimationFrame(animationIdRef.current);
           animationIdRef.current = null;
@@ -232,7 +237,7 @@ void main() {
         cleanupFunctionRef.current = null;
       }
     };
-  }, [isVisible, speed, rayColor1, rayColor2, intensity, spread, origin, tilt, saturation, blend, falloff, opacity]);
+  }, [isVisible, speed, rayColor1, rayColor2, intensity, spread, origin, tilt, saturation, blend, falloff, opacity, tier]);
 
   useEffect(() => {
     if (!uniformsRef.current) return;
@@ -250,7 +255,7 @@ void main() {
     u.iBlend.value = blend;
     u.iFalloff.value = falloff;
     u.iOpacity.value = opacity;
-  }, [speed, rayColor1, rayColor2, intensity, spread, origin, tilt, saturation, blend, falloff, opacity]);
+  }, [speed, rayColor1, rayColor2, intensity, spread, origin, tilt, saturation, blend, falloff, opacity, tier]);
 
   return <div ref={containerRef} className={`side-rays-container ${className}`.trim()} />;
 };

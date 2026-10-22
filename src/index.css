@@ -277,3 +277,34 @@ a {
     overflow-x: hidden;
   }
 }
+
+@media (max-width: 767px) {
+  .se-media-grid,
+  .bg-grid,
+  .fx-card {
+    animation-duration: 18s !important;
+    animation-timing-function: linear !important;
+  }
+
+  .hero-light-beam {
+    filter: blur(12px) !important;
+    opacity: 0.5 !important;
+    animation-duration: 24s !important;
+  }
+
+  .bg-grid {
+    opacity: 0.25 !important;
+  }
+
+  .fx-card {
+    box-shadow: none !important;
+  }
+}
+
+.effect.paused,
+.hero-light-beam.paused,
+.se-media-grid.paused,
+.bg-grid.paused,
+.fx-card.paused {
+  animation-play-state: paused !important;
+}

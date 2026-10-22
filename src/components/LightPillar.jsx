@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
+import { registerWebGL, unregisterWebGL, canStartWebGL } from '@/utils/webglBudget';
 import './LightPillar.css';
 
 const LightPillar = ({
@@ -16,7 +17,8 @@ const LightPillar = ({
   mixBlendMode = 'screen',
   pillarRotation = 0,
   quality = 'high',
-  lightMode = false
+  lightMode = false,
+  tier = 'high'
 }) => {
   const containerRef = useRef(null);
   const rafRef = useRef(null);
@@ -40,6 +42,8 @@ const LightPillar = ({
 
   useEffect(() => {
     if (!containerRef.current || !webGLSupported) return;
+    if (!canStartWebGL('lightpillar')) return;
+    registerWebGL('lightpillar');
 
     const container = containerRef.current;
     const width = container.clientWidth;
@@ -50,15 +54,15 @@ const LightPillar = ({
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     cameraRef.current = camera;
 
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    const isLowEndDevice = isMobile || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
-
     let effectiveQuality = quality;
-    if (isLowEndDevice && quality === 'high') effectiveQuality = 'medium';
-    if (isMobile && quality !== 'low') effectiveQuality = 'low';
+    if (tier === 'none') {
+      setWebGLSupported(false);
+      return;
+    }
+    if (tier === 'low') effectiveQuality = 'low';
 
     const qualitySettings = {
-      low: { iterations: 24, waveIterations: 1, pixelRatio: 0.5, precision: 'mediump', stepMultiplier: 1.5 },
+      low: { iterations: 24, waveIterations: 1, pixelRatio: Math.min(window.devicePixelRatio, 1.5), precision: 'mediump', stepMultiplier: 1.5 },
       medium: { iterations: 40, waveIterations: 2, pixelRatio: 0.65, precision: 'mediump', stepMultiplier: 1.2 },
       high: {
         iterations: 80,
@@ -336,6 +340,7 @@ const LightPillar = ({
       }
       if (materialRef.current) materialRef.current.dispose();
       if (geometryRef.current) geometryRef.current.dispose();
+      unregisterWebGL('lightpillar');
 
       rendererRef.current = null;
       materialRef.current = null;
@@ -344,7 +349,7 @@ const LightPillar = ({
       geometryRef.current = null;
       rafRef.current = null;
     };
-  }, [webGLSupported, quality]);
+  }, [webGLSupported, quality, tier]);
 
   useEffect(() => {
     rotationSpeedRef.current = rotationSpeed;

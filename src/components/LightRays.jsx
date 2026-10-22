@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Triangle, Mesh } from 'ogl';
+import { registerWebGL, unregisterWebGL, canStartWebGL } from '@/utils/webglBudget';
 import './LightRays.css';
 
 const DEFAULT_COLOR = '#ffffff';
@@ -45,7 +46,8 @@ const LightRays = ({
   noiseAmount = 0.0,
   distortion = 0.0,
   lightMode = false,
-  className = ''
+  className = '',
+  tier = 'high'
 }) => {
   const containerRef = useRef(null);
   const uniformsRef = useRef(null);
@@ -89,13 +91,15 @@ const LightRays = ({
 
     const initializeWebGL = async () => {
       if (!containerRef.current) return;
+      if (!canStartWebGL('lightrays')) return;
+      registerWebGL('lightrays');
 
       await new Promise(resolve => setTimeout(resolve, 10));
 
       if (!containerRef.current) return;
 
       const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 2),
+        dpr: Math.min(window.devicePixelRatio, tier === 'low' ? 1.5 : 2),
         alpha: true
       });
       rendererRef.current = renderer;
@@ -270,8 +274,20 @@ void main() {
         uniforms.rayDir.value = dir;
       };
 
+      let visible = true;
+      const handleVisibility = () => {
+        visible = !document.hidden;
+        if (!visible) {
+          cancelAnimationFrame(animationIdRef.current);
+          animationIdRef.current = null;
+        } else if (!animationIdRef.current) {
+          animationIdRef.current = requestAnimationFrame(loop);
+        }
+      };
+      document.addEventListener('visibilitychange', handleVisibility);
+
       const loop = t => {
-        if (!rendererRef.current || !uniformsRef.current || !meshRef.current) {
+        if (!visible || !rendererRef.current || !uniformsRef.current || !meshRef.current) {
           return;
         }
 
@@ -300,12 +316,14 @@ void main() {
       animationIdRef.current = requestAnimationFrame(loop);
 
       cleanupFunctionRef.current = () => {
+        unregisterWebGL('lightrays');
         if (animationIdRef.current) {
           cancelAnimationFrame(animationIdRef.current);
           animationIdRef.current = null;
         }
 
         window.removeEventListener('resize', updatePlacement);
+        document.removeEventListener('visibilitychange', handleVisibility);
 
         if (renderer) {
           try {
@@ -351,7 +369,8 @@ void main() {
     mouseInfluence,
     noiseAmount,
     distortion,
-    lightMode
+    lightMode,
+    tier
   ]);
 
   useEffect(() => {
