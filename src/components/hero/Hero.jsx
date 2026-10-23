@@ -57,7 +57,7 @@ export function Hero() {
         aria-hidden="true"
       />
 
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-10 sm:gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-center lg:gap-8 lg:[grid-template-areas:'name_card'_'texts_card']">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-8 [grid-template-areas:'name'_'card'_'texts'] sm:gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-center lg:gap-8 lg:[grid-template-areas:'name_card'_'texts_card']">
         <div className="flex w-full flex-col items-center text-center md:items-start md:text-left [grid-area:name]">
           <div
             className="relative w-full"
@@ -118,6 +118,26 @@ export function Hero() {
           </div>
         </div>
 
+        <div className="flex w-full max-w-[420px] flex-col items-center justify-self-center shrink-0 lg:w-auto lg:max-w-[380px] lg:justify-self-end xl:max-w-[420px] [grid-area:card]">
+          <ProfileCard
+            name={profile.name}
+            title={profile.title}
+            handle={profile.handle}
+            status={profile.status}
+            contactText="Contact me"
+            avatarUrl="/images/dr_doom.jpg"
+            miniAvatarUrl="/images/dr_doom.jpg"
+            showUserInfo={false}
+            enableTilt={!prefersReducedMotion}
+            enableMobileTilt={false}
+            behindGlowEnabled
+            behindGlowColor="rgba(177, 156, 255, 0.5)"
+            innerGradient="linear-gradient(145deg, #16121F 0%, #07060A 100%)"
+            onContactClick={handleProfileContact}
+            className="mx-auto"
+          />
+        </div>
+
         <div className="flex w-full flex-col items-center text-center md:items-start md:text-left [grid-area:texts]">
           <h2 className="mt-2 text-base font-bold uppercase tracking-[0.14em] text-[var(--primary)] sm:text-xl">
             Frontend Developer
@@ -140,26 +160,6 @@ export function Hero() {
               See the work
             </Button>
           </div>
-        </div>
-
-        <div className="flex w-full max-w-[420px] flex-col items-center justify-self-center shrink-0 lg:w-auto lg:max-w-[380px] lg:justify-self-end xl:max-w-[420px] [grid-area:card]">
-          <ProfileCard
-            name={profile.name}
-            title={profile.title}
-            handle={profile.handle}
-            status={profile.status}
-            contactText="Contact me"
-            avatarUrl="/images/dr_doom.jpg"
-            miniAvatarUrl="/images/dr_doom.jpg"
-            showUserInfo={false}
-            enableTilt={!prefersReducedMotion}
-            enableMobileTilt={false}
-            behindGlowEnabled
-            behindGlowColor="rgba(177, 156, 255, 0.5)"
-            innerGradient="linear-gradient(145deg, #16121F 0%, #07060A 100%)"
-            onContactClick={handleProfileContact}
-            className="mx-auto"
-          />
         </div>
       </div>
     </section>
