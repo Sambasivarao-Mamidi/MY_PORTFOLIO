@@ -339,6 +339,12 @@
     left: 0;
     right: 0;
   }
+
+  .sm-prelayers {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
 }
 
 @media (max-width: 640px) {
@@ -346,5 +352,22 @@
     width: 100%;
     left: 0;
     right: 0;
+    padding: 5em 1.25rem calc(3rem + env(safe-area-inset-bottom, 0px)) 1.25rem;
+  }
+
+  .sm-prelayers {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .sm-socials {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .sm-socials-list {
+    gap: 0.875rem 1rem;
   }
 }
