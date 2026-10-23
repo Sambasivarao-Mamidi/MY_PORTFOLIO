@@ -128,13 +128,13 @@ export function Hero() {
             avatarUrl="/images/dr_doom.jpg"
             miniAvatarUrl="/images/dr_doom.jpg"
             showUserInfo={false}
-            enableTilt={!prefersReducedMotion}
+            enableTilt={!prefersReducedMotion && !isPhone}
             enableMobileTilt={false}
             behindGlowEnabled
             behindGlowColor="rgba(177, 156, 255, 0.5)"
             innerGradient="linear-gradient(145deg, #16121F 0%, #07060A 100%)"
             onContactClick={handleProfileContact}
-            className="mx-auto"
+            className={isPhone ? 'mx-auto pc-card--static' : 'mx-auto'}
           />
         </div>
 

@@ -37,6 +37,10 @@
   touch-action: pan-x pan-y pinch-zoom;
 }
 
+.pc-card--static {
+  pointer-events: none;
+}
+
 .pc-behind {
   position: absolute;
   inset: 0;
