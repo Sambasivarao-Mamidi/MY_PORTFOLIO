@@ -3,6 +3,7 @@ import ScrollExpand from '@/components/ScrollExpand'
 import TiltedCard from '@/components/TiltedCard'
 import PixelSnow from '@/components/PixelSnow'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import './About.css'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 
@@ -175,38 +176,71 @@ export function About() {
       <section
         id="about"
         ref={sectionRef}
-        className="about-mobile scroll-mt-24 bg-[var(--bg)] px-6 py-16"
+        className="about-section about-mobile scroll-mt-24 bg-[var(--bg)] px-6 py-16"
       >
-        <div className="about-mobile__bg scroll-expand__media--none" aria-hidden="true">
-            {!prefersReducedMotion && (
-              <Suspense fallback={null}>
-                <PixelSnow
-                  color="#B19CFF"
-                  variant="snowflake"
-                  density={0.25}
-                speed={0.6}
+        <div className="about-snow" aria-hidden="true">
+          {!prefersReducedMotion && (
+            <Suspense fallback={null}>
+              <PixelSnow
+                color="#a855f7"
+                variant="snowflake"
+                density={0.12}
+                speed={0.7}
                 wind={0.15}
-                flakeSize={0.7}
-                pixelSize={3}
-                glow={0.5}
-                twinkle={0.25}
+                flakeSize={1}
+                pixelSize={4}
+                glow={0.15}
                 mouseInteraction={false}
+                sway={0.3}
+                twinkle={0.15}
+                accumulate={false}
+                depth={0.4}
+                brightness={0.7}
+                fade={0.15}
+                opacity={0.45}
                 intro={false}
-                opacity={0.6}
-                className="about-pixel-snow"
+                lightMode={false}
+                dpr={1}
               />
             </Suspense>
           )}
           <div className="about-mobile__snow-gradient" aria-hidden="true" />
         </div>
         <div className="about-mobile__scrim" aria-hidden="true" />
-        <div className="about-mobile__content">{aboutContent}</div>
+        <div className="about-content about-mobile__content">{aboutContent}</div>
       </section>
     )
   }
 
   return (
-    <section id="about" ref={sectionRef} className="scroll-mt-24 bg-[var(--bg)]">
+    <section id="about" ref={sectionRef} className="about-section scroll-mt-24 bg-[var(--bg)]">
+      <div className="about-snow" aria-hidden="true">
+        {!prefersReducedMotion && (
+          <Suspense fallback={null}>
+            <PixelSnow
+              color="#a855f7"
+              variant="snowflake"
+              density={0.12}
+              speed={0.7}
+              wind={0.15}
+              flakeSize={1}
+              pixelSize={4}
+              glow={0.15}
+              mouseInteraction={true}
+              sway={0.3}
+              twinkle={0.15}
+              accumulate={false}
+              depth={0.4}
+              brightness={0.7}
+              fade={0.15}
+              opacity={0.45}
+              intro={false}
+              lightMode={false}
+              dpr={1}
+            />
+          </Suspense>
+        )}
+      </div>
       <ScrollExpand
         mediaType="none"
         title="Turning ideas into working products."
@@ -227,35 +261,14 @@ export function About() {
         useWindowScroll
         enabled
         mediaContent={
-          <>
-            {!prefersReducedMotion && (
-              <Suspense fallback={null}>
-                <PixelSnow
-                  color="#B19CFF"
-                  variant="snowflake"
-                  density={0.25}
-                  speed={0.6}
-                  wind={0.15}
-                  flakeSize={0.7}
-                pixelSize={3}
-                glow={0.5}
-                twinkle={0.25}
-                mouseInteraction={true}
-                intro
-                opacity={0.6}
-                className="about-desktop-pixel-snow"
-                />
-              </Suspense>
-            )}
-            <div className="se-media-beams" aria-hidden="true">
-              <div className="hero-light-beam" />
-              <div className="hero-light-beam hero-light-beam--2" />
-              <div className="hero-light-beam hero-light-beam--3" />
-            </div>
-          </>
+          <div className="se-media-beams" aria-hidden="true">
+            <div className="hero-light-beam" />
+            <div className="hero-light-beam hero-light-beam--2" />
+            <div className="hero-light-beam hero-light-beam--3" />
+          </div>
         }
       >
-        {aboutContent}
+        <div className="about-content">{aboutContent}</div>
       </ScrollExpand>
     </section>
   )

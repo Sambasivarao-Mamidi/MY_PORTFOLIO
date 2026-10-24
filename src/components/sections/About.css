@@ -1,0 +1,18 @@
+.about-section {
+  position: relative;
+  isolation: isolate;
+  background: var(--bg);
+}
+
+.about-snow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.about-content {
+  position: relative;
+  z-index: 1;
+}
