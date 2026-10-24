@@ -2,6 +2,7 @@ import { Suspense, useEffect, useRef, useState } from 'react'
 import ScrollExpand from '@/components/ScrollExpand'
 import TiltedCard from '@/components/TiltedCard'
 import PixelSnow from '@/components/PixelSnow'
+import Grainient from '@/components/Grainient'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import './About.css'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
@@ -176,13 +177,13 @@ export function About() {
       <section
         id="about"
         ref={sectionRef}
-        className="about-section about-mobile scroll-mt-24 bg-[var(--bg)] px-6 py-16"
+        className="about-section about-mobile scroll-mt-24 bg-[#1A0F2B] px-6 py-16"
       >
         <div className="about-snow" aria-hidden="true">
           {!prefersReducedMotion && (
             <Suspense fallback={null}>
               <PixelSnow
-                color="#a855f7"
+                color="#7c3aed"
                 variant="snowflake"
                 density={0.12}
                 speed={0.7}
@@ -214,33 +215,6 @@ export function About() {
 
   return (
     <section id="about" ref={sectionRef} className="about-section scroll-mt-24 bg-[var(--bg)]">
-      <div className="about-snow" aria-hidden="true">
-        {!prefersReducedMotion && (
-          <Suspense fallback={null}>
-            <PixelSnow
-              color="#a855f7"
-              variant="snowflake"
-              density={0.12}
-              speed={0.7}
-              wind={0.15}
-              flakeSize={1}
-              pixelSize={4}
-              glow={0.15}
-              mouseInteraction={true}
-              sway={0.3}
-              twinkle={0.15}
-              accumulate={false}
-              depth={0.4}
-              brightness={0.7}
-              fade={0.15}
-              opacity={0.45}
-              intro={false}
-              lightMode={false}
-              dpr={1}
-            />
-          </Suspense>
-        )}
-      </div>
       <ScrollExpand
         mediaType="none"
         title="Turning ideas into working products."
@@ -261,11 +235,61 @@ export function About() {
         useWindowScroll
         enabled
         mediaContent={
-          <div className="se-media-beams" aria-hidden="true">
-            <div className="hero-light-beam" />
-            <div className="hero-light-beam hero-light-beam--2" />
-            <div className="hero-light-beam hero-light-beam--3" />
-          </div>
+          <>
+            {!prefersReducedMotion && (
+              <Grainient
+                colors={["#0f0a1a", "#1e1629", "#4c1d95", "#7c3aed", "#a855f7"]}
+                angle={55}
+                flow={0.6}
+                silk={0.25}
+                grainAmount={0.06}
+                type="linear"
+                bands={1}
+                softness={0.9}
+                scale={1}
+                speed={0.6}
+                grainSize={1.0}
+                grainAnimated
+                contrast={0.9}
+                saturation={1}
+                variation={0}
+                interactive={false}
+                stir={0.3}
+                clickSwirl={false}
+                intro={false}
+                lightMode={false}
+                dpr={1}
+              />
+            )}
+            {!prefersReducedMotion && (
+              <PixelSnow
+                color="#7c3aed"
+                variant="snowflake"
+                density={0.12}
+                speed={0.7}
+                wind={0.15}
+                flakeSize={1}
+                pixelSize={4}
+                glow={0.15}
+                mouseInteraction={true}
+                sway={0.3}
+                twinkle={0.15}
+                accumulate={false}
+                depth={0.4}
+                brightness={0.7}
+                fade={0.15}
+                opacity={0.45}
+                intro={false}
+                lightMode={false}
+                dpr={1}
+              />
+            )}
+            <div className="se-media-beams" aria-hidden="true">
+              <div className="hero-light-beam" />
+              <div className="hero-light-beam hero-light-beam--2" />
+              <div className="hero-light-beam hero-light-beam--3" />
+            </div>
+          </>
         }
       >
         <div className="about-content">{aboutContent}</div>

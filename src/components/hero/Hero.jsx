@@ -1,6 +1,7 @@
 
 import StrokeText from '@/components/strokeText/StrokeText'
 import ProfileCard from '@/components/ProfileCard'
+import TechText from '@/components/TechText'
 import { Button } from '@/components/ui/Button'
 import { profile } from '@/data/profile'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
@@ -41,20 +42,6 @@ export function Hero() {
             className="relative w-full"
             style={{ height: 'clamp(92px, 11vw, 134px)', minHeight: 'clamp(92px, 11vw, 134px)' }}
           >
-            <h1
-              className={
-                isPhone
-                  ? 'sr-only'
-                  : 'text-[clamp(2.25rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]'
-              }
-              style={{
-                marginLeft: isPhone ? 0 : '-1.5rem',
-                marginTop: isPhone ? 0 : '1rem',
-                transform: isPhone ? 'none' : 'translate(0, 4px)'
-              }}
-            >
-              SambaSivaRao
-            </h1>
             {isPhone ? (
               <StrokeText
                 text="SambaSivaRao"
@@ -72,7 +59,29 @@ export function Hero() {
                 letterSpacing={-4}
                 reverse={false}
               />
-            ) : null}
+            ) : (
+              <TechText
+                text="SambaSivaRao"
+                fontWeight={800}
+                fontSize={150}
+                color="#FFFFFF"
+                accentColor="#FFFFFF"
+                reveal="letter"
+                dashLength={4}
+                dashGap={2}
+                specks={12}
+                selection
+                labels={false}
+                draggable
+                bounce={0.4}
+                clickKick
+                sweep
+                intro="type"
+                introDuration={1.6}
+                guides={false}
+                style={{ marginLeft: '-1.5rem', marginTop: '1rem' }}
+              />
+            )}
           </div>
         </div>
 

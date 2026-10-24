@@ -13,17 +13,6 @@ function ProjectSpotlight({ project, index }) {
       style={{ '--delay': `${index * 110}ms` }}
       onMouseMove={onMouseMove}
     >
-      <div className="fp-card__frame">
-        <div className="fp-orb" aria-hidden="true" />
-        <div className="fp-frame__beam" aria-hidden="true" />
-        <span className="fp-index" aria-hidden="true">
-          {String(index + 1).padStart(2, '0')}
-        </span>
-        <span className="fp-monogram" aria-hidden="true">
-          {project.title.charAt(0)}
-        </span>
-      </div>
-
       <div className="fp-card__body">
         <h3 className="fp-title">{project.title}</h3>
 

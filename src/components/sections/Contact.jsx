@@ -13,7 +13,7 @@ export function Contact() {
     >
       <div className="contact-galaxy" aria-hidden="true">
         <PixelSnow
-          color="#B19CFF"
+          color="#7c3aed"
           variant="snowflake"
           density={isPhone ? 0.15 : 0.25}
           speed={0.6}
@@ -25,6 +25,7 @@ export function Contact() {
           mouseInteraction={!isPhone}
           intro={!isPhone}
           opacity={0.6}
+          accumulate={true}
           className="contact-pixel-snow"
         />
       </div>

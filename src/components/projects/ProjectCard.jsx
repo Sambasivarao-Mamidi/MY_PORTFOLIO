@@ -12,15 +12,6 @@ export function ProjectCard({ project, large = false }) {
         large ? 'p-8' : 'p-6'
       }`}
     >
-      <div
-        className="relative mb-6 overflow-hidden rounded-xl border border-[var(--border)] bg-[linear-gradient(145deg,rgba(177,156,255,0.14),rgba(124,92,255,0.06))]"
-        style={{ aspectRatio: '16 / 9' }}
-      >
-        <div className="absolute inset-0 flex items-center justify-center text-[var(--muted)]">
-          {project.title}
-        </div>
-      </div>
-
       <h3 className={`font-semibold text-[var(--text)] ${large ? 'text-2xl' : 'text-lg'}`}>
         {project.title}
       </h3>

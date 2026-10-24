@@ -39,8 +39,8 @@ export function SkillsSection() {
           {skillCategories.map((category) => (
             <SpecularCard
               key={category.title}
-              className="rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6"
-              radius={16}
+              className="rounded-lg border border-[var(--border)] bg-[var(--bg)] p-6"
+              radius={8}
               lineColor="#b19cff"
               baseColor="#1a1520"
               intensity={1}
