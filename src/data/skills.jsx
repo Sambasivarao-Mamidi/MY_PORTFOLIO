@@ -8,7 +8,6 @@ import {
   SiGit,
   SiGithub,
   SiTypescript,
-  SiNextdotjs,
   SiHtml5,
   SiFirebase,
   SiVercel,
