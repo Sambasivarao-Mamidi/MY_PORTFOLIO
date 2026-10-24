@@ -1,29 +1,31 @@
 import { Button } from '@/components/ui/Button'
-import Galaxy from '@/components/Galaxy'
+import PixelSnow from '@/components/PixelSnow'
 import { socialLinks } from '@/data/profile'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import './Contact.css'
 
 export function Contact() {
+  const isPhone = useMediaQuery('(max-width: 767px)')
   return (
     <section
       id="contact"
       className="relative scroll-mt-24 overflow-hidden bg-[#000] px-6 py-16 md:py-24"
     >
       <div className="contact-galaxy" aria-hidden="true">
-        <Galaxy
-          className="contact-galaxy"
-          mouseRepulsion
-          mouseInteraction
-          density={1}
-          glowIntensity={0.3}
-          saturation={0.9}
-          hueShift={200}
-          twinkleIntensity={0.3}
-          rotationSpeed={0.1}
-          repulsionStrength={2}
-          autoCenterRepulsion={0}
-          starSpeed={0.5}
-          speed={1}
+        <PixelSnow
+          color="#B19CFF"
+          variant="snowflake"
+          density={isPhone ? 0.15 : 0.25}
+          speed={0.6}
+          wind={0.15}
+          flakeSize={0.7}
+          pixelSize={3}
+          glow={0.5}
+          twinkle={0.25}
+          mouseInteraction={!isPhone}
+          intro={!isPhone}
+          opacity={0.6}
+          className="contact-pixel-snow"
         />
       </div>
 

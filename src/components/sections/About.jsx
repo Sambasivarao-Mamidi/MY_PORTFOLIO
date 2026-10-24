@@ -1,10 +1,10 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import ScrollExpand from '@/components/ScrollExpand'
 import TiltedCard from '@/components/TiltedCard'
 import PixelSnow from '@/components/PixelSnow'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
-const LightPillar = lazy(() => import('@/components/LightPillar'))
+
 
 const services = [
   {
@@ -188,14 +188,11 @@ export function About() {
                 wind={0.15}
                 flakeSize={0.7}
                 pixelSize={3}
-                depth={0.5}
                 glow={0.5}
                 twinkle={0.25}
-                accumulate={false}
                 mouseInteraction={false}
-                intro
+                intro={false}
                 opacity={0.6}
-                lightMode={false}
                 className="about-pixel-snow"
               />
             </Suspense>
@@ -233,19 +230,20 @@ export function About() {
           <>
             {!prefersReducedMotion && (
               <Suspense fallback={null}>
-                <LightPillar
-                  topColor="#5227FF"
-                  bottomColor="#FF9FFC"
-                  intensity={1}
-                  rotationSpeed={0.3}
-                  glowAmount={0.002}
-                  pillarWidth={3}
-                  pillarHeight={0.4}
-                  noiseIntensity={0.5}
-                  pillarRotation={25}
-                  interactive={false}
-                  mixBlendMode="screen"
-                  quality="high"
+                <PixelSnow
+                  color="#B19CFF"
+                  variant="snowflake"
+                  density={0.25}
+                  speed={0.6}
+                  wind={0.15}
+                  flakeSize={0.7}
+                pixelSize={3}
+                glow={0.5}
+                twinkle={0.25}
+                mouseInteraction={true}
+                intro
+                opacity={0.6}
+                className="about-desktop-pixel-snow"
                 />
               </Suspense>
             )}

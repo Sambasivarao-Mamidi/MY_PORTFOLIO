@@ -1,5 +1,4 @@
-import LightRays from '@/components/LightRays'
-import WarpText from '@/components/WarpText'
+
 import StrokeText from '@/components/strokeText/StrokeText'
 import ProfileCard from '@/components/ProfileCard'
 import { Button } from '@/components/ui/Button'
@@ -13,8 +12,6 @@ export function Hero() {
   const scrollToSection = useScrollToSection()
   const isPhone = useMediaQuery('(max-width: 767px)')
 
-  const canWarp = false;
-
   const handleProfileContact = () => scrollToSection('#contact')
 
   return (
@@ -22,25 +19,6 @@ export function Hero() {
       id="hero"
       className="relative isolate overflow-hidden bg-[var(--bg)] px-6 pt-24 pb-12 sm:pt-48 sm:pb-16 lg:pt-40 lg:pb-16 md:pt-44"
     >
-      {!prefersReducedMotion && (
-        <div className="hero-rays pointer-events-none absolute inset-0 -z-10 opacity-80 md:opacity-40" aria-hidden="true">
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#B19CFF"
-            raysSpeed={1}
-            lightSpread={0.5}
-            rayLength={3}
-            followMouse
-            mouseInfluence={0.1}
-            noiseAmount={0}
-            distortion={0}
-            pulsating={false}
-            fadeDistance={1}
-            saturation={1}
-          />
-        </div>
-      )}
-
       {!prefersReducedMotion && (
         <div className="hero-light-beams" aria-hidden="true">
           <div className="hero-light-beam" />
@@ -65,7 +43,7 @@ export function Hero() {
           >
             <h1
               className={
-                isPhone || canWarp
+                isPhone
                   ? 'sr-only'
                   : 'text-[clamp(2.25rem,7.5vw,6.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[var(--text)]'
               }
@@ -93,26 +71,6 @@ export function Hero() {
                 fontWeight={800}
                 letterSpacing={-4}
                 reverse={false}
-              />
-            ) : canWarp ? (
-              <WarpText
-                text="SambaSivaRao"
-                color="#F4F1FF"
-                warpStrength={0.04}
-                warpScale={1.45}
-                speed={0.18}
-                pointerInfluence={0.25}
-                pointerStrength={0.18}
-                refraction={0.006}
-                ripple={false}
-                fontSize="clamp(2.25rem, 7.5vw, 6.5rem)"
-                fontWeight={800}
-                letterSpacing="-0.04em"
-                lineHeight={1.02}
-                align={isPhone ? 'center' : 'left'}
-                snapY="top"
-                className="w-full"
-                style={{ height: '100%', minHeight: '100%' }}
               />
             ) : null}
           </div>

@@ -1,7 +1,7 @@
 .contact-galaxy {
   position: absolute;
   inset: 0;
-  pointer-events: auto;
+  pointer-events: none;
   z-index: 0;
 }
 
