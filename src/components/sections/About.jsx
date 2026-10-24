@@ -185,20 +185,20 @@ export function About() {
               <PixelSnow
                 color="#7c3aed"
                 variant="snowflake"
-                density={0.12}
+                density={0.15}
                 speed={0.7}
                 wind={0.15}
-                flakeSize={1}
+                flakeSize={1.2}
                 pixelSize={4}
-                glow={0.15}
+                glow={0.2}
                 mouseInteraction={false}
                 sway={0.3}
                 twinkle={0.15}
                 accumulate={false}
                 depth={0.4}
-                brightness={0.7}
+                brightness={0.8}
                 fade={0.15}
-                opacity={0.45}
+                opacity={0.6}
                 intro={false}
                 lightMode={false}
                 dpr={1}
